@@ -3,7 +3,7 @@
   <div class="ghp-dashboard">
     <div class="row container-wrapper justify-content-between">
       <News />
-      <Request />
+      <Demand />
     </div>
     <div class="row container-wrapper">
       <Blog />
@@ -18,13 +18,13 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import News from "@/components/members/container/News";
-import Request from "@/components/members/container/Request";
+import Demand from "@/components/members/container/Demand";
 import Blog from "@/components/members/container/Blog";
 import Instruments from "@/components/members/container/Instruments";
 
 export default {
   name: "Dashboard",
-  components: {Instruments, Blog, Request, News},
+  components: {Instruments, Blog, Demand, News},
   data() {
     return {
       editor: ClassicEditor,

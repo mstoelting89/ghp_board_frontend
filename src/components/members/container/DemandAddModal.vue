@@ -1,15 +1,9 @@
 <template>
-  <div class="col-12 col-md-12 col-lg-5 ghp-container">
-    <div class="page-header">
-      <h2>Guitar Hearts Anfragen</h2>
-      <font-awesome-icon class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addRequest" />
-    </div>
-  </div>
-  <div class="modal fade" id="addRequest" tabindex="-1" aria-labelledby="addRequest" aria-hidden="true">
+  <div class="modal fade" id="addDemand" tabindex="-1" aria-labelledby="addDemand" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addRequestLabel">Neue Anfrage</h5>
+          <h5 class="modal-title" id="addDemandLabel">Neue Anfrage</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -42,6 +36,12 @@
               </div>
               <ckeditor :editor="requestEditor" :config="editorConfig"></ckeditor>
             </div>
+            <div class="col-5" ref="demandImages" id="demandImages">
+              <input type="file" class="form-control" @change="handleFile">
+            </div>
+            <div class="col-5">
+              <font-awesome-icon class="hidden" id="add-icon" @click="addNewImageEntry" icon="circle-plus" />
+            </div>
           </form>
         </div>
         <div class="modal-footer justify-content-between">
@@ -57,34 +57,55 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
-  name: "Request",
+  name: "DemandAddModal",
   data() {
     return {
       requestEditor: ClassicEditor,
-      editorConfig: {
-
-      }
+      editorConfig: {}
     };
   },
+  methods: {
+    checkField(input, inputWrapper) {
+      if (input.length <= 0) {
+        inputWrapper.querySelector('.errorMsg').innerHTML = "Dieses Feld muss ausgefüllt sein";
+        return false;
+      } else {
+        inputWrapper.querySelector('.errorMsg').innerHTML = "";
+        return true;
+      }
+    },
+    showAddNewImageBtn() {
+      let imageEntries = this.$refs.demandImages.childNodes;
+      let showAddImage = true;
+      let addImageIcon = document.querySelector('#add-icon');
+
+      imageEntries.forEach(item => {
+        console.log(item);
+        if (item.files.length === 0) {
+          showAddImage = false;
+        }
+      });
+      console.log(showAddImage);
+      if (showAddImage === true) {
+        addImageIcon.classList.remove('hidden');
+      } else {
+        addImageIcon.classList.add('hidden');
+      }
+    },
+    handleFile() {
+      this.showAddNewImageBtn();
+    },
+    addNewImageEntry() {
+      let demandImages = document.querySelector('#demandImages');
+      // TODO: Make Image Upload work
+      this.showAddNewImageBtn();
+    }
+  },
+
 }
 </script>
 
 <style scoped>
-.ghp-container {
-  background-color: #fff;
-  height: 50vh;
-  border-radius: 5px;
-}
-.page-header {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.add-icon {
-  font-size: 35px;
-  color: #a21d21;
-  cursor: pointer;
-}
 .modal-dialog {
   min-width: 70vw;
 }
@@ -100,5 +121,24 @@ export default {
   border-radius: 5px;
   border: none;
   padding: 15px 40px;
+}
+.btn-secondary {
+  padding: 5px;
+  font-size: 12px;
+  background-color: #a21d21;
+}
+
+.btn-default {
+  border: 1px solid #a21d21;
+}
+
+.btn-primary {
+  padding: 15px 40px;
+  font-size: 16px;
+  background-color: #a21d21;
+}
+
+.hidden {
+  display: none;
 }
 </style>
