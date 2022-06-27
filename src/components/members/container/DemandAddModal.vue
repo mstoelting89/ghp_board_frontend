@@ -96,7 +96,7 @@ export default {
       this.showAddNewImageBtn();
     },
     addNewImageEntry() {
-      let demandImages = document.querySelector('#demandImages');
+      //let demandImages = document.querySelector('#demandImages');
       // TODO: Make Image Upload work
       this.showAddNewImageBtn();
     }

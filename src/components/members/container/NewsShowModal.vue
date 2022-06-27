@@ -21,7 +21,7 @@
         </div>
         <div class="modal-body">
           <div class="body-image">
-            <img class="detailImage" src="{{ newsDetail.detailImage }}" id="detailImage">
+            <img class="detailImage" src="" id="detailImage">
           </div>
           <div class="body-text" v-html="newsDetail.detailText"></div>
         </div>
@@ -34,6 +34,16 @@
 export default {
   name: "NewsShowModal",
   props: ['newsDetail'],
+  watch: {
+    newsDetail(newVal) {
+      const detailImage = document.querySelector('#detailImage');
+      if (newVal.detailImage === '') {
+        detailImage.classList.add('hidden');
+      } else {
+        detailImage.setAttribute("src", "data:image/jpg;base64," + newVal.detailImage);
+      }
+    }
+  }
 }
 </script>
 

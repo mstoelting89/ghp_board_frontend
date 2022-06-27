@@ -16,7 +16,7 @@
             <button class="btn btn-secondary" @click="getNewsDetail(newsEntry.id)" data-bs-toggle="modal" data-bs-target="#showNews">mehr lesen</button>
           </div>
           <div class="update-news">
-            <font-awesome-icon class="update-icon" @click="setUpdateNewsId(newsEntry.id)"  icon="pen" data-bs-toggle="modal" data-bs-target="#updateNews" />
+            <font-awesome-icon class="update-icon" @click="getNewsDetail(newsEntry.id)"  icon="pen" data-bs-toggle="modal" data-bs-target="#updateNews" />
           </div>
           <div class="delete-news">
             <font-awesome-icon class="delete-icon" @click="setDeleteNewsId(newsEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteNews" />
@@ -28,7 +28,8 @@
 
   <NewsAddModal />
   <NewsUpdateModal
-      :newsUpdateId="newsUpdateId"
+      :newsDetail="newsDetail"
+      :newsUpdateId="newsId"
   />
   <NewsShowModal
       :newsDetail="newsDetail"
@@ -44,38 +45,46 @@ import NewsAddModal from "@/components/members/container/NewsAddModal";
 import NewsShowModal from "@/components/members/container/NewsShowModal";
 import NewsUpdateModal from "@/components/members/container/NewsUpdateModal";
 import NewsDeleteModal from "@/components/members/container/NewsDeleteModal";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "News",
   components: {NewsDeleteModal, NewsUpdateModal, NewsShowModal, NewsAddModal},
   data() {
     return {
-      newsArray: '',
+      newsArray: [],
       newsUpdate: false,
       newsUpdateId: '',
       newsDeleteId: '',
-      newsDetail: {
-        detailAuthor: '',
-        detailDate: '',
-        detailTitle: '',
-        detailText: '',
-        detailImage: null
-      }
+      newsDetail: [],
+      newsId: null
     }
   },
+  computed: {
+    ...mapGetters(['getNews', 'getDetailNews'])
+  },
   async created() {
-    await this.$store.dispatch('getNews').then(response => {
-      this.newsArray = this.loadNews(response);
-    });
-
+    await this.getNewsFromService();
+  },
+  watch: {
+    getNews(newValue) {
+      this.newsArray = this.setNewsArray(newValue);
+    },
+    getDetailNews(newValue) {
+      this.newsDetail = this.setNewsDetailArray(newValue);
+    }
   },
   methods: {
+    ...mapActions(['getNewsFromService', 'getNewsDetailFromService']),
     logout() {
       this.$store.dispatch('logout').then(() => this.$router.push('/login'));
     },
-    loadNews(response) {
-      let data = [];
-      response.data.forEach((item) => {
+    loadNews() {
+      this.getNewsFromService();
+    },
+    setNewsArray(data) {
+      let newsData = [];
+      data.data.forEach((item) => {
         let date = new Date(item.newsDate);
         let newsDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
         let newsElement = {
@@ -86,32 +95,28 @@ export default {
           newsTitle: item.newsTitle,
           newsText: item.newsText
         }
-        data.push(newsElement);
+        newsData.push(newsElement);
       });
-      this.newsArray = data;
-      return data;
+      return newsData;
     },
     getNewsDetail(id) {
-      this.$store.dispatch('getNewsDetail', id).then(response => {
-        let date = new Date(response.data.newsDate);
-        let newsDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
-        let image = document.querySelector('#detailImage');
-
-        this.newsDetail.detailTitle = response.data.newsTitle;
-        this.newsDetail.detailAuthor = response.data.newsAuthor;
-        this.newsDetail.detailText = response.data.newsText;
-        this.newsDetail.detailDate = newsDate;
-        this.newsDetail.detailImage = "data:image/jpg;base64," + response.data.newsImage;
-
-        if (response.data.newsImage) {
-          image.setAttribute('src', "data:image/jpg;base64," + response.data.newsImage);
-        } else {
-          image.setAttribute('src', '');
-        }
-      });
+      this.newsId = id;
+      this.getNewsDetailFromService(id);
     },
-    setUpdateNewsId(id) {
-      this.newsUpdateId = id;
+    setNewsDetailArray(data) {
+
+      let newsDetails = [];
+      let date = new Date(data.data.newsDate);
+      let newsDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
+
+      newsDetails = {
+        'detailTitle': data.data.newsTitle,
+        'detailAuthor': data.data.newsAuthor,
+        'detailText': data.data.newsText,
+        'detailDate': newsDate,
+        'detailImage': data.data.newsImage
+      }
+      return newsDetails;
     },
     setDeleteNewsId(id) {
       this.newsDeleteId = id;

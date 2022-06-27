@@ -35,9 +35,7 @@ export default {
   methods: {
     deleteNews(id) {
       this.$store.dispatch('deleteNewsEntry', id).then(() => {
-        this.$store.dispatch('getNews').then(response => {
-          this.$parent.loadNews(response);
-        });
+        this.$parent.loadNews();
       })
     }
   }

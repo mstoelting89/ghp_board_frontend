@@ -112,10 +112,7 @@ export default {
         this.formData.append('newsData', JSON.stringify(data));
 
         this.$store.dispatch('insertNewNewsEntry', this.formData).then(() => {
-          this.$store.dispatch('getNews').then(response => {
-            this.$parent.loadNews(response);
-            //this.newsArray = this.loadNews(response);
-          });
+            this.$parent.loadNews();
         });
         document.querySelector('#showNews .btn-close').click();
       }

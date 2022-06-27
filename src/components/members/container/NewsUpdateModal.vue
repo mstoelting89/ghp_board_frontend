@@ -72,7 +72,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
   name: "NewsUpdateModal",
-  props: ['newsUpdateId', 'newsUpdateDetail'],
+  props: ['newsDetail', 'newsUpdateId'],
   data() {
     return  {
       newsEditor: ClassicEditor,
@@ -82,21 +82,21 @@ export default {
       author: '',
       text: '',
       title: '',
-      formData: null
+      formData: null,
+      updateId: null
     }
   },
   watch: {
-    newsUpdateId: function(id) {
-      this.$store.dispatch('getNewsDetail', id).then(response => {
-        let date = new Date(response.data.newsDate);
+    newsDetail: function(newVal) {
+      let dateStr = newVal.detailDate.split('.');
+      let date = new Date(dateStr[2] + "-" + dateStr[1] + "-" + dateStr[0]);
 
-        this.title = response.data.newsTitle;
-        this.author = response.data.newsAuthor;
-        this.text = response.data.newsText;
-        this.date = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +("0" + date.getDate()).slice(-2);
-        this.image = "data:image/jpg;base64," + response.data.newsImage;
+      this.title = newVal.detailTitle;
+      this.author = newVal.detailAuthor;
+      this.text = newVal.detailText;
+      this.date = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +("0" + date.getDate()).slice(-2);
+      this.image = "data:image/jpg;base64," + newVal.detailImage;
 
-      });
     }
   },
   methods: {
@@ -130,7 +130,6 @@ export default {
           checkText
       ) {
         this.formData = new FormData();
-        this.formData.append('file', this.file);
         this.formData.append('newsUpdateId', this.newsUpdateId);
         let data = {
           newsTitle: this.title,
@@ -141,9 +140,9 @@ export default {
         this.formData.append('newsData', JSON.stringify(data));
 
         this.$store.dispatch('updateNewsEntry', this.formData).then(() => {
-          this.$store.dispatch('getNews').then(response => {
-            this.$parent.loadNews(response);
-          });
+          //this.$store.dispatch('getNews').then(response => {
+            this.$parent.loadNews();
+          //});
         });
         document.querySelector('#showNews .btn-close').click();
       }
