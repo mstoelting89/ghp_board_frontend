@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import NewsAddModal from "@/components/members/container/NewsAddModal";
-import NewsShowModal from "@/components/members/container/NewsShowModal";
-import NewsUpdateModal from "@/components/members/container/NewsUpdateModal";
-import NewsDeleteModal from "@/components/members/container/NewsDeleteModal";
+import NewsAddModal from "@/components/members/container/news/NewsAddModal";
+import NewsShowModal from "@/components/members/container/news/NewsShowModal";
+import NewsUpdateModal from "@/components/members/container/news/NewsUpdateModal";
+import NewsDeleteModal from "@/components/members/container/news/NewsDeleteModal";
 import {mapActions, mapGetters} from "vuex";
 
 export default {

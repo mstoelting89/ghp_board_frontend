@@ -32,8 +32,8 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import DemandAddModal from "@/components/members/container/DemandAddModal";
-import DemandShowModal from "@/components/members/container/DemandShowModal";
+import DemandAddModal from "@/components/members/container/demand/DemandAddModal";
+import DemandShowModal from "@/components/members/container/demand/DemandShowModal";
 
 export default {
   name: "Demand",

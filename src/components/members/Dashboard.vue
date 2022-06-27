@@ -17,8 +17,8 @@
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import News from "@/components/members/container/News";
-import Demand from "@/components/members/container/Demand";
+import News from "@/components/members/container/news/News";
+import Demand from "@/components/members/container/demand/Demand";
 import Blog from "@/components/members/container/Blog";
 import Instruments from "@/components/members/container/Instruments";
 
