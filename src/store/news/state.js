@@ -2,5 +2,7 @@ export const state = {
     newsArray: [],
     newsDetailArray: [],
     newsUpdateArray: [],
-    newsDelete: ''
+    newsDeleteArray: [],
+    newsInsertArray: [],
+    newsAttachmentArray: []
 }

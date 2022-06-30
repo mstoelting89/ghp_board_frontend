@@ -60,7 +60,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="insertNewNewsEntry">Speichern</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="insertNewNews">Speichern</button>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "NewsAddModal",
@@ -81,7 +81,16 @@ export default {
       newsDate: '',
       newsAuthor: '',
       newsText: '',
-      formData: null
+      formData: null,
+      newsInsertArray: []
+    }
+  },
+  computed: {
+    ...mapGetters(['getInsertNews'])
+  },
+  watch: {
+    getInsertNews() {
+      this.$parent.loadNews();
     }
   },
   methods: {
@@ -89,7 +98,7 @@ export default {
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
     },
-    insertNewNewsEntry() {
+    insertNewNews() {
 
       let checkTitle = this.checkField(this.newsTitle, this.$refs.newsTitle);
       let checkDate = this.checkField(this.newsDate, this.$refs.newsDate);
@@ -113,9 +122,7 @@ export default {
         }
         this.formData.append('newsData', JSON.stringify(data));
 
-        this.$store.dispatch('insertNewNewsEntry', this.formData).then(() => {
-            this.$parent.loadNews();
-        });
+        this.insertNewNewsEntry(this.formData);
         document.querySelector('#showNews .btn-close').click();
       }
     },

@@ -19,24 +19,32 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "NewsDeleteModal",
   props:['newsDeleteId'],
   data() {
     return {
-      newsId: this.newsDeleteId
+      newsId: this.newsDeleteId,
+      deleteNewsArray: []
     }
+  },
+  computed: {
+    ...mapGetters(['getDeleteNews'])
   },
   watch: {
     newsDeleteId: function(id) {
       this.newsId = id;
+    },
+    getDeleteNews() {
+      this.$parent.loadNews();
     }
   },
   methods: {
+    ...mapActions(['deleteNewsEntry']),
     deleteNews(id) {
-      this.$store.dispatch('deleteNewsEntry', id).then(() => {
-        this.$parent.loadNews();
-      })
+      this.deleteNewsEntry(id);
     }
   }
 }

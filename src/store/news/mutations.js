@@ -9,6 +9,12 @@ export const mutations = {
         state.newsUpdateArray = payload;
     },
     GET_NEWS_DELETE(state, payload) {
-        state.newsDelete = payload;
+        state.newsDeleteArray = payload;
+    },
+    GET_NEWS_INSERT(state, payload) {
+        state.newsInsertArray = payload
+    },
+    GET_NEWS_ATTACHMENT(state, payload) {
+        state.newsAttachmentArray = payload;
     }
 }

@@ -69,6 +69,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "NewsUpdateModal",
@@ -83,8 +84,12 @@ export default {
       text: '',
       title: '',
       formData: null,
-      updateId: null
+      updateId: null,
+      updateNewsArray: []
     }
+  },
+  computed: {
+    ...mapGetters(['getUpdateNews'])
   },
   watch: {
     newsDetail: function(newVal) {
@@ -97,9 +102,13 @@ export default {
       this.date = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +("0" + date.getDate()).slice(-2);
       this.image = "data:image/jpg;base64," + newVal.detailImage;
 
+    },
+    getUpdateNews() {
+      this.$parent.loadNews();
     }
   },
   methods: {
+    ...mapActions(['updateNewsEntry']),
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
     },
@@ -139,11 +148,13 @@ export default {
         }
         this.formData.append('newsData', JSON.stringify(data));
 
+        this.updateNewsEntry(this.formData);
+        /*
         this.$store.dispatch('updateNewsEntry', this.formData).then(() => {
           //this.$store.dispatch('getNews').then(response => {
             this.$parent.loadNews();
           //});
-        });
+        }); */
         document.querySelector('#showNews .btn-close').click();
       }
     }

@@ -15,39 +15,31 @@ export const actions = {
            })
         });
     },
-    insertNewNewsEntry({ commit }, payload) {
-        commit("NEWS");
-
-        return new Promise((resolve) => {
+    insertNewNewsEntry(state, payload) {
+        return new Promise(() => {
             newsService.insertNewsEntry(payload).then((response) => {
-                resolve(response);
+                state.commit('GET_NEWS_INSERT', response);
             });
         })
     },
-    updateNewsEntry({ commit }, payload) {
-        commit("NEWS");
-
-        return new Promise((resolve) => {
+    updateNewsEntry(state, payload) {
+        return new Promise(() => {
             newsService.updateNewsEntry(payload).then((response) => {
-                resolve(response);
+                state.commit('GET_NEWS_UPDATE', response);
             })
         })
     },
-    deleteNewsEntry({ commit }, payload) {
-        commit("NEWS");
-
-        return new Promise((resolve) => {
+    deleteNewsEntry(state, payload) {
+        return new Promise(() => {
             newsService.deleteNewsEntry(payload).then((response) => {
-                resolve(response);
+                state.commit('GET_NEWS_DELETE', response);
             })
         })
     },
-    getAttachment({ commit }, payload) {
-        commit("NEWS");
-
-        return new Promise((resolve) => {
+    getAttachment(state, payload) {
+        return new Promise(() => {
             newsService.getAttachment(payload).then((response) => {
-                resolve(response);
+                state.commit('GET_NEWS_ATTACHMENT', response);
             })
         })
     }
