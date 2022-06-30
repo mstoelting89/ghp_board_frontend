@@ -69,6 +69,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {mapActions} from "vuex";
 
 export default {
   name: "NewsAddModal",
@@ -84,6 +85,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['insertNewNewsEntry']),
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
     },

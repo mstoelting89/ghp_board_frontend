@@ -1,19 +1,18 @@
 import demandService from "@/service/demandService";
 
 export const actions = {
-    getDemand() {
-        return new Promise((resolve) => {
+    getDemandFromService(state) {
+        return new Promise(() => {
             demandService.getDemand().then((response) => {
-                resolve(response);
+                state.commit('GET_DEMAND', response)
             })
         })
     },
-    getDemandDetail({ commit }, payload) {
-        return new Promise((resolve) => {
+    getDemandDetailFromService(state, payload) {
+        return new Promise(() => {
             demandService.getDemandDetail(payload).then((response) => {
-                commit('DEMAND_DETAIL', response);
-                resolve(response);
-            })
-        })
+                state.commit('GET_DEMAND_DETAIL', response);
+            });
+        });
     }
 }

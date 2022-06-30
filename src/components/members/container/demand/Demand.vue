@@ -12,7 +12,7 @@
         <div class="demandEntryTitle">{{ demandEntry.demandTitle }}</div>
         <div class="buttons">
           <div class="show-demand">
-            <button class="btn btn-secondary" @click="getDemandDetail(demandEntry.id)" data-bs-toggle="modal" data-bs-target="#showDemand">mehr lesen</button>
+            <button class="btn btn-secondary" @click="getDetailDemand(demandEntry.id)" data-bs-toggle="modal" data-bs-target="#showDemand">mehr lesen</button>
           </div>
           <div class="update-demand">
             <font-awesome-icon class="update-icon"   icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
@@ -34,6 +34,7 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DemandAddModal from "@/components/members/container/demand/DemandAddModal";
 import DemandShowModal from "@/components/members/container/demand/DemandShowModal";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "Demand",
@@ -46,15 +47,29 @@ export default {
       demandDetail: {}
     };
   },
+  computed: {
+    ...mapGetters(['getDemand', 'getDemandDetail'])
+  },
   async created() {
-    await this.$store.dispatch('getDemand').then(response => {
-      this.demandArray = this.loadDemands(response);
-    })
+    await this.getDemandFromService();
+  },
+  watch: {
+    getDemand(newValue) {
+      this.demandArray = this.setDemandArray(newValue);
+    },
+    getDemandDetail(newValue) {
+      this.demandDetail = this.setDemandDetailArray(newValue);
+    }
   },
   methods: {
-    loadDemands(response) {
-      let data = [];
-      response.data.forEach((item) => {
+    ...mapActions(['getDemandFromService', 'getDemandDetailFromService']),
+    getDetailDemand(id) {
+      this.demandId = id;
+      this.getDemandDetailFromService(id);
+    },
+    setDemandArray(data) {
+      let demandData = []
+      data.data.forEach((item) => {
         let date = new Date(item.demandDate);
         let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
         let demandElement = {
@@ -63,20 +78,19 @@ export default {
           demandText: item.demandText,
           demandTitle: item.demandTitle
         }
-        data.push(demandElement);
+        demandData.push(demandElement);
       });
-      this.demandArray = data;
-      return data;
+      return demandData;
     },
-    getDemandDetail(id) {
-      this.$store.dispatch('getDemandDetail', id).then(response => {
-        let date = new Date(response.data.demandDate);
-        let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
+    setDemandDetailArray(data) {
+      let date = new Date(data.data.demandDate);
+      let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
 
-        this.demandDetail.detailTitle = response.data.demandTitle;
-        this.demandDetail.detailText = response.data.demandText;
-        this.demandDetail.detailDate = demandDate;
-      });
+      return  {
+        'detailTitle': data.data.demandTitle,
+        'detailText': data.data.demandText,
+        'detailDate': demandDate
+      }
     }
   }
 }

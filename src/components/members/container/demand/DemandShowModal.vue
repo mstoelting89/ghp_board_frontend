@@ -4,6 +4,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="row">
+            <div class="demandDetailHeader">
+              <div class="demandDetailTitle" v-html="demandDetail.detailTitle"></div>
+            </div>
+          </div>
+          <div class="row">
             <div class="demandDetailInfo">
               <div class="demandDetailInfoEnd">
                 <div class="demandDetailDate" v-html="demandDetail.detailDate"></div>
@@ -11,11 +16,6 @@
               </div>
             </div>
 
-          </div>
-          <div class="row">
-            <div class="demandDetailHeader">
-              <div class="demandDetailTitle" v-html="demandDetail.detailTitle"></div>
-            </div>
           </div>
         </div>
         <div class="modal-body">
@@ -46,6 +46,7 @@ export default {
 .btn-close {
   background-color: transparent;
   border: none;
+  margin-top: -5px;
 }
 
 #demandNews .modal-header {

@@ -76,9 +76,6 @@ export default {
   },
   methods: {
     ...mapActions(['getNewsFromService', 'getNewsDetailFromService']),
-    logout() {
-      this.$store.dispatch('logout').then(() => this.$router.push('/login'));
-    },
     loadNews() {
       this.getNewsFromService();
     },
@@ -105,18 +102,16 @@ export default {
     },
     setNewsDetailArray(data) {
 
-      let newsDetails = [];
       let date = new Date(data.data.newsDate);
       let newsDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
 
-      newsDetails = {
+      return {
         'detailTitle': data.data.newsTitle,
         'detailAuthor': data.data.newsAuthor,
         'detailText': data.data.newsText,
         'detailDate': newsDate,
         'detailImage': data.data.newsImage
       }
-      return newsDetails;
     },
     setDeleteNewsId(id) {
       this.newsDeleteId = id;

@@ -1,3 +1,4 @@
 export const getters = {
-    demandDetail: state => state.demandDetail
+    getDemand: state => state.demandArray,
+    getDemandDetail: state => state.demandDetail
 }

@@ -13,13 +13,13 @@
                 <label for="requestTitle" class="col-form-label">Titel</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestTitle">
+                <input type="text" class="form-control" id="requestTitle" v-model="title">
               </div>
               <div class="col-1 justify-content-start">
                 <label for="requestDate" class="col-form-label">Datum</label>
               </div>
               <div class="col-5">
-                <input type="date" class="form-control" id="requestDate">
+                <input type="date" class="form-control" id="requestDate" v-model="date">
               </div>
             </div>
             <div class="mb-3 d-flex">
@@ -27,26 +27,30 @@
                 <label for="requestName" class="col-form-label">Name</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestName">
+                <input type="text" class="form-control" id="requestName" v-model="name">
               </div>
             </div>
             <div class="mb-3">
               <div class="col-1 justify-content-start">
                 <label class="col-form-label">Text:</label>
               </div>
-              <ckeditor :editor="requestEditor" :config="editorConfig"></ckeditor>
+              <ckeditor :editor="requestEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
-            <div class="col-5" ref="demandImages" id="demandImages">
-              <input type="file" class="form-control" @change="handleFile">
-            </div>
-            <div class="col-5">
-              <font-awesome-icon class="hidden" id="add-icon" @click="addNewImageEntry" icon="circle-plus" />
+            <div class="col-12" ref="demandImages" id="demandImages">
+              <div v-for="item in images" v-bind:key="item" @change="addNewImageItem" class="imageItem">
+                <div class="inputField">
+                  <input type="file" class="form-control upload-file">
+                </div>
+                <div class="icon">
+                  <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item)" />
+                </div>
+              </div>
             </div>
           </form>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary">Speichern</button>
+          <button type="button" class="btn btn-primary" @click="insertNewDemandEntry">Speichern</button>
         </div>
       </div>
     </div>
@@ -61,7 +65,16 @@ export default {
   data() {
     return {
       requestEditor: ClassicEditor,
-      editorConfig: {}
+      editorConfig: {},
+      images: [
+        {
+          'id': 0
+        }
+      ],
+      title: null,
+      name: null,
+      date: null,
+      text: ''
     };
   },
   methods: {
@@ -74,34 +87,43 @@ export default {
         return true;
       }
     },
-    showAddNewImageBtn() {
-      let imageEntries = this.$refs.demandImages.childNodes;
-      let showAddImage = true;
-      let addImageIcon = document.querySelector('#add-icon');
-
-      imageEntries.forEach(item => {
-        console.log(item);
-        if (item.files.length === 0) {
-          showAddImage = false;
-        }
-      });
-      console.log(showAddImage);
-      if (showAddImage === true) {
-        addImageIcon.classList.remove('hidden');
+    addNewImageItem() {
+      const element = {
+        'id' : this.images.length
+      }
+      this.images.push(element);
+    },
+    deleteImage(item) {
+      if (this.images.length !== 1) {
+        this.images = this.images.filter((value) => {
+          return item.id !== value.id;
+        });
       } else {
-        addImageIcon.classList.add('hidden');
+        this.images = [{'id': 0}]
       }
     },
-    handleFile() {
-      this.showAddNewImageBtn();
-    },
-    addNewImageEntry() {
-      //let demandImages = document.querySelector('#demandImages');
-      // TODO: Make Image Upload work
-      this.showAddNewImageBtn();
+    insertNewDemandEntry() {
+      let formData = new FormData();
+      let file = [];
+      let fileItems = document.querySelectorAll('.upload-file');
+
+      fileItems.forEach((item) => {
+        if (typeof item.files[0] !== "undefined") {
+          file.push(item.files[0]);
+        }
+      });
+      formData.append('files', JSON.stringify(file));
+      formData.append('name', this.name);
+      formData.append('date', this.date + "T00:00:00");
+      formData.append('title', this.title);
+      formData.append('text', this.text)
+
+      /*
+      this.$store.dispatch('insertNewDemandEntry', formData).then(() => {
+
+      }) */
     }
   },
-
 }
 </script>
 
@@ -123,8 +145,8 @@ export default {
   padding: 15px 40px;
 }
 .btn-secondary {
-  padding: 5px;
-  font-size: 12px;
+  padding: 15px 40px;
+  font-size: 16px;
   background-color: #a21d21;
 }
 
@@ -140,5 +162,20 @@ export default {
 
 .hidden {
   display: none;
+}
+
+.imageItem {
+  display: flex;
+  margin-bottom: 10px;
+}
+.icon {
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+}
+.delete-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #a21d21;
 }
 </style>

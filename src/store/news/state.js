@@ -1,4 +1,6 @@
 export const state = {
     newsArray: [],
-    newsDetailArray: []
+    newsDetailArray: [],
+    newsUpdateArray: [],
+    newsDelete: ''
 }
