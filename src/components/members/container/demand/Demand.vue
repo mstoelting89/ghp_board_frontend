@@ -63,6 +63,9 @@ export default {
   },
   methods: {
     ...mapActions(['getDemandFromService', 'getDemandDetailFromService']),
+    loadDemand() {
+      this.getDemandFromService();
+    },
     getDetailDemand(id) {
       this.demandId = id;
       this.getDemandDetailFromService(id);

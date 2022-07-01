@@ -50,7 +50,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" @click="insertNewDemandEntry">Speichern</button>
+          <button type="button" class="btn btn-primary" @click="insertDemand">Speichern</button>
         </div>
       </div>
     </div>
@@ -59,6 +59,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "DemandAddModal",
@@ -77,7 +78,16 @@ export default {
       text: ''
     };
   },
+  computed: {
+    ...mapGetters(['getDemandInsert'])
+  },
+  watch: {
+    getDemandInsert() {
+      this.$parent.loadDemand();
+    }
+  },
   methods: {
+    ...mapActions(['insertNewDemandEntry']),
     checkField(input, inputWrapper) {
       if (input.length <= 0) {
         inputWrapper.querySelector('.errorMsg').innerHTML = "Dieses Feld muss ausgefüllt sein";
@@ -102,26 +112,27 @@ export default {
         this.images = [{'id': 0}]
       }
     },
-    insertNewDemandEntry() {
+    insertDemand() {
       let formData = new FormData();
-      let file = [];
+      let data = [];
       let fileItems = document.querySelectorAll('.upload-file');
 
       fileItems.forEach((item) => {
         if (typeof item.files[0] !== "undefined") {
-          file.push(item.files[0]);
+          formData.append('files', item.files[0]);
         }
       });
-      formData.append('files', JSON.stringify(file));
-      formData.append('name', this.name);
-      formData.append('date', this.date + "T00:00:00");
-      formData.append('title', this.title);
-      formData.append('text', this.text)
 
-      /*
-      this.$store.dispatch('insertNewDemandEntry', formData).then(() => {
+      data = {
+        'demandName': this.name,
+        'demandDate': this.date + "T00:00:00",
+        'demandTitle': this.title,
+        'demandText': this.text
+      }
+      formData.append('demandData', JSON.stringify(data));
 
-      }) */
+      this.insertNewDemandEntry(formData);
+
     }
   },
 }

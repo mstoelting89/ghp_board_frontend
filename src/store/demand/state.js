@@ -1,4 +1,7 @@
 export const state = {
     demandArray: [],
-    demandDetail: []
+    demandDetail: [],
+    demandInsert: [],
+    demandDelete: [],
+    demandUpdate: []
 }

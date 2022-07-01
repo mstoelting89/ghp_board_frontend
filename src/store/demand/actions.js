@@ -14,5 +14,12 @@ export const actions = {
                 state.commit('GET_DEMAND_DETAIL', response);
             });
         });
+    },
+    insertNewDemandEntry(state, payload) {
+        return new Promise(() => {
+            demandService.insertDemandEntry(payload).then((response) => {
+                state.commit('GET_DEMAND_INSERT', response);
+            })
+        })
     }
 }

@@ -1,4 +1,6 @@
 export const getters = {
     getDemand: state => state.demandArray,
-    getDemandDetail: state => state.demandDetail
+    getDemandDetail: state => state.demandDetail,
+    getDemandInsert: state => state.demandInsert,
+    getDemandUpdate: state => state.demandUpdate
 }
