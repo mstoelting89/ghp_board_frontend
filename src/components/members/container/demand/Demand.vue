@@ -88,7 +88,7 @@ export default {
     setDemandDetailArray(data) {
       let date = new Date(data.data.demandDate);
       let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
-
+      // TODO: set Images in show modal
       return  {
         'detailTitle': data.data.demandTitle,
         'detailText': data.data.demandText,

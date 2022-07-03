@@ -113,7 +113,7 @@ export default {
       ) {
         this.formData = new FormData();
         this.formData.append('file', this.file);
-        console.log(this.file);
+
         let data = {
           newsTitle: this.newsTitle,
           newsDate: this.newsDate + "T00:00:00",

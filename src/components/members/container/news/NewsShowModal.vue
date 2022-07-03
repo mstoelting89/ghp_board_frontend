@@ -38,7 +38,7 @@ export default {
     newsDetail(newVal) {
       const detailImage = document.querySelector('#detailImage');
       if (newVal.detailImage === '') {
-        detailImage.classList.add('hidden');
+        detailImage.setAttribute("src", "");
       } else {
         detailImage.setAttribute("src", "data:image/jpg;base64," + newVal.detailImage);
       }
@@ -97,5 +97,8 @@ export default {
 }
 .body-text {
   text-align: left;
+}
+.hidden {
+  display: none;
 }
 </style>

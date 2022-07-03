@@ -47,11 +47,25 @@
               </div>
             </div>
 
-            <div class="mb-3 d-flex">
-              <div class="col-1 d-flex justify-content-start">
-                <label for="newsImage" class="col-form-label">Bild</label>
+            <div class="row mb-3" v-show="showPreviewImage">
+              <div class="col-md-3 d-flex justify-content-start">
+                <label class="col-form-label">Bisheriges Bild</label>
               </div>
-              <div class="col-5">
+              <div class="col-md-5 d-flex justify-content-start" ref="previousNewsImage">
+                <img src="" class="previousImage">
+              </div>
+              <div class="col-md-1">
+                <div class="icon">
+                  <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage()" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3" v-show="!showPreviewImage">
+              <div class="col-md-3 d-flex justify-content-start">
+                <label class="col-form-label">Neues Bild</label>
+              </div>
+              <div class="col-md-5">
                 <input type="file" class="form-control" ref="newsImage" id="newsImage" @change="handleFile()">
               </div>
             </div>
@@ -83,9 +97,11 @@ export default {
       author: '',
       text: '',
       title: '',
+      image: '',
       formData: null,
       updateId: null,
-      updateNewsArray: []
+      updateNewsArray: [],
+      showPreviewImage: false
     }
   },
   computed: {
@@ -96,12 +112,16 @@ export default {
       let dateStr = newVal.detailDate.split('.');
       let date = new Date(dateStr[2] + "-" + dateStr[1] + "-" + dateStr[0]);
 
+      this.showPreviewImage = false;
       this.title = newVal.detailTitle;
       this.author = newVal.detailAuthor;
       this.text = newVal.detailText;
       this.date = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +("0" + date.getDate()).slice(-2);
       this.image = "data:image/jpg;base64," + newVal.detailImage;
-
+      if (newVal.detailImage !== '') {
+        this.showPreviewImage = true;
+        this.$refs.previousNewsImage.querySelector('.previousImage').setAttribute('src', this.image);
+      }
     },
     getUpdateNews() {
       this.$parent.loadNews();
@@ -146,17 +166,20 @@ export default {
           newsAuthor: this.author,
           newsText: this.text,
         }
+
+        if (typeof this.file !== 'undefined') {
+          this.formData.append('file', this.file);
+        }
+
         this.formData.append('newsData', JSON.stringify(data));
 
         this.updateNewsEntry(this.formData);
-        /*
-        this.$store.dispatch('updateNewsEntry', this.formData).then(() => {
-          //this.$store.dispatch('getNews').then(response => {
-            this.$parent.loadNews();
-          //});
-        }); */
         document.querySelector('#showNews .btn-close').click();
       }
+    },
+    deleteImage() {
+      this.$refs.previousNewsImage.querySelector('.previousImage').setAttribute('src', '');
+      this.showPreviewImage = false;
     }
   }
 }
@@ -193,5 +216,11 @@ export default {
   padding: 15px 40px;
   font-size: 16px;
   background-color: #a21d21;
+}
+.previousImage {
+  max-height: 100px;
+}
+.delete-icon {
+  cursor: pointer;
 }
 </style>
