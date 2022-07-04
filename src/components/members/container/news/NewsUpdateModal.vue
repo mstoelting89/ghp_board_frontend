@@ -174,7 +174,6 @@ export default {
         this.formData.append('newsData', JSON.stringify(data));
 
         this.updateNewsEntry(this.formData);
-        document.querySelector('#showNews .btn-close').click();
       }
     },
     deleteImage() {

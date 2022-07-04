@@ -19,9 +19,30 @@
           </div>
         </div>
         <div class="modal-body">
-          <div class="body-image">
-            <img class="detailImage" src="{{ demandDetail.detailImage }}" id="detailImage">
+
+          <div id="demandCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item" :class="i === 0 ? 'active':''" v-for="(image, i) in demandDetail.detailImages" v-bind:key="image">
+                <div class="d-flex justify-content-center">
+                  <img :src="setImageSrc(image.base64)" class="d-block w-100" alt="...">
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#demandCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demandCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
+
           <div class="body-text" v-html="demandDetail.detailText"></div>
         </div>
       </div>
@@ -33,6 +54,11 @@
 export default {
   name: "DemandShowModal",
   props: ['demandDetail'],
+  methods: {
+    setImageSrc(data) {
+      return "data:image/jpg;base64," + data;
+    }
+  }
 }
 </script>
 
@@ -87,5 +113,12 @@ export default {
 }
 .body-text {
   text-align: left;
+}
+.carousel-item {
+  background-color: #000;
+}
+.carousel-item img {
+  max-height: 400px;
+  width: auto!important;
 }
 </style>

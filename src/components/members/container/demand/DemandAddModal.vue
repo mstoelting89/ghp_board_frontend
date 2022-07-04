@@ -50,7 +50,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" @click="insertDemand">Speichern</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="insertDemand">Speichern</button>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@
             <button class="btn btn-secondary" @click="getDetailDemand(demandEntry.id)" data-bs-toggle="modal" data-bs-target="#showDemand">mehr lesen</button>
           </div>
           <div class="update-demand">
-            <font-awesome-icon class="update-icon"   icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
+            <font-awesome-icon class="update-icon" @click="getDetailDemand(demandEntry.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
           </div>
           <div class="delete-demand">
             <font-awesome-icon class="delete-icon" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteDemand" />
@@ -28,6 +28,10 @@
   <DemandShowModal
       :demandDetail="demandDetail"
   />
+  <DemandUpdateModal
+      :demandDetail="demandDetail"
+      :demandUpdateId="demandId"
+  />
 </template>
 
 <script>
@@ -35,16 +39,18 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import DemandAddModal from "@/components/members/container/demand/DemandAddModal";
 import DemandShowModal from "@/components/members/container/demand/DemandShowModal";
 import {mapActions, mapGetters} from "vuex";
+import DemandUpdateModal from "@/components/members/container/demand/DemandUpdateModal";
 
 export default {
   name: "Demand",
-  components: {DemandShowModal, DemandAddModal},
+  components: {DemandUpdateModal, DemandShowModal, DemandAddModal},
   data() {
     return {
       requestEditor: ClassicEditor,
       editorConfig: {},
       demandArray: '',
-      demandDetail: {}
+      demandDetail: {},
+      demandId: null
     };
   },
   computed: {
@@ -88,12 +94,17 @@ export default {
     setDemandDetailArray(data) {
       let date = new Date(data.data.demandDate);
       let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
-      // TODO: set Images in show modal
+
       return  {
         'detailTitle': data.data.demandTitle,
         'detailText': data.data.demandText,
-        'detailDate': demandDate
+        'detailDate': demandDate,
+        'detailName': data.data.demandName,
+        'detailImages': data.data.demandImages
       }
+    },
+    setDemandId(id) {
+      this.demandId = id;
     }
   }
 }

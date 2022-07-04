@@ -21,5 +21,12 @@ export const actions = {
                 state.commit('GET_DEMAND_INSERT', response);
             })
         })
+    },
+    updateDemandEntry(state, payload) {
+        return new Promise(() => {
+            demandService.updateDemandEntry(payload).then((response) => {
+                state.commit('GET_DEMAND_UPDATE', response)
+            })
+        })
     }
 }
