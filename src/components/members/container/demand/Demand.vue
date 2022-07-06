@@ -18,7 +18,7 @@
             <font-awesome-icon class="update-icon" @click="getDetailDemand(demandEntry.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
           </div>
           <div class="delete-demand">
-            <font-awesome-icon class="delete-icon" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteDemand" />
+            <font-awesome-icon class="delete-icon" @click="setDemandId(demandEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteDemand" />
           </div>
         </div>
       </div>
@@ -32,6 +32,9 @@
       :demandDetail="demandDetail"
       :demandUpdateId="demandId"
   />
+  <DemandDeleteModal
+      :demandDeleteId="demandId"
+  />
 </template>
 
 <script>
@@ -40,10 +43,11 @@ import DemandAddModal from "@/components/members/container/demand/DemandAddModal
 import DemandShowModal from "@/components/members/container/demand/DemandShowModal";
 import {mapActions, mapGetters} from "vuex";
 import DemandUpdateModal from "@/components/members/container/demand/DemandUpdateModal";
+import DemandDeleteModal from "@/components/members/container/demand/DemandDeleteModal";
 
 export default {
   name: "Demand",
-  components: {DemandUpdateModal, DemandShowModal, DemandAddModal},
+  components: {DemandDeleteModal, DemandUpdateModal, DemandShowModal, DemandAddModal},
   data() {
     return {
       requestEditor: ClassicEditor,

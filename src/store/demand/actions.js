@@ -28,5 +28,12 @@ export const actions = {
                 state.commit('GET_DEMAND_UPDATE', response)
             })
         })
+    },
+    deleteDemandEntry(state, payload) {
+        return new Promise(() => {
+            demandService.deleteDemandEntry(payload).then((response) => {
+                state.commit('GET_DEMAND_DELETE', response)
+            })
+        })
     }
 }

@@ -46,7 +46,7 @@
             </div>
             <div class="furtherImage" v-for="(item) in imagesItems" v-bind:key="item" @change="addNewImageItem">
               <div class="col-md-6 inputField">
-                <input type="file" class="form-control upload-file">
+                <input type="file" class="form-control upload-new-file">
               </div>
               <div class="icon col-md-3">
                 <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item.id, false)" />
@@ -117,10 +117,11 @@ export default {
         demandPreviousData.push(attachment);
       });
 
-      let fileItems = document.querySelectorAll('.upload-file');
+      let fileItems = document.querySelectorAll('.upload-new-file');
 
       fileItems.forEach((item) => {
         if (typeof item.files[0] !== "undefined") {
+          console.log(item.files[0]);
           formData.append('files', item.files[0]);
         }
       });
