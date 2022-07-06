@@ -36,7 +36,7 @@ export default {
     demandDeleteId: function(id) {
       this.demandId = id;
     },
-    getDeleteDemand() {
+    getDemandDelete() {
       this.$parent.loadDemand();
     }
   },
@@ -50,5 +50,29 @@ export default {
 </script>
 
 <style scoped>
+.btn-close {
+  background-color: transparent;
+  border: none;
+}
+.btn {
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  padding: 15px 40px;
+}
+.btn-secondary {
+  padding: 5px;
+  font-size: 12px;
+  background-color: #a21d21;
+}
 
+.btn-default {
+  border: 1px solid #a21d21;
+}
+
+.btn-primary {
+  padding: 15px 40px;
+  font-size: 16px;
+  background-color: #a21d21;
+}
 </style>
