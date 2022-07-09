@@ -11,13 +11,13 @@
       <div class="demandEntryMain">
         <div class="demandEntryTitle">{{ demandEntry.demandTitle }}</div>
         <div class="buttons">
-          <div class="accept" @click="setDemandLike(1, demandEntry.id)" :class="demandEntry.personalVote === 1 ? 'active' : ''">
+          <div class="accept" :data-demand-id="demandEntry.id" @click="setDemandLike(1, demandEntry.id)" :class="demandEntry.personalVote === 1 ? 'active' : ''">
             <font-awesome-icon class="accept-icon" icon="thumbs-up" />
             <div class="like-counter" >
               {{ demandEntry.likes }}
             </div>
           </div>
-          <div class="delicine" @click="setDemandLike(0, demandEntry.id)" :class="demandEntry.personalVote === 0 ? 'active' : ''">
+          <div class="delicine" :data-demand-id="demandEntry.id" @click="setDemandLike(0, demandEntry.id)" :class="demandEntry.personalVote === 0 ? 'active' : ''">
             <font-awesome-icon class="delicine-icon"  icon="thumbs-down" />
             <div class="like-counter" >
               {{ demandEntry.dislikes }}
@@ -89,7 +89,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getDemandFromService', 'getDemandDetailFromService', 'setDemandVote', 'getDemandVote']),
+    ...mapActions(['getDemandFromService', 'getDemandDetailFromService', 'setDemandVote']),
     loadDemand() {
       this.getDemandFromService();
     },
@@ -103,7 +103,6 @@ export default {
         let date = new Date(item.demandDate);
         let personalVote = '';
         let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
-        this.getDemandVote(item.id);
 
         if (item.personalVote === true) {
           personalVote = 1;
@@ -126,14 +125,25 @@ export default {
     },
     setDemandDetailArray(data) {
       let date = new Date(data.data.demandDate);
+      let personalVote = '';
       let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
 
+      if (data.data.personalVote === true) {
+        personalVote = 1;
+      } else if (data.data.personalVote === false) {
+        personalVote = 0;
+      }
+
       return  {
+        'detailId': data.data.id,
         'detailTitle': data.data.demandTitle,
         'detailText': data.data.demandText,
         'detailDate': demandDate,
         'detailName': data.data.demandName,
-        'detailImages': data.data.demandImages
+        'detailImages': data.data.demandImages,
+        'detailLike': data.data.likes,
+        'detailDislike': data.data.dislikes,
+        'detailPersonalVote': personalVote
       }
     },
     setDemandId(id) {
@@ -143,6 +153,16 @@ export default {
       let data = {
         'demandId': demandId,
         'voteValue': voteValue
+      }
+      let accept = document.querySelector('.accept[data-demand-id="' + demandId + '"]');
+      let delicine = document.querySelector('.delicine[data-demand-id="' + demandId + '"]');
+
+      if (voteValue === 1) {
+        accept.classList.add('active');
+        delicine.classList.remove('active');
+      } else {
+        delicine.classList.add('active');
+        accept.classList.remove('active');
       }
 
       this.setDemandVote(data);

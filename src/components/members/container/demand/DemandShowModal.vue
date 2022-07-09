@@ -8,6 +8,20 @@
               <div class="demandDetailTitle" v-html="demandDetail.detailTitle"></div>
             </div>
           </div>
+          <div class="demandDecision">
+            <div class="accept-modal" :data-demand-id="demandDetail.detailId" @click="setDetailDemandLike(1, demandDetail.detailId)" :class="demandDetail.detailPersonalVote === 1 ? 'active' : ''">
+              <font-awesome-icon class="accept-icon" icon="thumbs-up" />
+              <div class="like-counter" >
+                {{ demandDetail.detailLike }}
+              </div>
+            </div>
+            <div class="delicine-modal" :data-demand-id="demandDetail.detailId" @click="setDetailDemandLike(0, demandDetail.detailId)" :class="demandDetail.detailPersonalVote === 0 ? 'active' : ''">
+              <font-awesome-icon class="delicine-icon"  icon="thumbs-down" />
+              <div class="like-counter" >
+                {{ demandDetail.detailDislike }}
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="demandDetailInfo">
               <div class="demandDetailInfoEnd">
@@ -51,12 +65,38 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "DemandShowModal",
   props: ['demandDetail'],
+  computed: {
+    ...mapGetters(['getDemandDetail' ,'setDemandVotes'])
+  },
+  watch: {
+    setDemandVotes(newValue) {
+      this.$parent.getDetailDemand(newValue.data.demandId);
+    }
+  },
   methods: {
     setImageSrc(data) {
       return "data:image/jpg;base64," + data;
+    },
+    setDetailDemandLike(value, demandId) {
+
+      let accept = document.querySelector('.accept-modal[data-demand-id="' + demandId + '"]');
+      let delicine = document.querySelector('.delicine-modal[data-demand-id="' + demandId + '"]');
+
+      if (value === 1) {
+        accept.classList.add('active');
+        delicine.classList.remove('active');
+      } else {
+        delicine.classList.add('active');
+        accept.classList.remove('active');
+      }
+
+      this.$parent.setDemandLike(value, demandId);
+
     }
   }
 }
@@ -120,5 +160,29 @@ export default {
 .carousel-item img {
   max-height: 400px;
   width: auto!important;
+}
+.demandDecision {
+  display: flex;
+}
+.like-counter {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.accept-modal, .delicine-modal {
+  background-color: #fff;
+  color: #a21d21;
+  border-radius: 5px;
+  display: flex;
+  padding: 7px 10px;
+  font-size:13px;
+  margin-right:5px;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid #a21d21;
+}
+
+.accept-modal.active, .delicine-modal.active {
+  background-color: #a21d21;
+  color: #fff;
 }
 </style>
