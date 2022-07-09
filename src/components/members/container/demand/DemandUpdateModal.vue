@@ -121,7 +121,6 @@ export default {
 
       fileItems.forEach((item) => {
         if (typeof item.files[0] !== "undefined") {
-          console.log(item.files[0]);
           formData.append('files', item.files[0]);
         }
       });

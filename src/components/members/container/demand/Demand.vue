@@ -122,7 +122,6 @@ export default {
         }
         demandData.push(demandElement);
       });
-      console.log(demandData);
       return demandData;
     },
     setDemandDetailArray(data) {
