@@ -3,5 +3,7 @@ export const state = {
     demandDetail: [],
     demandInsert: [],
     demandDelete: [],
-    demandUpdate: []
+    demandUpdate: [],
+    demandVotes: [],
+    setDemandVotes: []
 }

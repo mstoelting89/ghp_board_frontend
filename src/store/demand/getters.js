@@ -3,5 +3,7 @@ export const getters = {
     getDemandDetail: state => state.demandDetail,
     getDemandInsert: state => state.demandInsert,
     getDemandUpdate: state => state.demandUpdate,
-    getDemandDelete: state => state.demandDelete
+    getDemandDelete: state => state.demandDelete,
+    getDemandVotes: state => state.demandVotes,
+    setDemandVotes: state => state.setDemandVotes
 }

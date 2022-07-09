@@ -8,6 +8,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -17,6 +19,8 @@ library.add(faPlus)
 library.add(faCirclePlus)
 library.add(faPen)
 library.add(faTrash)
+library.add(faThumbsUp)
+library.add(faThumbsDown)
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 

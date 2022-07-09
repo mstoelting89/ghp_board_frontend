@@ -1,6 +1,10 @@
 <template>
-  <div class="slider"></div>
+  <div class="slider">
+  </div>
   <div class="ghp-dashboard">
+    <div class="logout">
+      <button class="btn btn-secondary" @click="logout">Logout</button>
+    </div>
     <div class="row container-wrapper justify-content-between">
       <News />
       <Demand />
@@ -42,6 +46,9 @@ export default {
 </script>
 
 <style scoped>
+.logout {
+
+}
 .slider {
   height: 100vh;
   background-image: url("~@/assets/images/background-img-min-min(1).jpeg");

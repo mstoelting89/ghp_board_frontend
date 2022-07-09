@@ -11,6 +11,18 @@
       <div class="demandEntryMain">
         <div class="demandEntryTitle">{{ demandEntry.demandTitle }}</div>
         <div class="buttons">
+          <div class="accept" @click="setDemandLike(1, demandEntry.id)" :class="demandEntry.personalVote === 1 ? 'active' : ''">
+            <font-awesome-icon class="accept-icon" icon="thumbs-up" />
+            <div class="like-counter" >
+              {{ demandEntry.likes }}
+            </div>
+          </div>
+          <div class="delicine" @click="setDemandLike(0, demandEntry.id)" :class="demandEntry.personalVote === 0 ? 'active' : ''">
+            <font-awesome-icon class="delicine-icon"  icon="thumbs-down" />
+            <div class="like-counter" >
+              {{ demandEntry.dislikes }}
+            </div>
+          </div>
           <div class="show-demand">
             <button class="btn btn-secondary" @click="getDetailDemand(demandEntry.id)" data-bs-toggle="modal" data-bs-target="#showDemand">mehr lesen</button>
           </div>
@@ -54,11 +66,13 @@ export default {
       editorConfig: {},
       demandArray: '',
       demandDetail: {},
-      demandId: null
+      demandId: null,
+      likes: '',
+      dislikes: ''
     };
   },
   computed: {
-    ...mapGetters(['getDemand', 'getDemandDetail'])
+    ...mapGetters(['getDemand', 'getDemandDetail', 'setDemandVotes'])
   },
   async created() {
     await this.getDemandFromService();
@@ -69,10 +83,13 @@ export default {
     },
     getDemandDetail(newValue) {
       this.demandDetail = this.setDemandDetailArray(newValue);
+    },
+    setDemandVotes() {
+      this.loadDemand();
     }
   },
   methods: {
-    ...mapActions(['getDemandFromService', 'getDemandDetailFromService']),
+    ...mapActions(['getDemandFromService', 'getDemandDetailFromService', 'setDemandVote', 'getDemandVote']),
     loadDemand() {
       this.getDemandFromService();
     },
@@ -84,15 +101,28 @@ export default {
       let demandData = []
       data.data.forEach((item) => {
         let date = new Date(item.demandDate);
+        let personalVote = '';
         let demandDate = ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth() + 1)).slice(-2) + "." + date.getFullYear();
+        this.getDemandVote(item.id);
+
+        if (item.personalVote === true) {
+          personalVote = 1;
+        } else if (item.personalVote === false) {
+          personalVote = 0;
+        }
+
         let demandElement = {
           id: item.id,
           demandDate: demandDate,
           demandText: item.demandText,
-          demandTitle: item.demandTitle
+          demandTitle: item.demandTitle,
+          likes: item.likes,
+          dislikes: item.dislikes,
+          personalVote: personalVote
         }
         demandData.push(demandElement);
       });
+      console.log(demandData);
       return demandData;
     },
     setDemandDetailArray(data) {
@@ -109,6 +139,14 @@ export default {
     },
     setDemandId(id) {
       this.demandId = id;
+    },
+    setDemandLike(voteValue, demandId) {
+      let data = {
+        'demandId': demandId,
+        'voteValue': voteValue
+      }
+
+      this.setDemandVote(data);
     }
   }
 }
@@ -156,7 +194,9 @@ export default {
   font-size: 12px;
   background-color: #a21d21;
 }
-.demandEntryMain .buttons .update-icon, .demandEntryMain .buttons .delete-icon {
+
+.demandEntryMain .buttons .update-icon,
+.demandEntryMain .buttons .delete-icon {
   background-color: #a21d21;
   color: #fff;
   padding:7px;
@@ -165,5 +205,26 @@ export default {
   margin-left: 5px;
   margin-top: 1px;
   cursor: pointer;
+}
+.like-counter {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.accept, .delicine {
+  background-color: #fff;
+  color: #a21d21;
+  border-radius: 5px;
+  display: flex;
+  padding: 7px 10px;
+  font-size:13px;
+  margin-right:5px;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid #a21d21;
+}
+
+.accept.active, .delicine.active {
+  background-color: #a21d21;
+  color: #fff;
 }
 </style>

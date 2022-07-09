@@ -25,14 +25,28 @@ export const actions = {
     updateDemandEntry(state, payload) {
         return new Promise(() => {
             demandService.updateDemandEntry(payload).then((response) => {
-                state.commit('GET_DEMAND_UPDATE', response)
+                state.commit('GET_DEMAND_UPDATE', response);
             })
         })
     },
     deleteDemandEntry(state, payload) {
         return new Promise(() => {
             demandService.deleteDemandEntry(payload).then((response) => {
-                state.commit('GET_DEMAND_DELETE', response)
+                state.commit('GET_DEMAND_DELETE', response);
+            })
+        })
+    },
+    setDemandVote(state, payload) {
+        return new Promise(() => {
+            demandService.setDemandLike(payload).then((response) => {
+               state.commit('SET_DEMAND_VOTES', response);
+            });
+        });
+    },
+    getDemandVote(state, payload) {
+        return new Promise(() => {
+            demandService.getDemandLikes(payload).then((response) => {
+                state.commit('GET_DEMAND_VOTES', response);
             })
         })
     }

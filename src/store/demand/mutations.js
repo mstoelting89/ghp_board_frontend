@@ -13,5 +13,11 @@ export const mutations = {
     },
     GET_DEMAND_UPDATE(state, payload) {
         state.demandUpdate = payload;
+    },
+    GET_DEMAND_VOTES(state, payload) {
+        state.demandVotes = payload;
+    },
+    SET_DEMAND_VOTES(state, payload) {
+        state.setDemandVotes = payload;
     }
 }
