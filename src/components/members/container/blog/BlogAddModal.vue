@@ -1,45 +1,45 @@
 <template>
-  <div class="modal fade" id="addDemand" tabindex="-1" aria-labelledby="addDemand" aria-hidden="true">
+  <div class="modal fade" id="addBlog" tabindex="-1" aria-labelledby="addBlog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addDemandLabel">Neue Anfrage</h5>
+          <h5 class="modal-title" id="addBlogLabel">Neuer Blogartikel</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3 d-flex">
               <div class="col-1 justify-content-start">
-                <label for="requestTitle" class="col-form-label">Titel</label>
+                <label for="blogTitle" class="col-form-label">Titel</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestTitle" v-model="title">
+                <input type="text" class="form-control" id="blogTitle" v-model="title">
               </div>
               <div class="col-1 justify-content-start">
-                <label for="requestDate" class="col-form-label">Datum</label>
+                <label for="blogDate" class="col-form-label">Datum</label>
               </div>
               <div class="col-5">
-                <input type="date" class="form-control" id="requestDate" v-model="date">
+                <input type="date" class="form-control" id="blogDate" v-model="date">
               </div>
             </div>
             <div class="mb-3 d-flex">
               <div class="col-1 justify-content-start">
-                <label for="requestName" class="col-form-label">Name</label>
+                <label for="blogName" class="col-form-label">Author</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestName" v-model="name">
+                <input type="text" class="form-control" id="blogName" v-model="name">
               </div>
             </div>
             <div class="mb-3">
               <div class="col-1 justify-content-start">
                 <label class="col-form-label">Text:</label>
               </div>
-              <ckeditor :editor="requestEditor" :config="editorConfig" v-model="text"></ckeditor>
+              <ckeditor :editor="blogEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
-            <div class="col-12" ref="demandImages" id="demandImages">
+            <div class="col-12" ref="blogImages" id="blogImages">
               <div v-for="item in images" v-bind:key="item" @change="addNewImageItem" class="imageItem">
                 <div class="inputField">
-                  <input type="file" class="form-control upload-file-demand">
+                  <input type="file" class="form-control upload-file-blog">
                 </div>
                 <div class="icon">
                   <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item)" />
@@ -50,7 +50,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="insertDemand">Speichern</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="insertBlog">Speichern</button>
         </div>
       </div>
     </div>
@@ -62,10 +62,10 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "DemandAddModal",
+  name: "BlogAddModal",
   data() {
     return {
-      requestEditor: ClassicEditor,
+      blogEditor: ClassicEditor,
       editorConfig: {},
       images: [
         {
@@ -79,24 +79,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getDemandInsert'])
+    ...mapGetters(['getBlogInsert'])
   },
   watch: {
-    getDemandInsert() {
-      this.$parent.loadDemand();
+    getBlogInsert() {
+      this.$parent.loadBlogPosts();
     }
   },
   methods: {
-    ...mapActions(['insertNewDemandEntry']),
-    checkField(input, inputWrapper) {
-      if (input.length <= 0) {
-        inputWrapper.querySelector('.errorMsg').innerHTML = "Dieses Feld muss ausgefüllt sein";
-        return false;
-      } else {
-        inputWrapper.querySelector('.errorMsg').innerHTML = "";
-        return true;
-      }
-    },
+    ...mapActions(['insertNewBlogEntry']),
     addNewImageItem() {
       const element = {
         'id' : this.images.length
@@ -112,10 +103,19 @@ export default {
         this.images = [{'id': 0}]
       }
     },
-    insertDemand() {
+    checkField(input, inputWrapper) {
+      if (input.length <= 0) {
+        inputWrapper.querySelector('.errorMsg').innerHTML = "Dieses Feld muss ausgefüllt sein";
+        return false;
+      } else {
+        inputWrapper.querySelector('.errorMsg').innerHTML = "";
+        return true;
+      }
+    },
+    insertBlog() {
       let formData = new FormData();
       let data = [];
-      let fileItems = document.querySelectorAll('.upload-file-demand');
+      let fileItems = document.querySelectorAll('.upload-file-blog');
 
       fileItems.forEach((item) => {
         if (typeof item.files[0] !== "undefined") {
@@ -124,17 +124,16 @@ export default {
       });
 
       data = {
-        'demandName': this.name,
-        'demandDate': this.date + "T00:00:00",
-        'demandTitle': this.title,
-        'demandText': this.text
+        'blogAuthor': this.name,
+        'blogDate': this.date + "T00:00:00",
+        'blogTitle': this.title,
+        'blogText': this.text
       }
-      formData.append('demandData', JSON.stringify(data));
+      formData.append('blogData', JSON.stringify(data));
 
-      this.insertNewDemandEntry(formData);
-
+      this.insertNewBlogEntry(formData);
     }
-  },
+  }
 }
 </script>
 
