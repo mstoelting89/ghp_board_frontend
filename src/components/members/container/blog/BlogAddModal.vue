@@ -46,6 +46,14 @@
                 </div>
               </div>
             </div>
+            <div class="mb-3 d-flex">
+              <div class="col-2 d-flex justify-content-start">
+                <label for="blogIsPublic" class="col-form-label">Veröffentlichen</label>
+              </div>
+              <div class="col-1">
+                <input type="checkbox" id="blogIsPublic">
+              </div>
+            </div>
           </form>
         </div>
         <div class="modal-footer justify-content-between">
@@ -116,6 +124,7 @@ export default {
       let formData = new FormData();
       let data = [];
       let fileItems = document.querySelectorAll('.upload-file-blog');
+      let isPublic = document.querySelector('#blogIsPublic').checked;
 
       fileItems.forEach((item) => {
         if (typeof item.files[0] !== "undefined") {
@@ -127,7 +136,8 @@ export default {
         'blogAuthor': this.name,
         'blogDate': this.date + "T00:00:00",
         'blogTitle': this.title,
-        'blogText': this.text
+        'blogText': this.text,
+        'isPublic': isPublic
       }
       formData.append('blogData', JSON.stringify(data));
 
@@ -187,5 +197,8 @@ export default {
   font-size: 1.5rem;
   cursor: pointer;
   color: #a21d21;
+}
+#blogIsPublic {
+  margin-top:10px;
 }
 </style>

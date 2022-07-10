@@ -15,6 +15,13 @@ export const actions = {
             })
         })
     },
+    updateBlogEntry(state, payload) {
+        return new Promise(() => {
+            blogService.updateBlogEntry(payload).then((response) => {
+                state.commit('GET_BLOG_UPDATE', response);
+            })
+        })
+    },
     deleteBlogEntry(state, payload) {
         return new Promise(() => {
             blogService.deleteBlogEntry(payload).then((response) => {

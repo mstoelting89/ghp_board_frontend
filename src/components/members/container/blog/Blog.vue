@@ -7,25 +7,29 @@
     <div class="blog-list">
       <div class="blog-item" v-for="blogItem in blogArray" v-bind:key="blogItem">
         <div class="admin-buttons">
-          <div class="update-blog">
-            <font-awesome-icon class="update-icon" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
+          <div class="buttons">
+            <div class="update-blog">
+              <font-awesome-icon class="update-icon"  @click="setBlogId(blogItem.id); getDetailBlog(blogItem.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
+            </div>
+            <div class="delete-blog">
+              <font-awesome-icon class="delete-icon" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
+            </div>
           </div>
-          <div class="delete-blog">
-            <font-awesome-icon class="delete-icon" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
+          <div class="blog-public">
+            <font-awesome-icon v-if="blogItem.blogIsPublic === true" class="public" icon="circle-check" />
+            <font-awesome-icon v-else class="not-public" icon="circle-xmark" />
           </div>
         </div>
         <div class="blog-teaser-image">
-          <img src="http://www.guitarheartsproject.de/fileadmin/_processed_/e/3/csm_FB_IMG_1591514892321_632344ed4b.jpg" />
+          <img v-if="setImagePath(blogItem.blogImages) !== false" class="previewImage" :src="setImagePath(blogItem.blogImages)" />
+          <img v-else src="@/assets/images/BilderLars/1428062250527.png" />
         </div>
         <div class="blog-teaser-content col-md-12">
-          <div class="blog-teaser-header">
-            {{ blogItem.blogTitle }}
+          <div class="blog-teaser-header" v-html="blogItem.blogTitle">
           </div>
-          <div class="blog-teaser-date">
-            {{ blogItem.blogDate }}
+          <div class="blog-teaser-date" v-html="blogItem.blogDate">
           </div>
-          <div class="blog-teaser-text">
-            {{ blogItem.blogText }}
+          <div class="blog-teaser-text" v-html="blogItem.blogText">
           </div>
         </div>
         <div class="blog-teaser-further-link">
@@ -38,6 +42,10 @@
   <BlogShowModal
     :blogDetail="blogDetail"
   />
+  <BlogUpdateModal
+    :blogDetail="blogDetail"
+    :blogUpdateId="blogId"
+  />
   <BlogDeleteModal
     :blogDeleteId="blogId"
   />
@@ -49,11 +57,12 @@ import BlogAddModal from "@/components/members/container/blog/BlogAddModal";
 import {mapActions, mapGetters} from "vuex";
 import BlogShowModal from "@/components/members/container/blog/BlogShowModal";
 import BlogDeleteModal from "@/components/members/container/blog/BlogDeleteModal";
+import BlogUpdateModal from "@/components/members/container/blog/BlogUpdateModal";
 
 
 export default {
   name: "Blog",
-  components: {BlogDeleteModal, BlogShowModal, BlogAddModal},
+  components: {BlogUpdateModal, BlogDeleteModal, BlogShowModal, BlogAddModal},
   data() {
     return {
       blogEditor: ClassicEditor,
@@ -98,7 +107,8 @@ export default {
           blogText: item.blogText,
           blogTitle: item.blogTitle,
           blogAuthor: item.blogAuthor,
-          blogImages: item.blogImages
+          blogImages: item.blogImages,
+          blogIsPublic: item.isPublic
         }
         blogData.push(blogElement);
       });
@@ -106,6 +116,13 @@ export default {
     },
     setBlogId(id) {
       this.blogId = id;
+    },
+    setImagePath(image) {
+      const base64Data = Object.assign({}, image[0]);
+      if (base64Data.base64 === undefined) {
+        return false;
+      }
+      return "data:image/jpg;base64," + base64Data.base64;
     }
   }
 }
@@ -155,8 +172,13 @@ export default {
   margin-left: 40px;
   transform: scale(1.1);
 }
+.blog-teaser-image {
+  max-height: 200px;
+  min-height: 200px;
+}
 .blog-teaser-image img {
   border-radius: 6px;
+  max-width: 250px;
 }
 .blog-teaser-header {
   text-align: center;
@@ -171,6 +193,8 @@ export default {
 }
 .blog-teaser-text {
   text-align: left;
+  min-height: 150px;
+  max-height: 150px;
 }
 .blog-teaser-further-link {
   cursor: pointer;
@@ -181,6 +205,21 @@ export default {
 }
 .admin-buttons {
   display: flex;
+  justify-content: space-between;
+}
+.admin-buttons .buttons {
+  display: flex;
+}
+.admin-buttons .blog-public {
+  background-color: #fff;
+  color: #a21d21;
+  font-size:18px;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-top: 1px;
+}
+.admin-buttons .blog-public .public, .admin-buttons .blog-public .not-public {
+  margin-left:10px;
 }
 .admin-buttons .update-icon,
 .admin-buttons .delete-icon {
@@ -192,5 +231,8 @@ export default {
   margin-left: 5px;
   margin-top: 1px;
   cursor: pointer;
+}
+.hidden {
+  display: none;
 }
 </style>

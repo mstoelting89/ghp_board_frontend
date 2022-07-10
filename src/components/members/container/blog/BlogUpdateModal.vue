@@ -1,44 +1,44 @@
 <template>
-  <div class="modal fade" id="updateDemand" tabindex="-1" aria-labelledby="updateDemand" aria-hidden="true">
+  <div class="modal fade" id="updateBlog" tabindex="-1" aria-labelledby="updateBlog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateDemandLabel">Anfrage bearbeiten</h5>
+          <h5 class="modal-title" id="updateBlogLabel">Blogartikel bearbeiten</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3 d-flex">
               <div class="col-1 justify-content-start">
-                <label for="requestTitle" class="col-form-label">Titel</label>
+                <label for="blogTitle" class="col-form-label">Titel</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestTitle" v-model="title">
+                <input type="text" class="form-control" id="blogTitle" v-model="title">
               </div>
               <div class="col-1 justify-content-start">
-                <label for="requestDate" class="col-form-label">Datum</label>
+                <label for="blogDate" class="col-form-label">Datum</label>
               </div>
               <div class="col-5">
-                <input type="date" class="form-control" id="requestDate" v-model="date">
+                <input type="date" class="form-control" id="blogDate" v-model="date">
               </div>
             </div>
             <div class="mb-3 d-flex">
               <div class="col-1 justify-content-start">
-                <label for="requestName" class="col-form-label">Name</label>
+                <label for="blogName" class="col-form-label">Name</label>
               </div>
               <div class="col-5">
-                <input type="text" class="form-control" id="requestName" v-model="name">
+                <input type="text" class="form-control" id="blogName" v-model="author">
               </div>
             </div>
             <div class="mb-3">
               <div class="col-1 justify-content-start">
                 <label class="col-form-label">Text:</label>
               </div>
-              <ckeditor :editor="demandEditor" :config="editorConfig" v-model="text"></ckeditor>
+              <ckeditor :editor="blogEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
-            <div class="col-12 imageAdministration" ref="demandImages" v-for="item in image" v-bind:key="item">
+            <div class="col-12 imageAdministration" ref="blogImages" v-for="item in image" v-bind:key="item">
               <div class="col-md-6 imagePreviewWrapper">
-                <img :src="setImagePath(item.base64)" :data-image-id="item.id" class="imagePreview">
+                <img :src="setImagePath(item.base64)" :data-image-id="item.id" class="imagePreview-blog">
               </div>
               <div class="col-md-3 icon">
                 <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item.id, true)" />
@@ -46,17 +46,25 @@
             </div>
             <div class="furtherImage" v-for="(item) in imagesItems" v-bind:key="item" @change="addNewImageItem">
               <div class="col-md-6 inputField">
-                <input type="file" class="form-control upload-new-file">
+                <input type="file" class="form-control upload-new-file-blog">
               </div>
               <div class="icon col-md-3">
                 <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item.id, false)" />
+              </div>
+            </div>
+            <div class="mb-3 d-flex">
+              <div class="col-2 d-flex justify-content-start">
+                <label for="blogIsPublic" class="col-form-label">Veröffentlichen</label>
+              </div>
+              <div class="col-1">
+                <input type="checkbox" id="blogIsPublic-update">
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="updateDemand">Speichern</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="updateBlog">Speichern</button>
         </div>
       </div>
     </div>
@@ -68,15 +76,15 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "DemandUpdateModal",
-  props: ['demandDetail', 'demandUpdateId'],
+  name: "BlogUpdateModal",
+  props: ['blogDetail', 'blogUpdateId'],
   data() {
     return  {
-      demandEditor: ClassicEditor,
+      blogEditor: ClassicEditor,
       editorData: '',
       editorConfig: {},
       date: '',
-      name: '',
+      author: '',
       text: '',
       title: '',
       image: '',
@@ -84,58 +92,27 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getDemandUpdate'])
+    ...mapGetters(['getBlogUpdate'])
   },
   watch: {
-    demandDetail(newVal) {
-      let dateStr = newVal.detailDate.split('.');
+    blogDetail(newVal) {
+      let dateStr = newVal.blogDate.split('.');
       let date = new Date(dateStr[2] + "-" + dateStr[1] + "-" + dateStr[0]);
 
-      this.title = newVal.detailTitle;
-      this.name = newVal.detailName;
-      this.text = newVal.detailText;
+      this.title = newVal.blogTitle;
+      this.author = newVal.blogAuthor;
+      this.text = newVal.blogText;
       this.date = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +("0" + date.getDate()).slice(-2);
-      this.image = newVal.detailImages
+      this.image = newVal.blogImages
+      document.querySelector('#blogIsPublic-update').checked = newVal.blogIsPublic;
 
     },
-    getDemandUpdate() {
-      this.$parent.loadDemand();
+    getBlogUpdate() {
+      this.$parent.loadBlogPosts();
     }
   },
   methods: {
-    ...mapActions(['updateDemandEntry']),
-    updateDemand() {
-      let formData = new FormData();
-
-      let demandPreviousData = [];
-      let demandPreviousElements = document.querySelectorAll('.imagePreview');
-      demandPreviousElements.forEach((item) => {
-        let attachment = {
-          'id': parseInt(item.getAttribute('data-image-id')),
-          'base64': ''
-        }
-        demandPreviousData.push(attachment);
-      });
-
-      let fileItems = document.querySelectorAll('.upload-new-file');
-
-      fileItems.forEach((item) => {
-        if (typeof item.files[0] !== "undefined") {
-          formData.append('files', item.files[0]);
-        }
-      });
-
-      let data = {
-        'demandName': this.name,
-        'demandDate': this.date + "T00:00:00",
-        'demandTitle': this.title,
-        'demandText': this.text,
-        'demandImages': demandPreviousData
-      }
-      formData.append('demandData', JSON.stringify(data));
-      formData.append('demandId', this.demandUpdateId);
-      this.updateDemandEntry(formData);
-    },
+    ...mapActions(['updateBlogEntry']),
     setImagePath(image) {
       return "data:image/jpg;base64," + image;
     },
@@ -157,6 +134,39 @@ export default {
         'id' : this.imagesItems.length
       }
       this.imagesItems.push(element);
+    },
+    updateBlog() {
+      let formData = new FormData();
+
+      let blogPreviousData = [];
+      let blogPreviousElements = document.querySelectorAll('.imagePreview-blog');
+      blogPreviousElements.forEach((item) => {
+        let attachment = {
+          'id': parseInt(item.getAttribute('data-image-id')),
+          'base64': ''
+        }
+        blogPreviousData.push(attachment);
+      });
+
+      let fileItems = document.querySelectorAll('.upload-new-file-blog');
+
+      fileItems.forEach((item) => {
+        if (typeof item.files[0] !== "undefined") {
+          formData.append('files', item.files[0]);
+        }
+      });
+
+      let data = {
+        'blogAuthor': this.author,
+        'blogDate': this.date + "T00:00:00",
+        'blogTitle': this.title,
+        'blogText': this.text,
+        'blogImages': blogPreviousData,
+        'isPublic': document.querySelector('#blogIsPublic-update').checked
+      }
+      formData.append('blogData', JSON.stringify(data));
+      formData.append('blogId', this.blogUpdateId);
+      this.updateBlogEntry(formData);
     }
   }
 }
@@ -225,7 +235,7 @@ export default {
   justify-content: flex-start;
   margin-bottom: 10px;
 }
-.imagePreview {
+.imagePreview-blog {
   height:100px;
   width: auto;
 }
