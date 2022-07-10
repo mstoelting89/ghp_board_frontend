@@ -1,5 +1,6 @@
 export const state = {
     blogArray: [],
     blogUpdate: [],
-    blogInsert: []
+    blogInsert: [],
+    blogDelete: []
 }

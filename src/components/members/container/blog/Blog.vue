@@ -6,6 +6,14 @@
     </div>
     <div class="blog-list">
       <div class="blog-item" v-for="blogItem in blogArray" v-bind:key="blogItem">
+        <div class="admin-buttons">
+          <div class="update-blog">
+            <font-awesome-icon class="update-icon" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
+          </div>
+          <div class="delete-blog">
+            <font-awesome-icon class="delete-icon" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
+          </div>
+        </div>
         <div class="blog-teaser-image">
           <img src="http://www.guitarheartsproject.de/fileadmin/_processed_/e/3/csm_FB_IMG_1591514892321_632344ed4b.jpg" />
         </div>
@@ -30,6 +38,9 @@
   <BlogShowModal
     :blogDetail="blogDetail"
   />
+  <BlogDeleteModal
+    :blogDeleteId="blogId"
+  />
 </template>
 
 <script>
@@ -37,11 +48,12 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import BlogAddModal from "@/components/members/container/blog/BlogAddModal";
 import {mapActions, mapGetters} from "vuex";
 import BlogShowModal from "@/components/members/container/blog/BlogShowModal";
+import BlogDeleteModal from "@/components/members/container/blog/BlogDeleteModal";
 
 
 export default {
   name: "Blog",
-  components: {BlogShowModal, BlogAddModal},
+  components: {BlogDeleteModal, BlogShowModal, BlogAddModal},
   data() {
     return {
       blogEditor: ClassicEditor,
@@ -50,7 +62,7 @@ export default {
       },
       blogArray: '',
       blogDetail: {},
-      blodId: null
+      blogId: null
     };
   },
   computed: {
@@ -91,9 +103,11 @@ export default {
         blogData.push(blogElement);
       });
       return blogData;
+    },
+    setBlogId(id) {
+      this.blogId = id;
     }
-  },
-
+  }
 }
 </script>
 
@@ -164,5 +178,19 @@ export default {
   font-size: 16px;
   font-weight: bold;
   color: #a21d21;
+}
+.admin-buttons {
+  display: flex;
+}
+.admin-buttons .update-icon,
+.admin-buttons .delete-icon {
+  background-color: #fff;
+  color: #a21d21;
+  padding:7px;
+  font-size:28px;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-top: 1px;
+  cursor: pointer;
 }
 </style>

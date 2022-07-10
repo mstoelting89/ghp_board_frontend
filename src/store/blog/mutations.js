@@ -7,5 +7,8 @@ export const mutations = {
     },
     GET_BLOG_UPDATE(state, payload) {
         state.blogUpdate = payload;
+    },
+    GET_BLOG_DELETE(state, payload) {
+        state.blogDelete = payload;
     }
 }
