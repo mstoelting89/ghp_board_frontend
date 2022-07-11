@@ -9,7 +9,7 @@
         <div class="admin-buttons">
           <div class="buttons">
             <div class="update-instrument">
-              <font-awesome-icon class="update-icon" icon="pen" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
+              <font-awesome-icon class="update-icon" icon="pen" @click="getDetailInstrument(instrument.id)" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
             </div>
             <div class="delete-instrument">
               <font-awesome-icon class="delete-icon" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
@@ -32,20 +32,25 @@
   <InstrumentDeleteModal
     :instrumentDeleteId="instrumentId"
   />
-
+  <InstrumentsUpdateModal
+      :instrumentUpdateId="instrumentId"
+      :instrumentDetail="instrumentDetail"
+  />
 </template>
 
 <script>
 import InstrumentsAddModal from "@/components/members/container/instruments/InstrumentsAddModal";
 import {mapActions, mapGetters} from "vuex";
 import InstrumentDeleteModal from "@/components/members/container/instruments/InstrumentDeleteModal";
+import InstrumentsUpdateModal from "@/components/members/container/instruments/InstrumentsUpdateModal";
 export default {
   name: "Instruments",
-  components: {InstrumentDeleteModal, InstrumentsAddModal},
+  components: {InstrumentsUpdateModal, InstrumentDeleteModal, InstrumentsAddModal},
   data() {
     return {
       instrumentsArray: [],
-      instrumentId: null
+      instrumentId: null,
+      instrumentDetail: []
     }
   },
   computed: {
@@ -79,7 +84,11 @@ export default {
     },
     setInstrumentId(id) {
       this.instrumentId = id;
-      console.log(this.instrumentId);
+    },
+    getDetailInstrument(id) {
+      this.instrumentId = id;
+      const blog = this.instrumentsArray.filter(item => item.id === id);
+      this.instrumentDetail = blog[0];
     }
   }
 }
@@ -88,7 +97,7 @@ export default {
 <style scoped>
 .ghp-container {
   background-color: #fff;
-  height: 60vh;
+  height: 50vh;
   border-radius: 5px;
 }
 .page-header {
@@ -130,8 +139,8 @@ export default {
 .instrument-item {
   min-width: 20rem;
   max-width: 20rem;
-  min-height: 25rem;
-  max-height: 25rem;
+  min-height: 20rem;
+  max-height: 20rem;
   box-shadow: -5px 1px 5px 0px #000;
   padding: 1rem;
   border-radius: 16px;
@@ -152,6 +161,7 @@ export default {
 .instrument-teaser-image img {
   border-radius: 6px;
   max-width: 250px;
+  max-height: 200px;
 }
 .instrument-teaser-header {
   text-align: center;

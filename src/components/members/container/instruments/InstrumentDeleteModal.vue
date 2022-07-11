@@ -34,7 +34,6 @@ export default {
   methods: {
     ...mapActions(['deleteInstrumentEntry']),
     deleteInstrument(id) {
-      console.log(id);
       this.deleteInstrumentEntry(id);
     }
   }

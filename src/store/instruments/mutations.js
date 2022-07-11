@@ -7,5 +7,8 @@ export const mutations = {
     },
     GET_INSTRUMENT_DELETE(state, payload) {
         state.instrumentDelete = payload;
+    },
+    GET_INSTRUMENT_UPDATE(state, payload) {
+        state.instrumentUpdate = payload;
     }
 }
