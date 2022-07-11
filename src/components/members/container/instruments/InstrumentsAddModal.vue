@@ -65,7 +65,6 @@ export default {
     ...mapActions(['insertInstrument']),
     insertNewInstrument() {
       this.formData = new FormData();
-      console.log(this.file);
       this.formData.append('file', this.file);
       let data = {
         instrumentTitle: this.instrumentTitle,

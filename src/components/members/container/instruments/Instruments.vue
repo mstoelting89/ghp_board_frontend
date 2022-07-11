@@ -12,7 +12,7 @@
               <font-awesome-icon class="update-icon" icon="pen" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
             </div>
             <div class="delete-instrument">
-              <font-awesome-icon class="delete-icon" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
+              <font-awesome-icon class="delete-icon" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
             </div>
           </div>
         </div>
@@ -29,17 +29,23 @@
     </div>
   </div>
   <InstrumentsAddModal />
+  <InstrumentDeleteModal
+    :instrumentDeleteId="instrumentId"
+  />
+
 </template>
 
 <script>
 import InstrumentsAddModal from "@/components/members/container/instruments/InstrumentsAddModal";
 import {mapActions, mapGetters} from "vuex";
+import InstrumentDeleteModal from "@/components/members/container/instruments/InstrumentDeleteModal";
 export default {
   name: "Instruments",
-  components: {InstrumentsAddModal},
+  components: {InstrumentDeleteModal, InstrumentsAddModal},
   data() {
     return {
-      instrumentsArray: []
+      instrumentsArray: [],
+      instrumentId: null
     }
   },
   computed: {
@@ -48,7 +54,6 @@ export default {
   watch: {
     getInstruments(newVal) {
       this.instrumentsArray = this.setInstrumentsArray(newVal);
-      console.log(this.instrumentsArray);
     }
   },
   async created() {
@@ -71,6 +76,10 @@ export default {
         return false;
       }
       return "data:image/jpg;base64," + image;
+    },
+    setInstrumentId(id) {
+      this.instrumentId = id;
+      console.log(this.instrumentId);
     }
   }
 }

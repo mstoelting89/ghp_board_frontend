@@ -1,4 +1,5 @@
 export const state = {
     instrumentsArray: [],
-    instrumentInsert: []
+    instrumentInsert: [],
+    instrumentDelete: []
 }

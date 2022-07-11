@@ -14,5 +14,12 @@ export const actions = {
                 state.commit('GET_INSTRUMENTS_INSERT', response);
             })
         })
+    },
+    deleteInstrumentEntry(state, payload) {
+        return new Promise(() => {
+            instrumentsService.deleteInstrumentEntry(payload).then((response) => {
+                state.commit('GET_INSTRUMENT_DELETE', response);
+            })
+        })
     }
 }
