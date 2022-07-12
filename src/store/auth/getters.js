@@ -1,4 +1,6 @@
 export const getters = {
     loggedIn: state => state.loggedIn,
-    errorMsg: state => state.errorMsg
+    loginErrorMessage: state => state.errorMsg,
+    userEmail: state => state.userEmail,
+    getUserLevel: state => state.userLevel
 }

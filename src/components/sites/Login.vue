@@ -5,7 +5,22 @@
         <img :src="require('@/assets/images/BilderLars/1548x1026.png')">
       </div>
       <div class="col-12 col-md-12 col-lg-8">
-        <div class="page-header">
+        <div v-if="showResetPassword" class="page-header">
+          <div class="login-title">
+            <h1>Neues Passwort setzen</h1>
+          </div>
+          <div class="row">
+            <input type="password" name="password" placeholder="Passwort" v-model="passwordValue">
+          </div>
+          <div class="row">
+            <input type="password" name="passwordConfirm" placeholder="Passwort bestätigen" v-model="passwordConfirmValue">
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" @click="setNewPassword(passwordValue, passwordConfirmValue)">Passwort ändern</button>
+            <span class="errorMsg">{{ errorMessage }}</span>
+          </div>
+        </div>
+        <div v-else class="page-header">
           <div class="login-title">
             <h1>Login</h1>
           </div>
@@ -27,35 +42,49 @@
 
 <script>
 
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {
       emailValue: '',
       passwordValue: '',
-      errorMsg: 0
+      passwordConfirmValue: '',
+      errorMessage: '',
+      showResetPassword: false,
+      confirmToken: ''
+    }
+  },
+  created() {
+    console.log(this.$route.query.confirmToken)
+    if (typeof this.$route.query.confirmToken !== "undefined") {
+      this.showResetPassword = true;
+      this.confirmToken = this.$route.query.confirmToken;
     }
   },
   computed: {
-    errorMessage() {
-      if (this.errorMsg === 1) {
-        return "Email oder Passwort falsch";
+    ...mapGetters(['loginErrorMessage', 'loggedIn'])
+  },
+  watch: {
+    loginErrorMessage(newVal) {
+      this.errorMessage = newVal;
+    },
+    loggedIn(newVal) {
+      if (newVal === true) {
+        this.$router.push("/dashboard");
       } else {
-        return "";
+        this.$router.push("/login");
       }
     }
   },
   methods: {
+    ...mapActions(['login', 'resetPassword']),
     signIn(email, password) {
-      this.$store.dispatch("login", {email, password})
-      .then(payload => {
-        if (payload.error === 0) {
-          this.$router.push("/dashboard");
-        } else {
-          this.errorMsg = payload.error;
-        }
-
-      });
+      this.login({email, password});
+    },
+    setNewPassword(password, passwordConfirm) {
+      this.resetPassword({password, passwordConfirm})
     }
   }
 }

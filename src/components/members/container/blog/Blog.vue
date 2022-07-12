@@ -2,17 +2,17 @@
   <div class="col-12 col-md-12 col-lg-12 ghp-container">
     <div class="page-header">
       <h2>Guitar Hearts Blog</h2>
-      <font-awesome-icon class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addBlog" />
+      <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addBlog" />
     </div>
     <div class="blog-list">
       <div class="blog-item" v-for="blogItem in blogArray" v-bind:key="blogItem">
         <div class="admin-buttons">
           <div class="buttons">
             <div class="update-blog">
-              <font-awesome-icon class="update-icon"  @click="setBlogId(blogItem.id); getDetailBlog(blogItem.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
+              <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" @click="setBlogId(blogItem.id); getDetailBlog(blogItem.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
             </div>
             <div class="delete-blog">
-              <font-awesome-icon class="delete-icon" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
+              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
             </div>
           </div>
           <div class="blog-public">
@@ -71,7 +71,8 @@ export default {
       },
       blogArray: '',
       blogDetail: {},
-      blogId: null
+      blogId: null,
+      userLevel: localStorage.getItem('userRole')
     };
   },
   computed: {

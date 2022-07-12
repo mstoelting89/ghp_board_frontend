@@ -2,7 +2,7 @@
   <div class="col-12 col-md-12 col-lg-5 ghp-container">
     <div class="page-header">
       <h2>Guitar Hearts Anfragen</h2>
-      <font-awesome-icon class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addDemand" />
+      <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addDemand" />
     </div>
     <div class="demandEntry" v-for="demandEntry in demandArray" v-bind:key="demandEntry">
       <div class="demandEntryHeader">
@@ -27,10 +27,10 @@
             <button class="btn btn-secondary" @click="getDetailDemand(demandEntry.id)" data-bs-toggle="modal" data-bs-target="#showDemand">mehr lesen</button>
           </div>
           <div class="update-demand">
-            <font-awesome-icon class="update-icon" @click="getDetailDemand(demandEntry.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
+            <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" @click="getDetailDemand(demandEntry.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateDemand" />
           </div>
           <div class="delete-demand">
-            <font-awesome-icon class="delete-icon" @click="setDemandId(demandEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteDemand" />
+            <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" @click="setDemandId(demandEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteDemand" />
           </div>
         </div>
       </div>
@@ -68,7 +68,8 @@ export default {
       demandDetail: {},
       demandId: null,
       likes: '',
-      dislikes: ''
+      dislikes: '',
+      userLevel: localStorage.getItem('userRole')
     };
   },
   computed: {

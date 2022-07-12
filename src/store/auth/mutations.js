@@ -1,11 +1,14 @@
 export const mutations = {
-    LOGGED_IN(state) {
-        state.loggedIn = true
+    LOGGED_IN(state, payload) {
+        state.loggedIn = payload
     },
-    ERROR_MSG(state, payload) {
+    GET_ERROR_MSG(state, payload) {
         state.errorMsg = payload;
     },
-    NEWS(state) {
-        state.news = true
+    GET_USER_EMAIL(state, payload) {
+        state.userEmail = payload;
+    },
+    GET_USER_LEVEL(state, payload) {
+        state.userLevel = payload;
     }
 }

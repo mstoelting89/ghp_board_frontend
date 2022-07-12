@@ -2,17 +2,17 @@
   <div class="col-12 col-md-12 col-lg-12 ghp-container">
     <div class="page-header">
       <h2>Guitar Hearts Instrumente</h2>
-      <font-awesome-icon class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
+      <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
     </div>
     <div class="instrument-list">
       <div class="instrument-item" v-for="instrument in instrumentsArray" v-bind:key="instrument">
         <div class="admin-buttons">
           <div class="buttons">
             <div class="update-instrument">
-              <font-awesome-icon class="update-icon" icon="pen" @click="getDetailInstrument(instrument.id)" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
+              <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN'" icon="pen" @click="getDetailInstrument(instrument.id)" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
             </div>
             <div class="delete-instrument">
-              <font-awesome-icon class="delete-icon" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
+              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
             </div>
           </div>
         </div>
@@ -50,7 +50,8 @@ export default {
     return {
       instrumentsArray: [],
       instrumentId: null,
-      instrumentDetail: []
+      instrumentDetail: [],
+      userLevel: localStorage.getItem('userRole')
     }
   },
   computed: {

@@ -2,6 +2,7 @@
   <div class="navigation">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
+        <UserMenu />
         <a class="navbar-brand" href="#"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -36,8 +37,10 @@
 </template>
 
 <script>
+import UserMenu from "@/components/members/container/user/UserMenu";
 export default {
-  name: "Navigation"
+  name: "Navigation",
+  components: {UserMenu}
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="col-12 col-md-12 col-lg-5 ghp-container">
     <div class="page-header">
       <h2>Guitar Hearts News</h2>
-      <font-awesome-icon class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addNews" />
+      <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addNews" />
     </div>
     <div class="newsEntry" v-for="newsEntry in newsArray" v-bind:key="newsEntry">
       <div class="newsEntryHeader">
@@ -16,10 +16,10 @@
             <button class="btn btn-secondary" @click="getNewsDetail(newsEntry.id)" data-bs-toggle="modal" data-bs-target="#showNews">mehr lesen</button>
           </div>
           <div class="update-news">
-            <font-awesome-icon class="update-icon" @click="getNewsDetail(newsEntry.id)"  icon="pen" data-bs-toggle="modal" data-bs-target="#updateNews" />
+            <font-awesome-icon class="update-icon"  v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" @click="getNewsDetail(newsEntry.id)"  icon="pen" data-bs-toggle="modal" data-bs-target="#updateNews" />
           </div>
           <div class="delete-news">
-            <font-awesome-icon class="delete-icon" @click="setDeleteNewsId(newsEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteNews" />
+            <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" @click="setDeleteNewsId(newsEntry.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteNews" />
           </div>
         </div>
       </div>
@@ -57,7 +57,8 @@ export default {
       newsUpdateId: '',
       newsDeleteId: '',
       newsDetail: [],
-      newsId: null
+      newsId: null,
+      userLevel: localStorage.getItem('userRole')
     }
   },
   computed: {

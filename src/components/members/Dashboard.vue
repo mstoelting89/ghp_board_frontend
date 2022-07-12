@@ -2,9 +2,6 @@
   <div class="slider">
   </div>
   <div class="ghp-dashboard">
-    <div class="logout">
-      <button class="btn btn-secondary" @click="logout">Logout</button>
-    </div>
     <div class="row container-wrapper justify-content-between">
       <News />
       <Demand />
@@ -34,13 +31,9 @@ export default {
       editor: ClassicEditor,
       editorConfig: {
 
-      }
+      },
+      userLevel: localStorage.getItem('userRole')
     };
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch('logout').then(() => this.$router.push('/login'));
-    }
   }
 }
 </script>

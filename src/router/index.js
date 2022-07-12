@@ -32,7 +32,8 @@ const routes = [
     component: Dashboard,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem('token');
-      if (token) {
+
+      if (token && token !== "null") {
         next()
       } else {
         next('/login');
