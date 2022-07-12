@@ -57,7 +57,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.query.confirmToken)
     if (typeof this.$route.query.confirmToken !== "undefined") {
       this.showResetPassword = true;
       this.confirmToken = this.$route.query.confirmToken;
@@ -84,7 +83,12 @@ export default {
       this.login({email, password});
     },
     setNewPassword(password, passwordConfirm) {
-      this.resetPassword({password, passwordConfirm})
+      //TODO: check if passwords are equal
+      if (password === passwordConfirm) {
+        this.resetPassword({password, passwordConfirm})
+      } else {
+        this.errorMessage = "Die Passwörter stimmen nicht überein";
+      }
     }
   }
 }

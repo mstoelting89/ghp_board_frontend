@@ -1,9 +1,9 @@
-import authService from "@/service/authService";
+import userService from "@/service/userService";
 
 export const actions = {
     insertNewUser(state, data) {
         return new Promise(() => {
-            authService.insertNewUser(data).then((response) => {
+            userService.insertNewUser(data).then((response) => {
                 console.log(response);
             })
         })
