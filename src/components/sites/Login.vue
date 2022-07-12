@@ -83,7 +83,6 @@ export default {
       this.login({email, password});
     },
     setNewPassword(password, passwordConfirm) {
-      //TODO: check if passwords are equal
       if (password === passwordConfirm) {
         this.resetPassword({password, passwordConfirm})
       } else {
