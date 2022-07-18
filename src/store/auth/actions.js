@@ -3,6 +3,8 @@ import authService from "@/service/authService";
 export const actions = {
     login(state, data) {
         return new Promise(() => {
+            state.commit("GET_ERROR_MSG", '');
+
             authService.login(data).then((response) => {
                 if (response.data.token !== null) {
                     localStorage.setItem('token', response.data.token);
@@ -27,13 +29,5 @@ export const actions = {
            localStorage.removeItem('userEmail');
            state.commit("LOGGED_IN", false);
         });
-    },
-    resetPassword(state, data) {
-        console.log(data);
-        return new Promise(() => {
-            authService.setNewPassword(data).then((response) => {
-                console.log(response);
-            })
-        })
     }
 }

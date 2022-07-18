@@ -5,7 +5,14 @@
         <img :src="require('@/assets/images/BilderLars/1548x1026.png')">
       </div>
       <div class="col-12 col-md-12 col-lg-8">
-        <div v-if="showResetPassword" class="page-header">
+        <MessageModal
+            :showModalValue=showModalValue
+            :message=modalMessage
+            :error=errorValue
+            :success=successValue
+        />
+
+        <div v-if="showSetPassword" class="page-header">
           <div class="login-title">
             <h1>Neues Passwort setzen</h1>
           </div>
@@ -17,9 +24,21 @@
           </div>
           <div class="row">
             <button class="btn btn-primary" @click="setNewPassword(passwordValue, passwordConfirmValue)">Passwort ändern</button>
-            <span class="errorMsg">{{ errorMessage }}</span>
           </div>
         </div>
+
+        <div v-else-if="showResetPassword" class="page-header">
+          <div class="login-title">
+            <h1>Passwort zurücksetzen</h1>
+          </div>
+          <div class="row">
+            <input type="text" name="username" placeholder="E-Mail-Adresse" v-model="emailValue">
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" @click="replaceOldPassword(emailValue)">Passwort zurücksetzen</button>
+          </div>
+        </div>
+
         <div v-else class="page-header">
           <div class="login-title">
             <h1>Login</h1>
@@ -32,7 +51,9 @@
           </div>
           <div class="row">
             <button class="btn btn-primary" @click="signIn(emailValue, passwordValue)">Einloggen</button>
-            <span class="errorMsg">{{ errorMessage }}</span>
+          </div>
+          <div class="row">
+            <small @click="showResetPasswordWrapper()">Passwort vergessen?</small>
           </div>
         </div>
       </div>
@@ -43,22 +64,28 @@
 <script>
 
 import {mapActions, mapGetters} from "vuex";
+import MessageModal from "@/components/members/container/MessageModal";
 
 export default {
   name: "Login",
+  components: {MessageModal},
   data() {
     return {
       emailValue: '',
       passwordValue: '',
       passwordConfirmValue: '',
-      errorMessage: '',
+      modalMessage: '',
+      showSetPassword: false,
       showResetPassword: false,
-      confirmToken: ''
+      confirmToken: '',
+      showModalValue: false,
+      successValue: false,
+      errorValue: false
     }
   },
   created() {
     if (typeof this.$route.query.confirmToken !== "undefined") {
-      this.showResetPassword = true;
+      this.showSetPassword = true;
       this.confirmToken = this.$route.query.confirmToken;
     }
   },
@@ -67,7 +94,16 @@ export default {
   },
   watch: {
     loginErrorMessage(newVal) {
-      this.errorMessage = newVal;
+      if (newVal !== '') {
+        this.modalMessage = newVal;
+        this.errorValue = true;
+        this.successValue = false;
+        this.showModalValue = true;
+
+        setTimeout(() => {
+          this.showModalValue = false;
+        }, 3000);
+      }
     },
     loggedIn(newVal) {
       if (newVal === true) {
@@ -78,13 +114,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login', 'resetPassword']),
+    ...mapActions(['login', 'resetPassword', 'requestNewPassword']),
     signIn(email, password) {
       this.login({email, password});
     },
+    replaceOldPassword(email) {
+      this.requestNewPassword(email);
+    },
+    showResetPasswordWrapper() {
+      this.showSetPassword = false;
+      this.showResetPassword = true;
+    },
     setNewPassword(password, passwordConfirm) {
       if (password === passwordConfirm) {
-        this.resetPassword({password, passwordConfirm})
+        const confirmToken = this.confirmToken;
+        this.resetPassword({password, confirmToken});
       } else {
         this.errorMessage = "Die Passwörter stimmen nicht überein";
       }
