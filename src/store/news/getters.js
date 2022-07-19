@@ -4,5 +4,6 @@ export const getters = {
     getUpdateNews: state => state.newsUpdateArray,
     getDeleteNews: state => state.newsDeleteArray,
     getInsertNews: state => state.newsInsertArray,
-    getAttachmentNews: state => state.newsAttachmentArray
+    getAttachmentNews: state => state.newsAttachmentArray,
+    getNewsMessage: state => state.newsMessageArray
 }

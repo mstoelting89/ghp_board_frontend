@@ -10,5 +10,8 @@ export const mutations = {
     },
     GET_INSTRUMENT_UPDATE(state, payload) {
         state.instrumentUpdate = payload;
+    },
+    SET_INSTRUMENT_MESSAGE_ARRAY(state, payload) {
+        state.instrumentMessageArray = payload;
     }
 }

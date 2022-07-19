@@ -1,5 +1,11 @@
 <template>
   <div class="col-12 col-md-12 col-lg-12 ghp-container">
+    <MessageModal
+        :showModalValue=showModalValue
+        :message=modalMessage
+        :error=errorValue
+        :success=successValue
+    />
     <div class="page-header">
       <h2>Guitar Hearts Instrumente</h2>
       <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
@@ -43,15 +49,20 @@ import InstrumentsAddModal from "@/components/members/container/instruments/Inst
 import {mapActions, mapGetters} from "vuex";
 import InstrumentDeleteModal from "@/components/members/container/instruments/InstrumentDeleteModal";
 import InstrumentsUpdateModal from "@/components/members/container/instruments/InstrumentsUpdateModal";
+import MessageModal from "@/components/members/container/MessageModal";
 export default {
   name: "Instruments",
-  components: {InstrumentsUpdateModal, InstrumentDeleteModal, InstrumentsAddModal},
+  components: {MessageModal, InstrumentsUpdateModal, InstrumentDeleteModal, InstrumentsAddModal},
   data() {
     return {
       instrumentsArray: [],
       instrumentId: null,
       instrumentDetail: [],
-      userLevel: localStorage.getItem('userRole')
+      userLevel: localStorage.getItem('userRole'),
+      modalMessage: '',
+      showModalValue: false,
+      successValue: false,
+      errorValue: false
     }
   },
   computed: {

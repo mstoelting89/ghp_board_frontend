@@ -5,5 +5,6 @@ export const getters = {
     getDemandUpdate: state => state.demandUpdate,
     getDemandDelete: state => state.demandDelete,
     getDemandVotes: state => state.demandVotes,
-    setDemandVotes: state => state.setDemandVotes
+    setDemandVotes: state => state.setDemandVotes,
+    getDemandMessage: state => state.demandMessageArray
 }

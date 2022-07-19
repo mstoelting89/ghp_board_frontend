@@ -4,5 +4,11 @@ export const state = {
     newsUpdateArray: [],
     newsDeleteArray: [],
     newsInsertArray: [],
-    newsAttachmentArray: []
+    newsAttachmentArray: [],
+    newsMessageArray: {
+        error: '',
+        success: '',
+        message: '',
+        redirect: ''
+    }
 }

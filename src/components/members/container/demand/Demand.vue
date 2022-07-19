@@ -1,5 +1,11 @@
 <template>
   <div class="col-12 col-md-12 col-lg-5 ghp-container">
+    <MessageModal
+        :showModalValue=showModalValue
+        :message=modalMessage
+        :error=errorValue
+        :success=successValue
+    />
     <div class="page-header">
       <h2>Guitar Hearts Anfragen</h2>
       <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addDemand" />
@@ -56,10 +62,11 @@ import DemandShowModal from "@/components/members/container/demand/DemandShowMod
 import {mapActions, mapGetters} from "vuex";
 import DemandUpdateModal from "@/components/members/container/demand/DemandUpdateModal";
 import DemandDeleteModal from "@/components/members/container/demand/DemandDeleteModal";
+import MessageModal from "@/components/members/container/MessageModal";
 
 export default {
   name: "Demand",
-  components: {DemandDeleteModal, DemandUpdateModal, DemandShowModal, DemandAddModal},
+  components: {MessageModal, DemandDeleteModal, DemandUpdateModal, DemandShowModal, DemandAddModal},
   data() {
     return {
       requestEditor: ClassicEditor,
@@ -69,7 +76,11 @@ export default {
       demandId: null,
       likes: '',
       dislikes: '',
-      userLevel: localStorage.getItem('userRole')
+      userLevel: localStorage.getItem('userRole'),
+      modalMessage: '',
+      showModalValue: false,
+      successValue: false,
+      errorValue: false
     };
   },
   computed: {

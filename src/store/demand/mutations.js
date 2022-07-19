@@ -19,5 +19,8 @@ export const mutations = {
     },
     SET_DEMAND_VOTES(state, payload) {
         state.setDemandVotes = payload;
+    },
+    SET_DEMAND_MESSAGE_ARRAY(state, payload) {
+        state.demandMessageArray = payload;
     }
 }

@@ -10,5 +10,8 @@ export const mutations = {
     },
     GET_BLOG_DELETE(state, payload) {
         state.blogDelete = payload;
+    },
+    SET_BLOG_MESSAGE_ARRAY(state, payload) {
+        state.blogMessageArray = payload;
     }
 }

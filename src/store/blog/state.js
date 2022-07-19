@@ -2,5 +2,11 @@ export const state = {
     blogArray: [],
     blogUpdate: [],
     blogInsert: [],
-    blogDelete: []
+    blogDelete: [],
+    blogMessageArray: {
+        error: '',
+        success: '',
+        message: '',
+        redirect: ''
+    }
 }

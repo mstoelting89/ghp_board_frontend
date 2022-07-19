@@ -2,5 +2,11 @@ export const state = {
     instrumentsArray: [],
     instrumentInsert: [],
     instrumentDelete: [],
-    instrumentUpdate: []
+    instrumentUpdate: [],
+    instrumentMessageArray: {
+        error: '',
+        success: '',
+        message: '',
+        redirect: ''
+    }
 }

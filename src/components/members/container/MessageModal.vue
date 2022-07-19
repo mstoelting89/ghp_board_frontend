@@ -31,7 +31,7 @@ export default {
 <style scoped>
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 20000;
   top: 0;
   left: 0;
   width: 100%;
@@ -42,13 +42,12 @@ export default {
 }
 .modal-container {
   width: 500px;
-  margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.4s ease;
-  margin-top: 20%;
+  margin: 1% auto 0px;
 }
 
 .modal-header h3 {

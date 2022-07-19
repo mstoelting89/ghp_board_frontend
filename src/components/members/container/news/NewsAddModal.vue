@@ -8,7 +8,6 @@
         </div>
         <div class="modal-body">
           <form>
-
             <div class="mb-3 d-flex">
               <div class="col-1 d-flex justify-content-start">
                 <label for="newsTitle" class="col-form-label">Titel</label>
@@ -82,13 +81,31 @@ export default {
       newsAuthor: '',
       newsText: '',
       formData: null,
-      newsInsertArray: []
+      newsInsertArray: [],
+      showModalValue: false,
+      modalMessage: '',
+      errorValue: '',
+      successValue: ''
     }
   },
   computed: {
-    ...mapGetters(['getInsertNews'])
+    ...mapGetters(['getInsertNews', 'getNewsMessage'])
   },
   watch: {
+    getNewsMessage(newVal) {
+      if (newVal) {
+        this.$parent.modalMessage = newVal.message;
+        this.$parent.errorValue = newVal.error;
+        this.$parent.successValue = newVal.success;
+        this.$parent.showModalValue = true;
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+          if (newVal.redirect) {
+            this.$router.push(newVal.redirect);
+          }
+        }, 3000);
+      }
+    },
     getInsertNews() {
       this.$parent.loadNews();
     }

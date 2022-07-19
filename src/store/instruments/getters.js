@@ -2,5 +2,6 @@ export const getters = {
     getInstruments: state => state.instrumentsArray,
     getInstrumentInsert: state => state.instrumentInsert,
     getInstrumentDelete: state => state.instrumentDelete,
-    getInstrumentUpdate: state => state.instrumentUpdate
+    getInstrumentUpdate: state => state.instrumentUpdate,
+    getInstrumentMessage: state => state.instrumentMessageArray
 }

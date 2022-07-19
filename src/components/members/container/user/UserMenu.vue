@@ -13,27 +13,54 @@
       <input type="text" class="form-control" id="userRole" v-model="newUserRole">
       <button class="btn btn-secondary" @click="newUser">Enter new User</button>
     </div>
+
+    <MessageModal
+        :showModalValue=showModalValue
+        :message=modalMessage
+        :error=errorValue
+        :success=successValue
+    />
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import MessageModal from "@/components/members/container/MessageModal";
 
 export default {
   name: "UserMenu",
+  components: {MessageModal},
   data() {
     return {
       userEmailAdresse: localStorage.getItem('userEmail'),
       userLoggedIn: !!localStorage.getItem('userEmail'),
       userLevel: localStorage.getItem('userRole'),
       newUserEmail: '',
-      newUserRole: ''
+      newUserRole: '',
+      modalMessage: '',
+      errorValue: '',
+      successValue: '',
+      showModalValue: false
     }
   },
   computed: {
-    ...mapGetters(['loggedIn', 'userEmail'])
+    ...mapGetters(['loggedIn', 'userEmail', 'getUserMessageArray'])
   },
   watch: {
+    getUserMessageArray(newVal) {
+      if (newVal) {
+        this.modalMessage = newVal.message;
+        this.errorValue = newVal.error;
+        this.successValue = newVal.success;
+        this.showModalValue = true;
+        setTimeout(() => {
+          this.showModalValue = false;
+          if (newVal.redirect) {
+            this.$router.push(newVal.redirect);
+          }
+        }, 3000);
+      }
+    },
     loggedIn(newVal) {
       if (newVal === true) {
         this.userLoggedIn = true;

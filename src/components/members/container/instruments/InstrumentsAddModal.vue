@@ -54,9 +54,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getInstrumentInsert'])
+    ...mapGetters(['getInstrumentInsert', 'getInstrumentMessage'])
   },
   watch: {
+    getInstrumentMessage(newVal) {
+      if (newVal) {
+        this.$parent.modalMessage = newVal.message;
+        this.$parent.errorValue = newVal.error;
+        this.$parent.successValue = newVal.success;
+        this.$parent.showModalValue = true;
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+          if (newVal.redirect) {
+            this.$router.push(newVal.redirect);
+          }
+        }, 3000);
+      }
+    },
     getInstrumentInsert() {
       this.$parent.loadInstruments();
     }

@@ -87,9 +87,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getBlogInsert'])
+    ...mapGetters(['getBlogInsert', 'getBlogMessage'])
   },
   watch: {
+    getBlogMessage(newVal) {
+      if (newVal) {
+        this.$parent.modalMessage = newVal.message;
+        this.$parent.errorValue = newVal.error;
+        this.$parent.successValue = newVal.success;
+        this.$parent.showModalValue = true;
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+          if (newVal.redirect) {
+            this.$router.push(newVal.redirect);
+          }
+        }, 3000);
+      }
+    },
     getBlogInsert() {
       this.$parent.loadBlogPosts();
     }

@@ -90,9 +90,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['loginErrorMessage', 'loggedIn'])
+    ...mapGetters(['loginErrorMessage', 'loggedIn', 'getUserMessageArray'])
   },
   watch: {
+    getUserMessageArray(newVal) {
+      if (newVal) {
+        this.modalMessage = newVal.message;
+        this.errorValue = newVal.error;
+        this.successValue = newVal.success;
+        this.showModalValue = true;
+        setTimeout(() => {
+          this.showModalValue = false;
+          if (newVal.redirect) {
+            this.$router.push(newVal.redirect);
+            this.showSetPassword = false;
+            this.showResetPassword = false;
+          }
+        }, 3000);
+      }
+    },
     loginErrorMessage(newVal) {
       if (newVal !== '') {
         this.modalMessage = newVal;
@@ -130,7 +146,13 @@ export default {
         const confirmToken = this.confirmToken;
         this.resetPassword({password, confirmToken});
       } else {
-        this.errorMessage = "Die Passwörter stimmen nicht überein";
+        this.modalMessage = "Die Passwörter stimmen nicht überein";
+        this.errorValue = true;
+        this.successValue = false;
+        this.showModalValue = true;
+        setTimeout(() => {
+          this.showModalValue = false;
+        }, 3000);
       }
     }
   }

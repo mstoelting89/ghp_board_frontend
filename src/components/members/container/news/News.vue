@@ -1,5 +1,11 @@
 <template>
   <div class="col-12 col-md-12 col-lg-5 ghp-container">
+    <MessageModal
+        :showModalValue=showModalValue
+        :message=modalMessage
+        :error=errorValue
+        :success=successValue
+    />
     <div class="page-header">
       <h2>Guitar Hearts News</h2>
       <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addNews" />
@@ -46,10 +52,11 @@ import NewsShowModal from "@/components/members/container/news/NewsShowModal";
 import NewsUpdateModal from "@/components/members/container/news/NewsUpdateModal";
 import NewsDeleteModal from "@/components/members/container/news/NewsDeleteModal";
 import {mapActions, mapGetters} from "vuex";
+import MessageModal from "@/components/members/container/MessageModal";
 
 export default {
   name: "News",
-  components: {NewsDeleteModal, NewsUpdateModal, NewsShowModal, NewsAddModal},
+  components: {MessageModal, NewsDeleteModal, NewsUpdateModal, NewsShowModal, NewsAddModal},
   data() {
     return {
       newsArray: [],
@@ -58,7 +65,11 @@ export default {
       newsDeleteId: '',
       newsDetail: [],
       newsId: null,
-      userLevel: localStorage.getItem('userRole')
+      userLevel: localStorage.getItem('userRole'),
+      modalMessage: '',
+      showModalValue: false,
+      successValue: false,
+      errorValue: false
     }
   },
   computed: {

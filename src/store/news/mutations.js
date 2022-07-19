@@ -16,5 +16,8 @@ export const mutations = {
     },
     GET_NEWS_ATTACHMENT(state, payload) {
         state.newsAttachmentArray = payload;
+    },
+    SET_NEWS_MESSAGE_ARRAY(state, payload) {
+        state.newsMessageArray = payload;
     }
 }

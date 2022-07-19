@@ -5,5 +5,11 @@ export const state = {
     demandDelete: [],
     demandUpdate: [],
     demandVotes: [],
-    setDemandVotes: []
+    setDemandVotes: [],
+    demandMessageArray: {
+        error: '',
+        success: '',
+        message: '',
+        redirect: ''
+    }
 }

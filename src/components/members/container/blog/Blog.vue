@@ -1,5 +1,11 @@
 <template>
   <div class="col-12 col-md-12 col-lg-12 ghp-container">
+    <MessageModal
+        :showModalValue=showModalValue
+        :message=modalMessage
+        :error=errorValue
+        :success=successValue
+    />
     <div class="page-header">
       <h2>Guitar Hearts Blog</h2>
       <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addBlog" />
@@ -58,11 +64,12 @@ import {mapActions, mapGetters} from "vuex";
 import BlogShowModal from "@/components/members/container/blog/BlogShowModal";
 import BlogDeleteModal from "@/components/members/container/blog/BlogDeleteModal";
 import BlogUpdateModal from "@/components/members/container/blog/BlogUpdateModal";
+import MessageModal from "@/components/members/container/MessageModal";
 
 
 export default {
   name: "Blog",
-  components: {BlogUpdateModal, BlogDeleteModal, BlogShowModal, BlogAddModal},
+  components: {MessageModal, BlogUpdateModal, BlogDeleteModal, BlogShowModal, BlogAddModal},
   data() {
     return {
       blogEditor: ClassicEditor,
@@ -72,7 +79,11 @@ export default {
       blogArray: '',
       blogDetail: {},
       blogId: null,
-      userLevel: localStorage.getItem('userRole')
+      userLevel: localStorage.getItem('userRole'),
+      modalMessage: '',
+      showModalValue: false,
+      successValue: false,
+      errorValue: false
     };
   },
   computed: {
