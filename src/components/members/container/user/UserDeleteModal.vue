@@ -1,16 +1,16 @@
 <template>
-  <div class="modal fade" id="deleteBlog" tabindex="-1" aria-labelledby="deleteBlog" aria-hidden="true">
+  <div class="modal fade" id="deleteUser" tabindex="-1" aria-labelledby="deleteUser" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Möchtest du den Eintrag wirklich löschen?
+          Möchtest du den User wirklich löschen?
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-bs-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary" @click="deleteBlog(blogId)" data-bs-dismiss="modal">Löschen</button>
+          <button type="button" class="btn btn-primary" @click="deleteUser(userDeleteId)" data-bs-dismiss="modal">Löschen</button>
         </div>
       </div>
     </div>
@@ -18,31 +18,16 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions} from "vuex";
 
 export default {
-  name: "BlogDeleteModal",
-  props:['blogDeleteId'],
-  data() {
-    return {
-      blogId: this.blogDeleteId
-    }
-  },
-  computed: {
-    ...mapGetters(['getBlogDelete'])
-  },
-  watch: {
-    blogDeleteId: function (id) {
-      this.blogId = id;
-    },
-    getBlogDelete() {
-      this.$parent.loadBlogPosts();
-    }
-  },
+  name: "UserDeleteModal",
+  props: ['userDeleteId'],
   methods: {
-    ...mapActions(['deleteBlogEntry']),
-    deleteBlog(id) {
-      this.deleteBlogEntry(id);
+    ...mapActions(['deleteUserOnService']),
+    deleteUser(id) {
+      this.deleteUserOnService(id);
+      //this.$parent.reloadUser();
     }
   }
 }

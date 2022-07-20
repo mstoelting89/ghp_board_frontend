@@ -4,5 +4,7 @@ export const state = {
         success: '',
         message: '',
         redirect: ''
-    }
+    },
+    userArray: [],
+    userRoles: []
 }

@@ -1,18 +1,12 @@
 <template>
-  <div class="dropdown" v-if="userLoggedIn">
+  <div class="dropdown" v-if="userLoggedIn && currentRouteName === 'Dashboard'">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
       Hallo {{ userEmailAdresse }}
     </button>
     <ul class="dropdown-menu" aria-labelledby="userMenu">
-      <li v-if="userLevel === 'ADMIN'"><a class="dropdown-item" href="#">Nutzerverwaltung</a></li>
+      <li v-if="userLevel === 'ADMIN'" data-bs-toggle="modal" data-bs-target="#userAdministration"><span class="dropdown-item">Nutzerverwaltung</span></li>
       <li><span class="dropdown-item" @click="logoutUser">Logout</span></li>
     </ul>
-
-    <div class="newUser">
-      <input type="text" class="form-control" id="userEmail" v-model="newUserEmail">
-      <input type="text" class="form-control" id="userRole" v-model="newUserRole">
-      <button class="btn btn-secondary" @click="newUser">Enter new User</button>
-    </div>
 
     <MessageModal
         :showModalValue=showModalValue
@@ -20,34 +14,53 @@
         :error=errorValue
         :success=successValue
     />
+    <UserMenuModal
+        :allUsers=allUsers
+        :userRoles=userRoles
+    />
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import MessageModal from "@/components/members/container/MessageModal";
+import UserMenuModal from "@/components/members/container/user/UserAdministrationModal";
 
 export default {
   name: "UserMenu",
-  components: {MessageModal},
+  components: {UserMenuModal, MessageModal},
   data() {
     return {
       userEmailAdresse: localStorage.getItem('userEmail'),
       userLoggedIn: !!localStorage.getItem('userEmail'),
       userLevel: localStorage.getItem('userRole'),
-      newUserEmail: '',
-      newUserRole: '',
       modalMessage: '',
       errorValue: '',
       successValue: '',
-      showModalValue: false
+      showModalValue: false,
+      allUsers: [],
+      userRoles: []
     }
   },
+  created() {
+    this.getAllUser();
+    this.getUserRolesFromService();
+  },
   computed: {
-    ...mapGetters(['loggedIn', 'userEmail', 'getUserMessageArray'])
+    ...mapGetters(['loggedIn', 'userEmail', 'getUserMessageArray', 'getUserArray', 'getUserRoles']),
+    currentRouteName() {
+      return this.$route.name;
+    }
   },
   watch: {
+    getUserArray(newVal) {
+      this.allUsers = newVal;
+    },
+    getUserRoles(newVal) {
+      this.userRoles = newVal;
+    },
     getUserMessageArray(newVal) {
+      this.getAllUser();
       if (newVal) {
         this.modalMessage = newVal.message;
         this.errorValue = newVal.error;
@@ -76,15 +89,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['logout', 'insertNewUser']),
+    ...mapActions(['logout', 'insertNewUser', 'getAllUser', 'getUserRolesFromService']),
     logoutUser() {
       this.logout();
     },
-    newUser() {
-      const email = this.newUserEmail;
-      const userRole = this.newUserRole;
-
-      this.insertNewUser({email, userRole});
+    reloadUser() {
+      this.getAllUser();
     }
   }
 }
