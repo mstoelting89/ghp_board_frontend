@@ -4,7 +4,7 @@
       Hallo {{ userEmailAdresse }}
     </button>
     <ul class="dropdown-menu" aria-labelledby="userMenu">
-      <li v-if="userLevel === 'ADMIN'" data-bs-toggle="modal" data-bs-target="#userAdministration"><span class="dropdown-item">Nutzerverwaltung</span></li>
+      <li v-if="userLevel === 'ADMIN'" data-bs-toggle="modal" @click="reloadUser" data-bs-target="#userAdministration"><span class="dropdown-item">Nutzerverwaltung</span></li>
       <li><span class="dropdown-item" @click="logoutUser">Logout</span></li>
     </ul>
 
@@ -41,10 +41,6 @@ export default {
       allUsers: [],
       userRoles: []
     }
-  },
-  created() {
-    this.getAllUser();
-    this.getUserRolesFromService();
   },
   computed: {
     ...mapGetters(['loggedIn', 'userEmail', 'getUserMessageArray', 'getUserArray', 'getUserRoles']),
@@ -92,9 +88,11 @@ export default {
     ...mapActions(['logout', 'insertNewUser', 'getAllUser', 'getUserRolesFromService']),
     logoutUser() {
       this.logout();
+      this.$router.push("/login");
     },
     reloadUser() {
       this.getAllUser();
+      this.getUserRolesFromService();
     }
   }
 }
