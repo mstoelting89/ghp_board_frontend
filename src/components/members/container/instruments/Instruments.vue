@@ -237,4 +237,10 @@ export default {
 .hidden {
   display: none;
 }
+/*mobile*/
+@media only screen and (max-width: 992px) {
+  .ghp-container {
+    height: 60vh;
+  }
+}
 </style>
