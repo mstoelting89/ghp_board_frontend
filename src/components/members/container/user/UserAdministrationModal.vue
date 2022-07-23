@@ -15,11 +15,11 @@
         <div class="modal-body">
           <div class="newUser">
             <div class="userform col-md-5">
-              <input type="text" class="form-control" id="userEmail" v-model="newUserEmail">
+              <input type="text" class="form-control" id="userEmail" placeholder="E-Mail-Adresse" v-model="newUserEmail">
             </div>
             <div class="userform col-md-5 d-flex justify-content-start">
               <select ref="newUserRole" v-model="newUserRole" class="form-control">
-                <option :data-role-value="role" v-for="role in rolesValues" v-bind:key="role"> {{ this.roles[role] }}</option>
+                <option selected :data-role-value="role" v-for="role in rolesValues" v-bind:key="role"> {{ this.roles[role] }}</option>
               </select>
             </div>
             <div class="userform col-md-5 d-flex justify-content-start">
