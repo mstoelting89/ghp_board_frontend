@@ -4,9 +4,6 @@
   </div>
 
   <div class="content">
-    <Transition>
-      <h2 class="fadein">Hello Test</h2>
-    </Transition>
     <div class="intro fadein">
       <IntroText introTextFirstWord="Willkommen" introTextTitle="beim Guitar Hearts Project">
         <p>Im März 2015 hat Lars die Idee, zwei seiner Gitarren für einen wohltätigen Zweck zu verschenken. Seine Aktion postet er bei Facebook. Hunderte Menschen, von armen Musikern bis zu Asylbewerbern, aber auch viele Schulen und Musikinitiativen schreiben ihn an.</p>
