@@ -11,7 +11,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/instrument", {
+        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/instrument/list", {
             headers: header
         });
     },
@@ -25,7 +25,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/instrument", data, {
+        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/instrument/list", data, {
             headers: header
         });
     },
