@@ -11,7 +11,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog", {
+        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/blog", {
             headers: header
         });
     },
@@ -25,7 +25,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.post(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog", data, {
+        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/blog", data, {
             headers: header
         });
     },
@@ -39,7 +39,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.put(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog/", data, {
+        return axios.put("https://api.ghp.stoelting-michael.de/api/v1/blog/", data, {
             headers: header
         });
     },
@@ -53,7 +53,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.delete(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog/" + id, {
+        return axios.delete("https://api.ghp.stoelting-michael.de/api/v1/blog/" + id, {
             headers: header
         });
     }

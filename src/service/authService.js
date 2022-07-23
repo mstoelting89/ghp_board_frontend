@@ -6,6 +6,6 @@ export default {
             "Content-Type": "application/json",
             "Accept": "*/*",
         }
-        return axios.post(process.env.VUE_APP_BACKEND_URL +"/api/v1/login", data, header);
+        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/login", data, header);
     }
 }
