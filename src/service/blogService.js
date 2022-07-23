@@ -2,16 +2,16 @@ import axios from 'axios';
 
 export default {
     getBlogPosts() {
-        const token = localStorage.getItem("token");
+        //const token = localStorage.getItem("token");
 
         const header = {
             'Content-Type' : 'application/x-www-form-urlencoded',
-            'Authorization': `Bearer ${token}`,
+            /*'Authorization': `Bearer ${token}`,*/
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog", {
+        return axios.get(process.env.VUE_APP_BACKEND_URL + "/api/v1/blog/list", {
             headers: header
         });
     },
