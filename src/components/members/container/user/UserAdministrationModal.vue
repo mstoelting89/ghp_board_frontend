@@ -27,6 +27,27 @@
             </div>
           </div>
 
+          <div class="user-list">
+            <div class="user-item row" v-for="user in userData" v-bind:key="user">
+              <div class="col-2 col-lg-1">
+                {{ user.id }}
+              </div>
+              <div class="col-10 col-lg-5">
+                {{ user.email }}
+              </div>
+              <div class="col-6 col-lg-3">
+                <select @change="changeUserLevel($event)" :data-user-email="user.email">
+                  <option :data-role-value="role" :selected="user.userRole === this.roles[role]" v-for="role in rolesValues" v-bind:key="role"> {{ this.roles[role] }}</option>
+                </select>
+              </div>
+              <div v-if="user.isEnabled" class="col-5 col-lg-2">Aktiv</div>
+              <div v-else class="col-5 col-lg-2">Nicht Aktiv</div>
+              <div class="col-1 col-lg-1">
+                <font-awesome-icon :data-user-id="user.id" @click="setUserDeleteMail($event)" data-bs-toggle="modal" data-bs-target="#deleteUser" class="delete-icon" icon="trash" />
+              </div>
+            </div>
+          </div>
+          <!--
           <table class="table table-striped">
             <thead>
               <tr>
@@ -52,6 +73,7 @@
               </tr>
             </tbody>
           </table>
+          -->
 
         </div>
         <div class="modal-footer justify-content-between">
@@ -174,7 +196,9 @@ export default {
 .userform {
   margin-bottom: 10px;
 }
-.userform button {
-
+.user-item {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgrey;
 }
 </style>

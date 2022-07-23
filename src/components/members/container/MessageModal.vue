@@ -81,4 +81,10 @@ export default {
 .modal-leave-to .modal-container {
   margin-top:0%;
 }
+/*mobile*/
+@media only screen and (max-width: 992px) {
+  .modal-container {
+    width: 90vw;
+  }
+}
 </style>
