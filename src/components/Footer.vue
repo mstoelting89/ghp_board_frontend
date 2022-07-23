@@ -1,6 +1,6 @@
 <template>
-  <div class="footer">
-    <div class="col-lg-4 col-xs-3 sub-text-footer pt-3 pb-3">
+  <div class="footer row">
+    <div class="col-lg-4 col-sm-12 col-xs-12 sub-text-footer pt-3 pb-3">
       The Guitar Hearts Project e.V.<br>
       guitarheartsproject@outlook.de<br>
       067719344061<br>
@@ -8,7 +8,7 @@
       <br>
       ©2020 The Guitar Hearts Project e.V.
     </div>
-    <div class="col-lg-6 col-xs-3 partners pt-3 pb-3">
+    <div class="col-lg-6 col-sm-12 col-xs-12 partners pt-3 pb-3">
       <div id="partnerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-2 col-xs-3 secondary-menu pt-3 pb-3">
+    <div class="col-lg-2 col-sm-12 col-xs-12 secondary-menu pt-3 pb-3">
       <router-link to="/satzung">Satzung</router-link><br>
       <router-link to="/impressum">Impressum</router-link><br>
       <router-link to="/login">Mitglieder-Login</router-link><br>
@@ -79,5 +79,21 @@ export default {
 .carousel-item-next, .carousel-item-prev, .carousel-item.active {
   display: flex;
   justify-content: center;
+}
+/*mobile*/
+@media only screen and (max-width: 992px) {
+  .footer {
+    margin-right: 0;
+  }
+  .secondary-menu {
+    text-align: left;
+    padding-left: 20px;
+  }
+  .carousel-item a img {
+    max-width: 90%;
+  }
+  .partners {
+    padding-left: 20px;
+  }
 }
 </style>

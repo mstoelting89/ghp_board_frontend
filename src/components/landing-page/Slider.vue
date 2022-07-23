@@ -41,6 +41,7 @@ export default {
   text-align: left;
   top: 30vh;
 }
+
 .logo-align {
   margin: 0 auto;
   display: flex;
@@ -48,5 +49,17 @@ export default {
 }
 .logo-align img {
   height: 20vh;
+}
+
+/*mobile*/
+@media only screen and (max-width: 428px) {
+  .header-title {
+    top: 20vh;
+    max-width: none;
+    right: 6vw;
+  }
+  .logo-align img {
+    margin-bottom: 20px;
+  }
 }
 </style>

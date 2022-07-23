@@ -52,7 +52,7 @@
           <div class="row">
             <button class="btn btn-primary" @click="signIn(emailValue, passwordValue)">Einloggen</button>
           </div>
-          <div class="row">
+          <div class="row password-forgot">
             <small @click="showResetPasswordWrapper()">Passwort vergessen?</small>
           </div>
         </div>
@@ -160,6 +160,9 @@ export default {
 </script>
 
 <style scoped>
+.password-forgot {
+  cursor: pointer;
+}
 .slider {
   height: 100vh;
   background-image: url("~@/assets/images/background-img-min-min(1).jpeg");
@@ -216,5 +219,16 @@ button:hover {
   font-weight: bold;
   color: #ff0000;
   margin-top: 10px;
+}
+
+/*mobile*/
+@media only screen and (max-width: 428px) {
+  .row {
+    width: initial;
+  }
+  .header-title {
+    max-width: none;
+    right: 6vw;
+  }
 }
 </style>

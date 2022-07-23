@@ -10,7 +10,7 @@
         <p>Es melden sich aber nicht nur Leute, die diese Gitarren haben wollen – sondern auch viele, die selbst alte Instrumente, Verstärker und Equipment für Bands verschenken oder sonst irgendwie diese tolle Idee unterstützen möchten. Und so wird aus einer Idee ein Projekt und aus dem Projekt letztendlich ein eingetragener, gemeinnütziger Verein (e.V.).</p>
       </IntroText>
     </div>
-    <div class="text-cards fadein">
+    <div class="text-cards row fadein">
       <TextCard
           textCardFirstWord="Wie"
           textCardTitle="bewerbe ich mich auf ein Instrument vom Guitar Hearts Project?"
@@ -119,6 +119,7 @@ export default {
   .text-cards {
     display: flex;
     margin-bottom: 50px;
+    justify-content: space-between;
   }
   .content {
     margin-left: 10vw;
@@ -134,5 +135,9 @@ export default {
   .v-enter-from,
   .v-leave-to {
     opacity: 0;
+  }
+
+  .instruments-wrapper {
+    margin-bottom: 3rem;
   }
 </style>

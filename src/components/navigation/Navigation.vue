@@ -3,13 +3,6 @@
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <UserMenu />
-        <a class="navbar-brand" href="#"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        </div>
         <div class="sidebar-buttons">
           <ul class="navbar-nav">
             <li @click="handleToggle('apply')" class="nav-item">
@@ -118,6 +111,7 @@ export default {
   }
   .nav-item {
     padding: 10px;
+    cursor: pointer;
   }
 
   .sidebar-buttons li {
@@ -198,5 +192,16 @@ export default {
   .dontate-description {
     text-align: left;
     margin-top: 40px;
+  }
+
+  /*mobile*/
+  @media only screen and (max-width: 992px) {
+    .navbar-nav {
+      flex-direction: row;
+    }
+
+    .sidebar-content {
+      width: 100vw;
+    }
   }
 </style>

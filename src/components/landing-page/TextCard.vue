@@ -1,5 +1,5 @@
 <template>
-  <div class="text-card">
+  <div class="text-card col-lg-5 col-sm-12">
     <div class="text-card-image">
       <img v-bind:src=textCardImgSource />
     </div>
@@ -29,11 +29,6 @@ export default {
 </script>
 
 <style scoped>
-  .text-card {
-    min-width: 37vw;
-    max-width: 37vw;
-    margin-right: 80px;
-  }
   .text-card-image img {
     width:400px;
     height: auto;
@@ -45,10 +40,23 @@ export default {
   .text-card-title {
     font-size: 2rem;
     min-height: 10rem;
-    max-height: 12rem;
     margin-top: 20px;
   }
   .text-card-text {
     text-align: left;
+  }
+
+  /*mobile*/
+  @media only screen and (max-width: 992px) {
+    .text-card-image img {
+      width: 300px;
+    }
+    .text-card-title {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .text-card {
+      margin-bottom: 50px;
+    }
   }
 </style>

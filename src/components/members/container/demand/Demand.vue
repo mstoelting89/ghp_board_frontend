@@ -11,12 +11,12 @@
       <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addDemand" />
     </div>
     <div class="demandEntry" v-for="demandEntry in demandArray" v-bind:key="demandEntry">
-      <div class="demandEntryHeader">
+      <div class="demandEntryHeader row">
         <div class="demandEntryDate">{{ demandEntry.demandDate }}</div>
       </div>
-      <div class="demandEntryMain">
-        <div class="demandEntryTitle">{{ demandEntry.demandTitle }}</div>
-        <div class="buttons">
+      <div class="demandEntryMain row">
+        <div class="demandEntryTitle col-lg-5">{{ demandEntry.demandTitle }}</div>
+        <div class="buttons col-lg-7">
           <div class="accept" :data-demand-id="demandEntry.id" @click="setDemandLike(1, demandEntry.id)" :class="demandEntry.personalVote === 1 ? 'active' : ''">
             <font-awesome-icon class="accept-icon" icon="thumbs-up" />
             <div class="like-counter" >
@@ -213,8 +213,11 @@ export default {
   font-size: 12px;
   opacity: .8;
   justify-content: space-between;
+  text-align: right;
 }
-
+.demandEntryTitle {
+  text-align: start;
+}
 .demandEntryMain {
   display: flex;
   font-size: 18px;
@@ -223,6 +226,7 @@ export default {
 }
 .demandEntryMain .buttons {
   display: flex;
+  justify-content: right;
 }
 .demandEntryMain .btn {
   padding: 5px;
@@ -261,5 +265,12 @@ export default {
 .accept.active, .delicine.active {
   background-color: #a21d21;
   color: #fff;
+}
+
+/*mobile*/
+@media only screen and (max-width: 992px) {
+  .demandEntryMain .buttons {
+    justify-content: left;
+  }
 }
 </style>

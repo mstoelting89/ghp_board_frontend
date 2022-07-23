@@ -122,4 +122,11 @@ button:hover {
   border: none;
   padding: 15px 40px;
 }
+
+/*mobile*/
+@media only screen and (max-width: 428px) {
+  .ghp-container {
+    margin-bottom: 50px;
+  }
+}
 </style>

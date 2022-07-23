@@ -15,9 +15,9 @@
         <div class="newsEntryAuthor">{{ newsEntry.newsAuthor }}</div>
         <div class="newsEntryDate">{{ newsEntry.newsDate }}</div>
       </div>
-      <div class="newsEntryMain">
-        <div class="newsEntryTitle">{{ newsEntry.newsTitle }}</div>
-        <div class="buttons">
+      <div class="newsEntryMain row">
+        <div class="newsEntryTitle col-sm-12 col-lg-6">{{ newsEntry.newsTitle }}</div>
+        <div class="buttons col-sm-12 col-lg-4">
           <div class="show-news">
             <button class="btn btn-secondary" @click="getNewsDetail(newsEntry.id)" data-bs-toggle="modal" data-bs-target="#showNews">mehr lesen</button>
           </div>
@@ -187,5 +187,16 @@ export default {
   margin-left: 5px;
   margin-top: 1px;
   cursor: pointer;
+}
+
+.newsEntryTitle {
+  text-align: left;
+}
+
+/*mobile*/
+@media only screen and (max-width: 992px) {
+  .ghp-container {
+    margin-bottom: 20px;
+  }
 }
 </style>

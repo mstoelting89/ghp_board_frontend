@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-text">
+  <div class="intro-text row">
     <div class="col-sm-12 col-md-12 col-lg-4 flex align-self-center intro-title-main">
       <div class="first-word">
         {{ introTextFirstWord }}
