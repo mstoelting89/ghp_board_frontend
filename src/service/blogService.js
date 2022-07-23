@@ -11,7 +11,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/blog", {
+        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/blog/list", {
             headers: header
         });
     },
