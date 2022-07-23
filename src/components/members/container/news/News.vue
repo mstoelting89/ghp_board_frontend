@@ -7,7 +7,7 @@
         :success=successValue
     />
     <div class="page-header">
-      <h2>Guitar Hearts News</h2>
+      <h2><span class="first-word">Guitar</span> Hearts News</h2>
       <font-awesome-icon v-if="userLevel === 'ADMIN'" class="add-icon" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addNews" />
     </div>
     <div class="newsEntry" v-for="newsEntry in newsArray" v-bind:key="newsEntry">
@@ -133,6 +133,10 @@ export default {
 </script>
 
 <style scoped>
+.first-word {
+  font-weight: 600;
+  color: #a21d21;
+}
 .ghp-container {
   background-color: #fff;
   height: 50vh;

@@ -32,7 +32,8 @@ export default {
   }
   .intro-text {
     display: flex;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
   .intro-text-main {
     text-align: left;

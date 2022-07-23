@@ -7,21 +7,21 @@
         :success=successValue
     />
     <div class="page-header">
-      <h2>Guitar Hearts Blog</h2>
-      <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addBlog" />
+      <h2><span class="first-word">Guitar</span> Hearts Blog</h2>
+      <font-awesome-icon class="add-icon" v-if="(userLevel === 'ADMIN' || userLevel === 'REDAKTEUR') && currentRouteName === 'Dashboard'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addBlog" />
     </div>
     <div class="blog-list">
       <div class="blog-item" v-for="blogItem in blogArray" v-bind:key="blogItem">
         <div class="admin-buttons">
           <div class="buttons">
             <div class="update-blog">
-              <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN' || userLevel === 'REDAKTEUR'" @click="setBlogId(blogItem.id); getDetailBlog(blogItem.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
+              <font-awesome-icon class="update-icon" v-if="(userLevel === 'ADMIN' || userLevel === 'REDAKTEUR')  && currentRouteName === 'Dashboard'" @click="setBlogId(blogItem.id); getDetailBlog(blogItem.id)" icon="pen" data-bs-toggle="modal" data-bs-target="#updateBlog" />
             </div>
             <div class="delete-blog">
-              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
+              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN' && currentRouteName === 'Dashboard'" @click="setBlogId(blogItem.id)" icon="trash" data-bs-toggle="modal" data-bs-target="#deleteBlog" />
             </div>
           </div>
-          <div class="blog-public">
+          <div class="blog-public" v-if="currentRouteName === 'Dashboard'">
             <font-awesome-icon v-if="blogItem.blogIsPublic === true" class="public" icon="circle-check" />
             <font-awesome-icon v-else class="not-public" icon="circle-xmark" />
           </div>
@@ -87,7 +87,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getBlogPosts', 'getBlogUpdate'])
+    ...mapGetters(['getBlogPosts', 'getBlogUpdate']),
+    currentRouteName() {
+      return this.$route.name;
+    }
   },
   watch: {
     getBlogPosts(newValue) {
@@ -122,7 +125,14 @@ export default {
           blogImages: item.blogImages,
           blogIsPublic: item.isPublic
         }
-        blogData.push(blogElement);
+
+        if(this.currentRouteName === 'Home') {
+          if (item.isPublic) {
+            blogData.push(blogElement);
+          }
+        } else {
+          blogData.push(blogElement);
+        }
       });
       return blogData;
     },
@@ -141,6 +151,10 @@ export default {
 </script>
 
 <style scoped>
+.first-word {
+  font-weight: 600;
+  color: #a21d21;
+}
 .ghp-container {
   background-color: #fff;
   height: 80vh;

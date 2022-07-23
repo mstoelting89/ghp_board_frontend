@@ -7,18 +7,18 @@
         :success=successValue
     />
     <div class="page-header">
-      <h2>Guitar Hearts Instrumente</h2>
-      <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
+      <h2><span class="first-word">Guitar</span> Hearts Instrumente</h2>
+      <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN' && currentRouteName === 'Dashboard'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
     </div>
     <div class="instrument-list">
       <div class="instrument-item" v-for="instrument in instrumentsArray" v-bind:key="instrument">
         <div class="admin-buttons">
           <div class="buttons">
             <div class="update-instrument">
-              <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN'" icon="pen" @click="getDetailInstrument(instrument.id)" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
+              <font-awesome-icon class="update-icon" v-if="userLevel === 'ADMIN' && currentRouteName === 'Dashboard'" icon="pen" @click="getDetailInstrument(instrument.id)" data-bs-toggle="modal" data-bs-target="#updateInstrument" />
             </div>
             <div class="delete-instrument">
-              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN'" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
+              <font-awesome-icon class="delete-icon" v-if="userLevel === 'ADMIN' && currentRouteName === 'Dashboard'" icon="trash" @click="setInstrumentId(instrument.id)" data-bs-toggle="modal" data-bs-target="#deleteInstrument" />
             </div>
           </div>
         </div>
@@ -66,7 +66,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getInstruments'])
+    ...mapGetters(['getInstruments']),
+    currentRouteName() {
+      return this.$route.name;
+    }
   },
   watch: {
     getInstruments(newVal) {
@@ -107,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.first-word {
+  font-weight: 600;
+  color: #a21d21;
+}
 .ghp-container {
   background-color: #fff;
   height: 50vh;

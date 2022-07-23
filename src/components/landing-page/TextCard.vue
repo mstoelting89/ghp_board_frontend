@@ -4,10 +4,8 @@
       <img v-bind:src=textCardImgSource />
     </div>
     <div class="text-card-title">
-      <div class="first-word">
-        {{ textCardFirstWord }}
-      </div>
       <div>
+        <span class="first-word">{{ textCardFirstWord }}</span>
         {{ textCardTitle }}
       </div>
 
@@ -34,6 +32,7 @@ export default {
   .text-card {
     min-width: 37vw;
     max-width: 37vw;
+    margin-right: 80px;
   }
   .text-card-image img {
     width:400px;
@@ -47,5 +46,9 @@ export default {
     font-size: 2rem;
     min-height: 10rem;
     max-height: 12rem;
+    margin-top: 20px;
+  }
+  .text-card-text {
+    text-align: left;
   }
 </style>

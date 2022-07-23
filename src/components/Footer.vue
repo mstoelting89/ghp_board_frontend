@@ -1,20 +1,48 @@
 <template>
   <div class="footer">
     <div class="col-lg-4 col-xs-3 sub-text-footer pt-3 pb-3">
-      The Guitar Hearts Project e.V.
-      guitarheartsproject@outlook.de
-      067719344061
-      Langgasse 17, 56348 Bornich, Germany
-
+      The Guitar Hearts Project e.V.<br>
+      guitarheartsproject@outlook.de<br>
+      067719344061<br>
+      Langgasse 17, 56348 Bornich, Germany<br>
+      <br>
       ©2020 The Guitar Hearts Project e.V.
     </div>
-    <div class="col-lg-6 col-xs-3 partners">
-      Partner
+    <div class="col-lg-6 col-xs-3 partners pt-3 pb-3">
+      <div id="partnerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <a href="https://www.cordial-cables.com" target="_blank">
+              <img src="@/assets/images/partner/IMG_20200219_091315_880.jpg" class="d-block" height="150" alt="cordial">
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="https://www.kma-machines.com" target="_blank">
+              <img src="@/assets/images/partner/KMA_LOGO.jpg" class="d-block" height="150" alt="kma">
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="https://www.vip-guitar.de" target="_blank">
+              <img src="@/assets/images/partner/124285556_384635166235082_8949292051946795198_n.jpg" class="d-block" height="150" alt="vip-guitar">
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="https://www.meinemusikschule.net" target="_blank">
+              <img src="@/assets/images/partner/IMG_2540.jpg" class="d-block " height="150" alt="meine-musikschule">
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="https://www.meingitarrenkurs.de" target="_blank">
+              <img src="@/assets/images/partner/IMG_2541.jpg" class="d-block " height="150" alt="mein-gitarrenkurs">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-2 col-xs-3 secondary-menu">
-      <router-link to="/satzung">Satzung</router-link>
-      <router-link to="/impressum">Impressum</router-link>
-      <router-link to="/login">Mitglieder-Login</router-link>
+    <div class="col-lg-2 col-xs-3 secondary-menu pt-3 pb-3">
+      <router-link to="/satzung">Satzung</router-link><br>
+      <router-link to="/impressum">Impressum</router-link><br>
+      <router-link to="/login">Mitglieder-Login</router-link><br>
       Kontakt
     </div>
   </div>
@@ -31,5 +59,25 @@ export default {
   display:flex;
   background-color: #000000;
   color: #ffffff;
+}
+.sub-text-footer {
+  text-align: left;
+  padding-left: 20px;
+}
+.secondary-menu {
+  text-align: right;
+  padding-right: 20px;
+}
+.secondary-menu a {
+  text-decoration: none;
+  color: #fff;
+}
+.partnerCarousel img {
+  max-height: 50px;
+  width: auto;
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  display: flex;
+  justify-content: center;
 }
 </style>

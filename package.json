@@ -14,11 +14,16 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-4",
+    "animate.css": "^4.1.1",
+    "aos": "^2.3.4",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.0",
     "core-js": "^3.6.5",
     "vue": "^3.2.36",
+    "vue-animate-onscroll": "^1.0.8",
     "vue-router": "^4.0.0-0",
+    "vue-stroll": "^0.5.0",
+    "vue3-animate-onscroll": "^1.0.6",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
