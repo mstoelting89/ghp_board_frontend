@@ -59,6 +59,8 @@ export default {
   display:flex;
   background-color: #000000;
   color: #ffffff;
+  margin: 0;
+  padding: 0;
 }
 .sub-text-footer {
   text-align: left;
