@@ -47,34 +47,6 @@
               </div>
             </div>
           </div>
-          <!--
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Email</th>
-                <th scope="col">UserLevel</th>
-                <th scope="col">Status</th>
-                <th scope="col">Löschen</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="user in userData" v-bind:key="user">
-                <td>{{ user.id }}</td>
-                <td class="email">{{ user.email }}</td>
-                <td>
-                  <select @change="changeUserLevel($event)" :data-user-email="user.email">
-                    <option :data-role-value="role" :selected="user.userRole === this.roles[role]" v-for="role in rolesValues" v-bind:key="role"> {{ this.roles[role] }}</option>
-                  </select>
-                </td>
-                <td v-if="user.isEnabled">Aktiv</td>
-                <td v-else>Nicht Aktiv</td>
-                <td><font-awesome-icon :data-user-id="user.id" @click="setUserDeleteMail($event)" data-bs-toggle="modal" data-bs-target="#deleteUser" class="delete-icon" icon="trash" /></td>
-              </tr>
-            </tbody>
-          </table>
-          -->
-
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-bs-dismiss="modal">Schließen</button>

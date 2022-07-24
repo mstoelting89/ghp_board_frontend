@@ -43,14 +43,17 @@
       <router-link to="/satzung">Satzung</router-link><br>
       <router-link to="/impressum">Impressum</router-link><br>
       <router-link to="/login">Mitglieder-Login</router-link><br>
-      Kontakt
+      <span data-bs-toggle="modal" data-bs-target="#contact">Kontakt</span>
     </div>
+    <ContactModal />
   </div>
 </template>
 
 <script>
+import ContactModal from "@/components/members/container/contact/ContactModal";
 export default {
-  name: "Footer"
+  name: "Footer",
+  components: {ContactModal}
 }
 </script>
 

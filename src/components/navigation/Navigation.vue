@@ -2,6 +2,12 @@
   <div class="navigation">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
+        <MessageModal
+            :showModalValue=showModalValue
+            :message=modalMessage
+            :error=errorValue
+            :success=successValue
+        />
         <UserMenu />
         <div class="sidebar-buttons">
           <ul class="navbar-nav">
@@ -22,12 +28,11 @@
               Dann schreib uns einfach eine Nachricht.
             </div>
             <div class="contact-form">
-              <input class="form-control" placeholder="Name">
-              <input class="form-control" placeholder="Vorname">
-              <input class="form-control" placeholder="E-Mail Adresse">
-              Nachricht
-              <textarea cols="30" rows="8"></textarea>
-              <button class="btn btn-primary">Absenden</button>
+              <input class="form-control" placeholder="Name" v-model="firstName">
+              <input class="form-control" placeholder="Vorname" v-model="lastName">
+              <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
+              <textarea placeholder="Nachricht" cols="30" rows="8" v-model="applyText"></textarea>
+              <button class="btn btn-primary" @click="sendApplyForm">Absenden</button>
             </div>
           </div>
         </Transition>
@@ -54,17 +59,43 @@
 
 <script>
 import UserMenu from "@/components/members/container/user/UserMenu";
+import {mapActions, mapGetters} from "vuex";
+import MessageModal from "@/components/members/container/MessageModal";
 export default {
   name: "Navigation",
   data() {
     return {
       applyIsActive: false,
       donateIsActive: false,
-      show: false
+      show: false,
+      firstName: '',
+      lastName: '',
+      email: '',
+      applyText: '',
+      showModalValue: false,
+      modalMessage: '',
+      errorValue: false,
+      successValue: false
     }
   },
-  components: {UserMenu} ,
+  components: {MessageModal, UserMenu} ,
+  computed: {
+  ...mapGetters(['getContactMessage']),
+  },
+  watch: {
+    getContactMessage(newVal) {
+      this.showModalValue = true;
+      this.modalMessage = newVal;
+      this.errorValue = false;
+      this.successValue = true;
+
+      setTimeout(() => {
+        this.showModalValue = false;
+      }, 3000);
+    }
+  },
   methods: {
+    ...mapActions(['sendContactMail']),
     handleToggle(value) {
 
       if(value === 'apply') {
@@ -80,7 +111,28 @@ export default {
           this.applyIsActive = false;
         }
       }
+    },
+    sendApplyForm() {
+      if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.applyText !== '') {
+        let data = {
+          'firstName': this.firstName,
+          'lastName': this.lastName,
+          'email': this.email,
+          'message': this.applyText
+        }
 
+        this.sendContactMail(data)
+      } else {
+
+        this.showModalValue = true;
+        this.modalMessage = 'Bitte fülle alle Felder aus';
+        this.errorValue = true;
+        this.successValue = false;
+
+        setTimeout(() => {
+          this.showModalValue = false;
+        }, 3000);
+      }
     }
 
   }
