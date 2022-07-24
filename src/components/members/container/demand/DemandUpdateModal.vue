@@ -100,11 +100,13 @@ export default {
     },
     getDemandUpdate() {
       this.$parent.loadDemand();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
     ...mapActions(['updateDemandEntry']),
     updateDemand() {
+      this.$parent.showSpinner();
       let formData = new FormData();
 
       let demandPreviousData = [];

@@ -73,11 +73,13 @@ export default {
     },
     getInstrumentInsert() {
       this.$parent.loadInstruments();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
     ...mapActions(['insertInstrument']),
     insertNewInstrument() {
+      this.$parent.showSpinner();
       this.formData = new FormData();
       this.formData.append('file', this.file);
       let data = {

@@ -109,6 +109,7 @@ export default {
     },
     getBlogUpdate() {
       this.$parent.loadBlogPosts();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -136,6 +137,7 @@ export default {
       this.imagesItems.push(element);
     },
     updateBlog() {
+      this.$parent.showSpinner();
       let formData = new FormData();
 
       let blogPreviousData = [];

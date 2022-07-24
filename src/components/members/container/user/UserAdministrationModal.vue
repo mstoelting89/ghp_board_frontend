@@ -88,6 +88,7 @@ export default {
   watch: {
     getUserMessageArray(newVal) {
       this.$parent.reloadUser();
+      this.$parent.hideSpinner();
       if (newVal) {
         this.modalMessage = newVal.message;
         this.errorValue = newVal.error;
@@ -118,6 +119,7 @@ export default {
       this.userDeleteId = event.target.parentNode.getAttribute('data-user-id');
     },
     newUser() {
+      this.$parent.showSpinner();
       const email = this.newUserEmail;
       const userRole = this.$refs.newUserRole.selectedOptions[0].dataset.roleValue;
 

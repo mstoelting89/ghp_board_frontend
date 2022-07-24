@@ -98,6 +98,7 @@ export default {
     },
     getDemandInsert() {
       this.$parent.loadDemand();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -127,6 +128,7 @@ export default {
       }
     },
     insertDemand() {
+      this.$parent.showSpinner();
       let formData = new FormData();
       let data = [];
       let fileItems = document.querySelectorAll('.upload-file-demand');

@@ -89,6 +89,7 @@ export default {
     },
     getInstrumentUpdate() {
       this.$parent.loadInstruments();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -101,6 +102,7 @@ export default {
       this.file = this.$refs.newsImage.files[0];
     },
     updateInstrument() {
+      this.$parent.showSpinner();
       this.formData = new FormData();
       this.formData.append('instrumentUpdateId', this.instrumentUpdateId);
       if (typeof this.file !== 'undefined') {

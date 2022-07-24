@@ -127,6 +127,12 @@ export default {
     },
     setDeleteNewsId(id) {
       this.newsDeleteId = id;
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }

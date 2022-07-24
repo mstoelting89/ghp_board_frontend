@@ -108,6 +108,7 @@ export default {
     },
     getInsertNews() {
       this.$parent.loadNews();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -116,7 +117,7 @@ export default {
       this.file = this.$refs.newsImage.files[0];
     },
     insertNewNews() {
-
+      this.$parent.showSpinner();
       let checkTitle = this.checkField(this.newsTitle, this.$refs.newsTitle);
       let checkDate = this.checkField(this.newsDate, this.$refs.newsDate);
       let checkAuthor = this.checkField(this.newsAuthor, this.$refs.newsAuthor);

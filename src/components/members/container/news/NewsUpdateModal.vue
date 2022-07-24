@@ -125,6 +125,7 @@ export default {
     },
     getUpdateNews() {
       this.$parent.loadNews();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -147,6 +148,7 @@ export default {
       }
     },
     updateNews() {
+      this.$parent.showSpinner();
       let checkTitle = this.checkField(this.title, this.$refs.newsTitle);
       let checkDate = this.checkField(this.date, this.$refs.newsDate);
       let checkAuthor = this.checkField(this.author, this.$refs.newsAuthor);

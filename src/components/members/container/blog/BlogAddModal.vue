@@ -106,6 +106,7 @@ export default {
     },
     getBlogInsert() {
       this.$parent.loadBlogPosts();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
@@ -135,6 +136,7 @@ export default {
       }
     },
     insertBlog() {
+      this.$parent.showSpinner();
       let formData = new FormData();
       let data = [];
       let fileItems = document.querySelectorAll('.upload-file-blog');

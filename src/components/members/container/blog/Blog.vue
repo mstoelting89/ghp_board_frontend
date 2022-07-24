@@ -145,6 +145,12 @@ export default {
         return false;
       }
       return "data:image/jpg;base64," + base64Data.base64;
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }

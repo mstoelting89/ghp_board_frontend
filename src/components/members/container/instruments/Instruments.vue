@@ -104,6 +104,12 @@ export default {
       this.instrumentId = id;
       const blog = this.instrumentsArray.filter(item => item.id === id);
       this.instrumentDetail = blog[0];
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }

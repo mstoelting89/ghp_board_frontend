@@ -37,11 +37,13 @@ export default {
     },
     getBlogDelete() {
       this.$parent.loadBlogPosts();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
     ...mapActions(['deleteBlogEntry']),
     deleteBlog(id) {
+      this.$parent.showSpinner();
       this.deleteBlogEntry(id);
     }
   }
