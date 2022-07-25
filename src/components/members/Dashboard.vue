@@ -150,7 +150,7 @@ button:hover {
   left: 0;
   background-color: #000;
   opacity: .4;
-  z-index: 50000;
+  z-index: 10000;
 }
 .spinner {
   position: fixed;

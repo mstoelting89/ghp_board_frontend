@@ -142,22 +142,35 @@ export default {
       let fileItems = document.querySelectorAll('.upload-file-blog');
       let isPublic = document.querySelector('#blogIsPublic').checked;
 
-      fileItems.forEach((item) => {
-        if (typeof item.files[0] !== "undefined") {
-          formData.append('files', item.files[0]);
+      if (this.name === '' || this.date === '' || this.title === '' || this.text === '') {
+        this.$parent.hideSpinner();
+        this.$parent.modalMessage = 'Bitte fülle alle Pflichtfelder aus';
+        this.$parent.errorValue = true;
+        this.$parent.successValue = false;
+        this.$parent.showModalValue = true;
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+        }, 3000);
+      } else {
+        fileItems.forEach((item) => {
+          if (typeof item.files[0] !== "undefined") {
+            formData.append('files', item.files[0]);
+          }
+        });
+
+        data = {
+          'blogAuthor': this.name,
+          'blogDate': this.date + "T00:00:00",
+          'blogTitle': this.title,
+          'blogText': this.text,
+          'isPublic': isPublic
         }
-      });
+        formData.append('blogData', JSON.stringify(data));
 
-      data = {
-        'blogAuthor': this.name,
-        'blogDate': this.date + "T00:00:00",
-        'blogTitle': this.title,
-        'blogText': this.text,
-        'isPublic': isPublic
+        this.insertNewBlogEntry(formData);
       }
-      formData.append('blogData', JSON.stringify(data));
 
-      this.insertNewBlogEntry(formData);
+
     }
   }
 }
