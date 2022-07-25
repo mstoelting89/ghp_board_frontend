@@ -43,7 +43,7 @@
       <router-link to="/satzung">Satzung</router-link><br>
       <router-link to="/impressum">Impressum</router-link><br>
       <router-link to="/login">Mitglieder-Login</router-link><br>
-      <span data-bs-toggle="modal" data-bs-target="#contact">Kontakt</span>
+      <span class="contact" data-bs-toggle="modal" data-bs-target="#contact">Kontakt</span>
     </div>
     <ContactModal />
   </div>
@@ -84,6 +84,9 @@ export default {
 .carousel-item-next, .carousel-item-prev, .carousel-item.active {
   display: flex;
   justify-content: center;
+}
+.contact {
+  cursor: pointer;
 }
 /*mobile*/
 @media only screen and (max-width: 992px) {

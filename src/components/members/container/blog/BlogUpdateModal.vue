@@ -8,32 +8,21 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="blogTitle" class="col-form-label">Titel</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Titel" class="form-control" id="blogTitle" v-model="title">
               </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="blogTitle" v-model="title">
-              </div>
-              <div class="col-1 justify-content-start">
-                <label for="blogDate" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-5">
+              <div class="col-2"></div>
+              <div class="col-xs-12 col-lg-5">
                 <input type="date" class="form-control" id="blogDate" v-model="date">
               </div>
             </div>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="blogName" class="col-form-label">Name</label>
-              </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="blogName" v-model="author">
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Autor" class="form-control" id="blogName" v-model="author">
               </div>
             </div>
             <div class="mb-3">
-              <div class="col-1 justify-content-start">
-                <label class="col-form-label">Text:</label>
-              </div>
               <ckeditor :editor="blogEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
             <div class="col-12 imageAdministration" ref="blogImages" v-for="item in image" v-bind:key="item">
@@ -52,9 +41,9 @@
                 <font-awesome-icon class="delete-icon" icon="trash" @click="deleteImage(item.id, false)" />
               </div>
             </div>
-            <div class="mb-3 d-flex">
-              <div class="col-2 d-flex justify-content-start">
-                <label for="blogIsPublic" class="col-form-label">Veröffentlichen</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-lg-2 col-xs-6 d-flex justify-content-start">
+                <label for="blogIsPublic-update" class="col-form-label">Veröffentlichen</label>
               </div>
               <div class="col-1">
                 <input type="checkbox" id="blogIsPublic-update">

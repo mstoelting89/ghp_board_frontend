@@ -8,21 +8,16 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 d-flex justify-content-start">
-                <label for="instrumentTitle" class="col-form-label">Titel</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Titel" class="form-control" id="instrumentTitle" v-model="instrumentTitle">
               </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="instrumentTitle" v-model="instrumentTitle">
-              </div>
-              <div class="col-1 justify-content-start">
-                <label for="instrumentDate" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-5">
+              <div class="col-2"></div>
+              <div class="col-xs-12 col-lg-5">
                 <input type="date" class="form-control" id="instrumentDate" v-model="instrumentDate">
               </div>
             </div>
-            <div class="mb-3 d-flex">
+            <div class="mb-3 d-flex row">
               <div class="col-1 d-flex justify-content-start">
                 <label for="instrumentImage" class="col-form-label">Bild</label>
               </div>

@@ -18,6 +18,7 @@
   <div class="spinner hidden">
     <font-awesome-icon class="spinner-icon" icon="circle-notch" />
   </div>
+  <Footer />
 </template>
 
 <script>
@@ -26,10 +27,11 @@ import News from "@/components/members/container/news/News";
 import Demand from "@/components/members/container/demand/Demand";
 import Blog from "@/components/members/container/blog/Blog";
 import Instruments from "@/components/members/container/instruments/Instruments";
+import Footer from "@/components/Footer";
 
 export default {
   name: "Dashboard",
-  components: {Instruments, Blog, Demand, News},
+  components: {Footer, Instruments, Blog, Demand, News},
   data() {
     return {
       editor: ClassicEditor,

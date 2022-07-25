@@ -8,32 +8,21 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="requestTitle" class="col-form-label">Titel</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Title" class="form-control" id="requestTitle" v-model="title">
               </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="requestTitle" v-model="title">
-              </div>
-              <div class="col-1 justify-content-start">
-                <label for="requestDate" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-5">
+              <div class="col-2"></div>
+              <div class="col-xs-12 col-lg-5">
                 <input type="date" class="form-control" id="requestDate" v-model="date">
               </div>
             </div>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="requestName" class="col-form-label">Name</label>
-              </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="requestName" v-model="name">
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Name" class="form-control" id="requestName" v-model="name">
               </div>
             </div>
             <div class="mb-3">
-              <div class="col-1 justify-content-start">
-                <label class="col-form-label">Text:</label>
-              </div>
               <ckeditor :editor="demandEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
             <div class="col-12 imageAdministration" ref="demandImages" v-for="item in image" v-bind:key="item">
