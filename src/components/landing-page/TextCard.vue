@@ -41,6 +41,7 @@ export default {
     font-size: 2rem;
     min-height: 10rem;
     margin-top: 20px;
+    text-align: left;
   }
   .text-card-text {
     text-align: left;

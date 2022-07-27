@@ -270,7 +270,7 @@ export default {
 /*mobile*/
 @media only screen and (max-width: 992px) {
   .ghp-container {
-    height: 90vh;
+    height: 90%;
   }
 }
 </style>

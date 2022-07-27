@@ -122,7 +122,7 @@ export default {
 }
 .ghp-container {
   background-color: #fff;
-  height: 50vh;
+  height: 50%;
   border-radius: 5px;
 }
 .page-header {

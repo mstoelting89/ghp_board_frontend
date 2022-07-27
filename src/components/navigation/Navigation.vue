@@ -9,7 +9,7 @@
             :success=successValue
         />
         <UserMenu />
-        <div class="sidebar-buttons">
+        <div class="sidebar-buttons" v-if="currentRouteName !== 'Dashboard'">
           <ul class="navbar-nav">
             <li @click="handleToggle('apply')" class="nav-item">
               Bewerben
@@ -22,32 +22,36 @@
 
         <Transition name="content-fade">
           <div v-if="applyIsActive" class="sidebar-content">
-            <h2>Bewerben</h2>
-            <div class="content-text">
-              Du möchtest dich für ein Instrument bewerben?<br>
-              Dann schreib uns einfach eine Nachricht.
-            </div>
-            <div class="contact-form">
-              <input class="form-control" placeholder="Name" v-model="firstName">
-              <input class="form-control" placeholder="Vorname" v-model="lastName">
-              <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
-              <textarea placeholder="Nachricht" cols="30" rows="8" v-model="applyText"></textarea>
-              <button class="btn btn-primary" @click="sendApplyForm">Absenden</button>
+            <div class="content">
+              <h2>Bewerben</h2>
+              <div class="content-text">
+                Du möchtest dich für ein Instrument bewerben?<br>
+                Dann schreib uns einfach eine Nachricht.
+              </div>
+              <div class="contact-form">
+                <input class="form-control" placeholder="Name" v-model="firstName">
+                <input class="form-control" placeholder="Vorname" v-model="lastName">
+                <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
+                <textarea placeholder="Nachricht" cols="30" rows="8" v-model="applyText"></textarea>
+                <button class="btn btn-primary" @click="sendApplyForm">Absenden</button>
+              </div>
             </div>
           </div>
         </Transition>
         <Transition name="content-fade">
           <div v-if="donateIsActive" class="sidebar-content">
-            <h2><span class="highlight">Unterstütze</span> uns mit deiner Spende!</h2>
+            <div class="content">
+              <h2><span class="highlight">Unterstütze</span> uns mit deiner Spende!</h2>
 
-            <h3>Spendenkonto</h3>
+              <h3>Spendenkonto</h3>
 
-            <h4>The Guitar Hearts Project e.V</h4>
-            <h4>IBAN: DE81510500150688153089</h4>
-            <h4>Nassauische Sparkasse</h4>
-            <br>
-            <div class="dontate-description">
-              Spendenquittungen können über die E-Mail Adresse guitarheartsproject@outlook.de angefordert werden.
+              <h4>The Guitar Hearts Project e.V</h4>
+              <h4>IBAN: DE81510500150688153089</h4>
+              <h4>Nassauische Sparkasse</h4>
+              <br>
+              <div class="dontate-description">
+                Spendenquittungen können über die E-Mail Adresse guitarheartsproject@outlook.de angefordert werden.
+              </div>
             </div>
           </div>
         </Transition>
@@ -80,7 +84,10 @@ export default {
   },
   components: {MessageModal, UserMenu} ,
   computed: {
-  ...mapGetters(['getContactMessage']),
+    ...mapGetters(['getContactMessage']),
+    currentRouteName() {
+      return this.$route.name;
+    }
   },
   watch: {
     getContactMessage(newVal) {
@@ -144,6 +151,9 @@ export default {
     width: 100%;
     background-color: transparent;
   }
+  .navbar .container-fluid {
+    justify-content: flex-end;
+  }
   #navbarSupportedContent {
     justify-content: flex-end;
   }
@@ -189,6 +199,12 @@ export default {
     flex-direction: column;
     align-items: start;
     padding: 15px;
+    animation: sidebar 0.3s 1;
+  }
+
+  @keyframes sidebar {
+    0% {height: 0}
+    100% {height: 65vh}
   }
 
   .sidebar-content h2 {
@@ -218,16 +234,6 @@ export default {
     margin-bottom: 10px;
   }
 
-  .content-fade-enter-active,
-  .content-fade-leave-active {
-    transition: height 0.3s ease;
-  }
-
-  .content-fade-enter-from,
-  .content-fade-leave-to {
-    height: 0;
-  }
-
   .btn {
     font-weight: bold;
     border-radius: 5px;
@@ -254,6 +260,7 @@ export default {
 
     .sidebar-content {
       width: 100vw;
+      height: 100vh;
     }
   }
 </style>
