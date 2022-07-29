@@ -197,7 +197,7 @@ export default {
     border: 2px solid #a21d21;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 15px;
     animation: sidebar 0.3s 1;
   }
@@ -227,7 +227,7 @@ export default {
   .sidebar-content .contact-form {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
 
   .sidebar-content .contact-form input {

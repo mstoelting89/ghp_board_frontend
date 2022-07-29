@@ -176,11 +176,10 @@ export default {
   }
   .social-media {
     position: fixed;
-    bottom: 5rem;
+    bottom: 7rem;
     right: 1rem;
     display: flex;
     flex-direction: column;
-    font-size: 50px;
   }
   .social-media .facebook {
     background-color: #3B5998;

@@ -144,6 +144,6 @@ export default {
   color:#000;
   margin-bottom: 20px;
   display: flex;
-  align-content: start;
+  align-content: flex-start;
 }
 </style>
