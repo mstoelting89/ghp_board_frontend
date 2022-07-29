@@ -48,7 +48,7 @@
       <Instruments />
     </div>
     <div class="social-media">
-      <a href="https://www.facebook.com/guitarheartsprojecteV"><font-awesome-icon class="facebook" :icon="['fab', 'facebook']" /></a>
+      <a href="https://www.facebook.com/guitarheartsprojecteV"><font-awesome-icon class="facebook" :icon="['fab', 'facebook-f']" /></a>
       <a href="https://www.instagram.com/guitarheartsproject/?utm_medium=copy_link"><font-awesome-icon class="instagram" :icon="['fab', 'instagram']" /></a>
     </div>
   </div>
@@ -183,10 +183,26 @@ export default {
     font-size: 50px;
   }
   .social-media .facebook {
-    color: #3B5998;
+    background-color: #3B5998;
+    color: #fff;
+    font-size: 4rem;
+    width: 4rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    padding: 10px;
+    border-radius: 50%;
   }
   .social-media .instagram {
-    color: #125688;
+    background-color: #125688;
+    color: #fff;
+    font-size: 4rem;
+    width: 4rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    padding: 10px;
+    border-radius: 50%;
   }
   .social-media .facebook:hover {
     opacity: .5;
