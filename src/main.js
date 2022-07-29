@@ -15,6 +15,7 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 
 /* import font awesome icon component */
@@ -32,6 +33,7 @@ library.add(faCircleCheck)
 library.add(faCircleXmark)
 library.add(faCircleNotch)
 library.add(faFacebook)
+library.add(faInstagram)
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
