@@ -89,6 +89,7 @@ export default {
     getUserMessageArray(newVal) {
       this.$parent.reloadUser();
       this.$parent.hideSpinner();
+      this.clearFields();
       if (newVal) {
         this.modalMessage = newVal.message;
         this.errorValue = newVal.error;
@@ -109,6 +110,9 @@ export default {
   },
   methods: {
     ...mapActions(['changeUserLevelOnService', 'getAllUser', 'insertNewUser',]),
+    clearFields() {
+      this.newUserEmail = '';
+    },
     changeUserLevel(event) {
       const email = event.target.getAttribute('data-user-email');
       const userRole = parseInt(event.target.options[event.target.options.selectedIndex].getAttribute('data-role-value'));

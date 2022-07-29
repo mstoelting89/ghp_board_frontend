@@ -85,6 +85,8 @@ export default {
     getInstrumentUpdate() {
       this.$parent.loadInstruments();
       this.$parent.hideSpinner();
+      this.$parent.clearFields();
+      this.file = null;
     }
   },
   methods: {

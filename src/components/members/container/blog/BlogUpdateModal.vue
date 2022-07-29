@@ -99,12 +99,24 @@ export default {
     getBlogUpdate() {
       this.$parent.loadBlogPosts();
       this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
     ...mapActions(['updateBlogEntry']),
     setImagePath(image) {
       return "data:image/jpg;base64," + image;
+    },
+    clearFields() {
+      this.name = '';
+      this.date = '';
+      this.title = '';
+      this.text = '';
+      this.imagesItems = [
+        {
+          'id': 0
+        }
+      ];
     },
     deleteImage(id, existingImage) {
       if (existingImage) {

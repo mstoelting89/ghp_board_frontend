@@ -90,6 +90,7 @@ export default {
     getDemandUpdate() {
       this.$parent.loadDemand();
       this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
@@ -126,6 +127,17 @@ export default {
       formData.append('demandData', JSON.stringify(data));
       formData.append('demandId', this.demandUpdateId);
       this.updateDemandEntry(formData);
+    },
+    clearFields() {
+      this.imagesItems = [
+        {
+          'id': 0
+        }
+      ];
+      this.title = null;
+      this.name = null;
+      this.date = null;
+      this.text = '';
     },
     setImagePath(image) {
       return "data:image/jpg;base64," + image;

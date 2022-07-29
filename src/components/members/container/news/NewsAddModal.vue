@@ -29,7 +29,7 @@
 
             <div class="mb-3">
               <div class="col-12 justify-content-start" ref="newsText">
-                <ckeditor :editor="newsEditor" :config="editorConfig" v-model="newsText" class="form-control"></ckeditor>
+                <ckeditor :editor="newsEditor" :config="editorConfig" v-model="newsText" class="form-control" id="newsEditor"></ckeditor>
                 <div class="errorMsg"></div>
               </div>
             </div>
@@ -73,7 +73,8 @@ export default {
       showModalValue: false,
       modalMessage: '',
       errorValue: '',
-      successValue: ''
+      successValue: '',
+      file: null
     }
   },
   computed: {
@@ -97,12 +98,21 @@ export default {
     getInsertNews() {
       this.$parent.loadNews();
       this.$parent.hideSpinner();
+      this.clearFields();
+      this.file = null;
     }
   },
   methods: {
     ...mapActions(['insertNewNewsEntry']),
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
+    },
+    clearFields() {
+      this.newsTitle = '';
+      this.newsDate = '';
+      this.newsAuthor = '';
+      this.newsText = '';
+      this.file = null;
     },
     insertNewNews() {
       this.$parent.showSpinner();

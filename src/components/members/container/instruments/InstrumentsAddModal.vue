@@ -69,6 +69,7 @@ export default {
     getInstrumentInsert() {
       this.$parent.loadInstruments();
       this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
@@ -83,6 +84,11 @@ export default {
       }
       this.formData.append('instrumentData', JSON.stringify(data));
       this.insertInstrument(this.formData);
+    },
+    clearFields() {
+      this.instrumentTitle = '';
+      this.instrumentDate = '';
+      this.file = null;
     },
     handleFile() {
       this.file = this.$refs.instrumentImage.files[0];

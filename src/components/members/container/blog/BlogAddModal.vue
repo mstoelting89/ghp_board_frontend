@@ -96,6 +96,7 @@ export default {
     getBlogInsert() {
       this.$parent.loadBlogPosts();
       this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
@@ -105,6 +106,17 @@ export default {
         'id' : this.images.length
       }
       this.images.push(element);
+    },
+    clearFields() {
+      this.name = '';
+      this.date = '';
+      this.title = '';
+      this.text = '';
+      this.images = [
+        {
+          'id': 0
+        }
+      ];
     },
     deleteImage(item) {
       if (this.images.length !== 1) {

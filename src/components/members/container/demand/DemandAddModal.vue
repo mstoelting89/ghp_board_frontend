@@ -88,6 +88,7 @@ export default {
     getDemandInsert() {
       this.$parent.loadDemand();
       this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
@@ -100,6 +101,17 @@ export default {
         inputWrapper.querySelector('.errorMsg').innerHTML = "";
         return true;
       }
+    },
+    clearFields() {
+      this.images = [
+        {
+          'id': 0
+        }
+      ];
+      this.title = null;
+      this.name = null;
+      this.date = null;
+      this.text = '';
     },
     addNewImageItem() {
       const element = {
