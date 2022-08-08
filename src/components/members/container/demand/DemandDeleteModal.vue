@@ -38,11 +38,13 @@ export default {
     },
     getDemandDelete() {
       this.$parent.loadDemand();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
     ...mapActions(['deleteDemandEntry']),
     deleteDemand(id) {
+      this.$parent.showSpinner();
       this.deleteDemandEntry(id);
     }
   }

@@ -39,11 +39,13 @@ export default {
     },
     getDeleteNews() {
       this.$parent.loadNews();
+      this.$parent.hideSpinner();
     }
   },
   methods: {
     ...mapActions(['deleteNewsEntry']),
     deleteNews(id) {
+      this.$parent.showSpinner();
       this.deleteNewsEntry(id);
     }
   }

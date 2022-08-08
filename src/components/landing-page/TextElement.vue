@@ -32,6 +32,7 @@ export default {
 }
 .text-element-title {
   font-size: 2rem;
+  text-align: left;
 }
 .text-element-text {
   margin-top: 20px;

@@ -35,11 +35,6 @@
         <div class="modal-body">
 
           <div id="demandCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#demandCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
             <div class="carousel-inner">
               <div class="carousel-item" :class="i === 0 ? 'active':''" v-for="(image, i) in demandDetail.detailImages" v-bind:key="image">
                 <div class="d-flex justify-content-center">

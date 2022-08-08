@@ -8,40 +8,28 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 d-flex justify-content-start">
-                <label for="newsTitle" class="col-form-label">Titel</label>
-              </div>
-              <div class="col-5" ref="newsTitle">
-                <input type="text" class="form-control"  id="newsTitle" @keydown="removeErrorMessage" v-model="newsTitle">
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5" ref="newsTitle">
+                <input type="text" placeholder="Titel" class="form-control"  id="newsTitle" @keydown="removeErrorMessage" v-model="newsTitle">
                 <div class="errorMsg"></div>
               </div>
-              <div class="col-1"></div>
-              <div class="col-1 d-flex justify-content-start">
-                <label for="newsTitle" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-4" ref="newsDate">
+              <div class="col-xs-12 col-lg-2"></div>
+              <div class="col-xs-12 col-lg-5" ref="newsDate">
                 <input type="date" class="form-control" id="newsDate" @keydown="removeErrorMessage" v-model="newsDate">
                 <div class="errorMsg"></div>
               </div>
             </div>
 
-            <div class="mb-3 d-flex">
-              <div class="col-1 d-flex justify-content-start">
-                <label for="newsTitle" class="col-form-label">Autor</label>
-              </div>
-              <div class="col-5" ref="newsAuthor">
-                <input type="text" class="form-control" id="newsAuthor" @keydown="removeErrorMessage" v-model="newsAuthor">
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5" ref="newsAuthor">
+                <input type="text" placeholder="Autor" class="form-control" id="newsAuthor" @keydown="removeErrorMessage" v-model="newsAuthor">
                 <div class="errorMsg"></div>
               </div>
             </div>
 
             <div class="mb-3">
-              <div class="col-1 d-flex justify-content-start">
-                <label class="col-form-label">Text:</label>
-              </div>
               <div class="col-12 justify-content-start" ref="newsText">
-                <ckeditor :editor="newsEditor" :config="editorConfig" v-model="newsText" class="form-control"></ckeditor>
+                <ckeditor :editor="newsEditor" :config="editorConfig" v-model="newsText" class="form-control" id="newsEditor"></ckeditor>
                 <div class="errorMsg"></div>
               </div>
             </div>
@@ -85,7 +73,8 @@ export default {
       showModalValue: false,
       modalMessage: '',
       errorValue: '',
-      successValue: ''
+      successValue: '',
+      file: null
     }
   },
   computed: {
@@ -108,6 +97,9 @@ export default {
     },
     getInsertNews() {
       this.$parent.loadNews();
+      this.$parent.hideSpinner();
+      this.clearFields();
+      this.file = null;
     }
   },
   methods: {
@@ -115,8 +107,15 @@ export default {
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
     },
+    clearFields() {
+      this.newsTitle = '';
+      this.newsDate = '';
+      this.newsAuthor = '';
+      this.newsText = '';
+      this.file = null;
+    },
     insertNewNews() {
-
+      this.$parent.showSpinner();
       let checkTitle = this.checkField(this.newsTitle, this.$refs.newsTitle);
       let checkDate = this.checkField(this.newsDate, this.$refs.newsDate);
       let checkAuthor = this.checkField(this.newsAuthor, this.$refs.newsAuthor);

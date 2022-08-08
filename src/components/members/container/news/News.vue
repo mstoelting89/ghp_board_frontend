@@ -127,6 +127,12 @@ export default {
     },
     setDeleteNewsId(id) {
       this.newsDeleteId = id;
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }
@@ -172,6 +178,7 @@ export default {
 }
 .newsEntryMain .buttons {
   display: flex;
+  justify-content: flex-end;
 }
 .newsEntryMain .btn {
   padding: 5px;

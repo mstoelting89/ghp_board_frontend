@@ -4,7 +4,8 @@ import news from '@/store/news/index'
 import demand from '@/store/demand/index';
 import blog from '@/store/blog/index';
 import instruments from '@/store/instruments/index';
-import user from '@/store/user/index'
+import user from '@/store/user/index';
+import contact from "@/store/contact";
 
 export default createStore({
   modules: {
@@ -13,6 +14,7 @@ export default createStore({
     demand,
     blog,
     instruments,
-    user
+    user,
+    contact
   }
 })

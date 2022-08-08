@@ -8,32 +8,21 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="blogTitle" class="col-form-label">Titel</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Titel" class="form-control" id="blogTitle" v-model="title">
               </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="blogTitle" v-model="title">
-              </div>
-              <div class="col-1 justify-content-start">
-                <label for="blogDate" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-5">
+              <div class="col-2"></div>
+              <div class="col-xs-12 col-lg-5">
                 <input type="date" class="form-control" id="blogDate" v-model="date">
               </div>
             </div>
-            <div class="mb-3 d-flex">
-              <div class="col-1 justify-content-start">
-                <label for="blogName" class="col-form-label">Author</label>
-              </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="blogName" v-model="name">
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Autor" class="form-control" id="blogName" v-model="name">
               </div>
             </div>
             <div class="mb-3">
-              <div class="col-1 justify-content-start">
-                <label class="col-form-label">Text:</label>
-              </div>
               <ckeditor :editor="blogEditor" :config="editorConfig" v-model="text"></ckeditor>
             </div>
             <div class="col-12" ref="blogImages" id="blogImages">
@@ -47,7 +36,7 @@
               </div>
             </div>
             <div class="mb-3 d-flex">
-              <div class="col-2 d-flex justify-content-start">
+              <div class="col-lg-2 col-xs-6 d-flex justify-content-start">
                 <label for="blogIsPublic" class="col-form-label">Veröffentlichen</label>
               </div>
               <div class="col-1">
@@ -106,6 +95,8 @@ export default {
     },
     getBlogInsert() {
       this.$parent.loadBlogPosts();
+      this.$parent.hideSpinner();
+      this.clearFields();
     }
   },
   methods: {
@@ -115,6 +106,17 @@ export default {
         'id' : this.images.length
       }
       this.images.push(element);
+    },
+    clearFields() {
+      this.name = '';
+      this.date = '';
+      this.title = '';
+      this.text = '';
+      this.images = [
+        {
+          'id': 0
+        }
+      ];
     },
     deleteImage(item) {
       if (this.images.length !== 1) {
@@ -135,27 +137,41 @@ export default {
       }
     },
     insertBlog() {
+      this.$parent.showSpinner();
       let formData = new FormData();
       let data = [];
       let fileItems = document.querySelectorAll('.upload-file-blog');
       let isPublic = document.querySelector('#blogIsPublic').checked;
 
-      fileItems.forEach((item) => {
-        if (typeof item.files[0] !== "undefined") {
-          formData.append('files', item.files[0]);
+      if (this.name === '' || this.date === '' || this.title === '' || this.text === '') {
+        this.$parent.hideSpinner();
+        this.$parent.modalMessage = 'Bitte fülle alle Pflichtfelder aus';
+        this.$parent.errorValue = true;
+        this.$parent.successValue = false;
+        this.$parent.showModalValue = true;
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+        }, 3000);
+      } else {
+        fileItems.forEach((item) => {
+          if (typeof item.files[0] !== "undefined") {
+            formData.append('files', item.files[0]);
+          }
+        });
+
+        data = {
+          'blogAuthor': this.name,
+          'blogDate': this.date + "T00:00:00",
+          'blogTitle': this.title,
+          'blogText': this.text,
+          'isPublic': isPublic
         }
-      });
+        formData.append('blogData', JSON.stringify(data));
 
-      data = {
-        'blogAuthor': this.name,
-        'blogDate': this.date + "T00:00:00",
-        'blogTitle': this.title,
-        'blogText': this.text,
-        'isPublic': isPublic
+        this.insertNewBlogEntry(formData);
       }
-      formData.append('blogData', JSON.stringify(data));
 
-      this.insertNewBlogEntry(formData);
+
     }
   }
 }

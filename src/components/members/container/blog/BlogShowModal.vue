@@ -20,13 +20,7 @@
         <div class="modal-body">
 
           <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#blogCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#blogCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#blogCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
             <div class="carousel-inner">
-
               <div class="carousel-item" :class="i === 0 ? 'active':''" v-for="(image, i) in blogDetail.blogImages" v-bind:key="image">
                 <div class="d-flex justify-content-center">
                   <img :src="setImageSrc(image.base64)" class="d-block w-100" alt="...">

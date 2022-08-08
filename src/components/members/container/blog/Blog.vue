@@ -145,6 +145,12 @@ export default {
         return false;
       }
       return "data:image/jpg;base64," + base64Data.base64;
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }
@@ -264,7 +270,7 @@ export default {
 /*mobile*/
 @media only screen and (max-width: 992px) {
   .ghp-container {
-    height: 90vh;
+    height: 90%;
   }
 }
 </style>

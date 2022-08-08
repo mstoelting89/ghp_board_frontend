@@ -47,34 +47,6 @@
               </div>
             </div>
           </div>
-          <!--
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Email</th>
-                <th scope="col">UserLevel</th>
-                <th scope="col">Status</th>
-                <th scope="col">Löschen</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="user in userData" v-bind:key="user">
-                <td>{{ user.id }}</td>
-                <td class="email">{{ user.email }}</td>
-                <td>
-                  <select @change="changeUserLevel($event)" :data-user-email="user.email">
-                    <option :data-role-value="role" :selected="user.userRole === this.roles[role]" v-for="role in rolesValues" v-bind:key="role"> {{ this.roles[role] }}</option>
-                  </select>
-                </td>
-                <td v-if="user.isEnabled">Aktiv</td>
-                <td v-else>Nicht Aktiv</td>
-                <td><font-awesome-icon :data-user-id="user.id" @click="setUserDeleteMail($event)" data-bs-toggle="modal" data-bs-target="#deleteUser" class="delete-icon" icon="trash" /></td>
-              </tr>
-            </tbody>
-          </table>
-          -->
-
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-bs-dismiss="modal">Schließen</button>
@@ -116,6 +88,8 @@ export default {
   watch: {
     getUserMessageArray(newVal) {
       this.$parent.reloadUser();
+      this.$parent.hideSpinner();
+      this.clearFields();
       if (newVal) {
         this.modalMessage = newVal.message;
         this.errorValue = newVal.error;
@@ -136,6 +110,9 @@ export default {
   },
   methods: {
     ...mapActions(['changeUserLevelOnService', 'getAllUser', 'insertNewUser',]),
+    clearFields() {
+      this.newUserEmail = '';
+    },
     changeUserLevel(event) {
       const email = event.target.getAttribute('data-user-email');
       const userRole = parseInt(event.target.options[event.target.options.selectedIndex].getAttribute('data-role-value'));
@@ -146,6 +123,7 @@ export default {
       this.userDeleteId = event.target.parentNode.getAttribute('data-user-id');
     },
     newUser() {
+      this.$parent.showSpinner();
       const email = this.newUserEmail;
       const userRole = this.$refs.newUserRole.selectedOptions[0].dataset.roleValue;
 

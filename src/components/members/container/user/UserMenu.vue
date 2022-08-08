@@ -93,6 +93,20 @@ export default {
     reloadUser() {
       this.getAllUser();
       this.getUserRolesFromService();
+    },
+    showSpinner() {
+      let spinner = document.querySelector('.spinner');
+      let spinnerOverlay = document.querySelector('.spinner-overlay');
+
+      spinner.classList.remove('hidden');
+      spinnerOverlay.classList.remove('hidden');
+    },
+    hideSpinner() {
+      let spinner = document.querySelector('.spinner');
+      let spinnerOverlay = document.querySelector('.spinner-overlay');
+
+      spinner.classList.add('hidden');
+      spinnerOverlay.classList.add('hidden');
     }
   }
 }

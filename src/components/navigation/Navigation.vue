@@ -2,8 +2,14 @@
   <div class="navigation">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
+        <MessageModal
+            :showModalValue=showModalValue
+            :message=modalMessage
+            :error=errorValue
+            :success=successValue
+        />
         <UserMenu />
-        <div class="sidebar-buttons">
+        <div class="sidebar-buttons" v-if="currentRouteName !== 'Dashboard'">
           <ul class="navbar-nav">
             <li @click="handleToggle('apply')" class="nav-item">
               Bewerben
@@ -16,33 +22,36 @@
 
         <Transition name="content-fade">
           <div v-if="applyIsActive" class="sidebar-content">
-            <h2>Bewerben</h2>
-            <div class="content-text">
-              Du möchtest dich für ein Instrument bewerben?<br>
-              Dann schreib uns einfach eine Nachricht.
-            </div>
-            <div class="contact-form">
-              <input class="form-control" placeholder="Name">
-              <input class="form-control" placeholder="Vorname">
-              <input class="form-control" placeholder="E-Mail Adresse">
-              Nachricht
-              <textarea cols="30" rows="8"></textarea>
-              <button class="btn btn-primary">Absenden</button>
+            <div class="content">
+              <h2>Bewerben</h2>
+              <div class="content-text">
+                Du möchtest dich für ein Instrument bewerben?<br>
+                Dann schreib uns einfach eine Nachricht.
+              </div>
+              <div class="contact-form">
+                <input class="form-control" placeholder="Name" v-model="firstName">
+                <input class="form-control" placeholder="Vorname" v-model="lastName">
+                <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
+                <textarea placeholder="Nachricht" cols="30" rows="8" v-model="applyText"></textarea>
+                <button class="btn btn-primary" @click="sendApplyForm">Absenden</button>
+              </div>
             </div>
           </div>
         </Transition>
         <Transition name="content-fade">
           <div v-if="donateIsActive" class="sidebar-content">
-            <h2><span class="highlight">Unterstütze</span> uns mit deiner Spende!</h2>
+            <div class="content">
+              <h2><span class="highlight">Unterstütze</span> uns mit deiner Spende!</h2>
 
-            <h3>Spendenkonto</h3>
+              <h3>Spendenkonto</h3>
 
-            <h4>The Guitar Hearts Project e.V</h4>
-            <h4>IBAN: DE81510500150688153089</h4>
-            <h4>Nassauische Sparkasse</h4>
-            <br>
-            <div class="dontate-description">
-              Spendenquittungen können über die E-Mail Adresse guitarheartsproject@outlook.de angefordert werden.
+              <h4>The Guitar Hearts Project e.V</h4>
+              <h4>IBAN: DE81510500150688153089</h4>
+              <h4>Nassauische Sparkasse</h4>
+              <br>
+              <div class="dontate-description">
+                Spendenquittungen können über die E-Mail Adresse guitarheartsproject@outlook.de angefordert werden.
+              </div>
             </div>
           </div>
         </Transition>
@@ -54,17 +63,46 @@
 
 <script>
 import UserMenu from "@/components/members/container/user/UserMenu";
+import {mapActions, mapGetters} from "vuex";
+import MessageModal from "@/components/members/container/MessageModal";
 export default {
   name: "Navigation",
   data() {
     return {
       applyIsActive: false,
       donateIsActive: false,
-      show: false
+      show: false,
+      firstName: '',
+      lastName: '',
+      email: '',
+      applyText: '',
+      showModalValue: false,
+      modalMessage: '',
+      errorValue: false,
+      successValue: false
     }
   },
-  components: {UserMenu} ,
+  components: {MessageModal, UserMenu} ,
+  computed: {
+    ...mapGetters(['getContactMessage']),
+    currentRouteName() {
+      return this.$route.name;
+    }
+  },
+  watch: {
+    getContactMessage(newVal) {
+      this.showModalValue = true;
+      this.modalMessage = newVal;
+      this.errorValue = false;
+      this.successValue = true;
+
+      setTimeout(() => {
+        this.showModalValue = false;
+      }, 3000);
+    }
+  },
   methods: {
+    ...mapActions(['sendContactMail']),
     handleToggle(value) {
 
       if(value === 'apply') {
@@ -80,7 +118,28 @@ export default {
           this.applyIsActive = false;
         }
       }
+    },
+    sendApplyForm() {
+      if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.applyText !== '') {
+        let data = {
+          'firstName': this.firstName,
+          'lastName': this.lastName,
+          'email': this.email,
+          'message': this.applyText
+        }
 
+        this.sendContactMail(data)
+      } else {
+
+        this.showModalValue = true;
+        this.modalMessage = 'Bitte fülle alle Felder aus';
+        this.errorValue = true;
+        this.successValue = false;
+
+        setTimeout(() => {
+          this.showModalValue = false;
+        }, 3000);
+      }
     }
 
   }
@@ -91,6 +150,9 @@ export default {
   .navbar {
     width: 100%;
     background-color: transparent;
+  }
+  .navbar .container-fluid {
+    justify-content: flex-end;
   }
   #navbarSupportedContent {
     justify-content: flex-end;
@@ -135,8 +197,14 @@ export default {
     border: 2px solid #a21d21;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 15px;
+    animation: sidebar 0.3s 1;
+  }
+
+  @keyframes sidebar {
+    0% {height: 0}
+    100% {height: 65vh}
   }
 
   .sidebar-content h2 {
@@ -159,21 +227,11 @@ export default {
   .sidebar-content .contact-form {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
 
   .sidebar-content .contact-form input {
     margin-bottom: 10px;
-  }
-
-  .content-fade-enter-active,
-  .content-fade-leave-active {
-    transition: height 0.3s ease;
-  }
-
-  .content-fade-enter-from,
-  .content-fade-leave-to {
-    height: 0;
   }
 
   .btn {
@@ -202,6 +260,7 @@ export default {
 
     .sidebar-content {
       width: 100vw;
+      height: 100vh;
     }
   }
 </style>

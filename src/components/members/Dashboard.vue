@@ -13,7 +13,12 @@
       <Instruments />
     </div>
   </div>
-
+  <div class="spinner-overlay hidden">
+  </div>
+  <div class="spinner hidden">
+    <font-awesome-icon class="spinner-icon" icon="circle-notch" />
+  </div>
+  <Footer />
 </template>
 
 <script>
@@ -22,10 +27,11 @@ import News from "@/components/members/container/news/News";
 import Demand from "@/components/members/container/demand/Demand";
 import Blog from "@/components/members/container/blog/Blog";
 import Instruments from "@/components/members/container/instruments/Instruments";
+import Footer from "@/components/Footer";
 
 export default {
   name: "Dashboard",
-  components: {Instruments, Blog, Demand, News},
+  components: {Footer, Instruments, Blog, Demand, News},
   data() {
     return {
       editor: ClassicEditor,
@@ -34,6 +40,22 @@ export default {
       },
       userLevel: localStorage.getItem('userRole')
     };
+  },
+  methods: {
+    showSpinner() {
+      let spinner = document.querySelector('.spinner');
+      let spinnerOverlay = document.querySelector('.spinner-overlay');
+
+      spinner.classList.remove('hidden');
+      spinnerOverlay.classList.remove('hidden');
+    },
+    hideSpinner() {
+      let spinner = document.querySelector('.spinner');
+      let spinnerOverlay = document.querySelector('.spinner-overlay');
+
+      spinner.classList.add('hidden');
+      spinnerOverlay.classList.add('hidden');
+    }
   }
 }
 </script>
@@ -121,6 +143,43 @@ button:hover {
   border-radius: 5px;
   border: none;
   padding: 15px 40px;
+}
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  opacity: .4;
+  z-index: 10000;
+}
+.spinner {
+  position: fixed;
+  width:150px;
+  height:150px;
+  top: 40%;
+  left: 50%;
+  background-color: #fff;
+  z-index:51000;
+}
+
+.spinner-icon {
+  font-size: 50px;
+  color: #a21d21;
+  margin-top: 30%;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hidden {
+  display: none;
 }
 
 /*mobile*/

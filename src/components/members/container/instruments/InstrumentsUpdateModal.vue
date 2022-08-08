@@ -8,17 +8,12 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="mb-3 d-flex">
-              <div class="col-1 d-flex justify-content-start">
-                <label for="instrumentTitle" class="col-form-label">Titel</label>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Titel" class="form-control" id="instrumentTitle" v-model="instrumentTitle">
               </div>
-              <div class="col-5">
-                <input type="text" class="form-control" id="instrumentTitle" v-model="instrumentTitle">
-              </div>
-              <div class="col-1 justify-content-start">
-                <label for="instrumentDate" class="col-form-label">Datum</label>
-              </div>
-              <div class="col-5">
+              <div class="col-2"></div>
+              <div class="col-xs-12 col-lg-5">
                 <input type="date" class="form-control" id="instrumentDate" v-model="instrumentDate">
               </div>
             </div>
@@ -89,6 +84,9 @@ export default {
     },
     getInstrumentUpdate() {
       this.$parent.loadInstruments();
+      this.$parent.hideSpinner();
+      this.$parent.clearFields();
+      this.file = null;
     }
   },
   methods: {
@@ -101,6 +99,7 @@ export default {
       this.file = this.$refs.newsImage.files[0];
     },
     updateInstrument() {
+      this.$parent.showSpinner();
       this.formData = new FormData();
       this.formData.append('instrumentUpdateId', this.instrumentUpdateId);
       if (typeof this.file !== 'undefined') {

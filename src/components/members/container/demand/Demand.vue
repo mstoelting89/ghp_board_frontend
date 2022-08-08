@@ -178,6 +178,12 @@ export default {
       }
 
       this.setDemandVote(data);
+    },
+    showSpinner() {
+      this.$parent.showSpinner();
+    },
+    hideSpinner() {
+      this.$parent.hideSpinner();
     }
   }
 }
