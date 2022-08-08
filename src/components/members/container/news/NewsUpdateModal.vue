@@ -114,7 +114,6 @@ export default {
     getUpdateNews() {
       this.$parent.loadNews();
       this.$parent.hideSpinner();
-      this.$parent.clearFields();
       this.file = null;
     }
   },
