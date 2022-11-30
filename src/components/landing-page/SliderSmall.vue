@@ -51,4 +51,16 @@ export default {
 .logo-align img {
   height: 20vh;
 }
+
+/*mobile*/
+@media only screen and (max-width: 428px) {
+  .header-title {
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+
+  .slider {
+    height: 55vh;
+  }
+}
 </style>

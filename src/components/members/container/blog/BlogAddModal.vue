@@ -86,6 +86,7 @@ export default {
         this.$parent.errorValue = newVal.error;
         this.$parent.successValue = newVal.success;
         this.$parent.showModalValue = true;
+        this.$parent.hideSpinner();
         setTimeout(() => {
           this.$parent.showModalValue = false;
           if (newVal.redirect) {

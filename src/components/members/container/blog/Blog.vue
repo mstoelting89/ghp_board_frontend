@@ -228,6 +228,7 @@ export default {
   text-align: left;
   min-height: 150px;
   max-height: 150px;
+  overflow: hidden;
 }
 .blog-teaser-further-link {
   cursor: pointer;
