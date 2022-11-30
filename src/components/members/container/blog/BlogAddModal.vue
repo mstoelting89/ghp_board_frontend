@@ -55,14 +55,15 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "BlogAddModal",
   data() {
     return {
-      blogEditor: ClassicEditor,
+      blogEditor: Editor,
       editorConfig: {},
       images: [
         {

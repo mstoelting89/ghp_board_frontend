@@ -58,7 +58,8 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import BlogAddModal from "@/components/members/container/blog/BlogAddModal";
 import {mapActions, mapGetters} from "vuex";
 import BlogShowModal from "@/components/members/container/blog/BlogShowModal";
@@ -72,7 +73,7 @@ export default {
   components: {MessageModal, BlogUpdateModal, BlogDeleteModal, BlogShowModal, BlogAddModal},
   data() {
     return {
-      blogEditor: ClassicEditor,
+      blogEditor: Editor,
       editorConfig: {
 
       },

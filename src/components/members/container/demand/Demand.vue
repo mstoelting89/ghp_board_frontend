@@ -56,7 +56,8 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import DemandAddModal from "@/components/members/container/demand/DemandAddModal";
 import DemandShowModal from "@/components/members/container/demand/DemandShowModal";
 import {mapActions, mapGetters} from "vuex";
@@ -69,7 +70,7 @@ export default {
   components: {MessageModal, DemandDeleteModal, DemandUpdateModal, DemandShowModal, DemandAddModal},
   data() {
     return {
-      requestEditor: ClassicEditor,
+      requestEditor: Editor,
       editorConfig: {},
       demandArray: '',
       demandDetail: {},

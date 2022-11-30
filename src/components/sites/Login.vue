@@ -59,16 +59,18 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
 
 <script>
 
 import {mapActions, mapGetters} from "vuex";
 import MessageModal from "@/components/members/container/MessageModal";
+import Footer from "@/components/Footer";
 
 export default {
   name: "Login",
-  components: {MessageModal},
+  components: {Footer, MessageModal},
   data() {
     return {
       emailValue: '',
@@ -201,6 +203,10 @@ export default {
 
 .row input, .row button {
   margin-left: 10px;
+}
+.footer.row {
+  width: inherit;
+  margin-top: 0px;
 }
 
 button {
