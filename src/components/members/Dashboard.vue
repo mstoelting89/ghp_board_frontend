@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import News from "@/components/members/container/news/News";
 import Demand from "@/components/members/container/demand/Demand";
 import Blog from "@/components/members/container/blog/Blog";
@@ -34,7 +35,7 @@ export default {
   components: {Footer, Instruments, Blog, Demand, News},
   data() {
     return {
-      editor: ClassicEditor,
+      editor: Editor,
       editorConfig: {
 
       },

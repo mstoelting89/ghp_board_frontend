@@ -70,7 +70,8 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import {mapActions, mapGetters} from "vuex";
 
 export default {
@@ -78,7 +79,7 @@ export default {
   props: ['newsDetail', 'newsUpdateId'],
   data() {
     return  {
-      newsEditor: ClassicEditor,
+      newsEditor: Editor,
       editorData: '',
       editorConfig: {},
       date: '',

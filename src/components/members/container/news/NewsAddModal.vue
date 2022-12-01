@@ -55,14 +55,15 @@
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from 'ckeditor5-custom-build/build/ckeditor'
 import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "NewsAddModal",
   data() {
     return {
-      newsEditor: ClassicEditor,
+      newsEditor: Editor,
       editorConfig: {},
       newsTitle: '',
       newsDate: '',
@@ -87,6 +88,7 @@ export default {
         this.$parent.errorValue = newVal.error;
         this.$parent.successValue = newVal.success;
         this.$parent.showModalValue = true;
+        this.$parent.hideSpinner();
         setTimeout(() => {
           this.$parent.showModalValue = false;
           if (newVal.redirect) {
