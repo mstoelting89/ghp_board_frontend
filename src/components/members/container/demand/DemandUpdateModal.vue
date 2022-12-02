@@ -127,6 +127,7 @@ export default {
       }
       formData.append('demandData', JSON.stringify(data));
       formData.append('demandId', this.demandUpdateId);
+      console.log(formData);
       this.updateDemandEntry(formData);
     },
     clearFields() {
