@@ -63,7 +63,8 @@ export default {
       image: '',
       showPreviewImage: false,
       file: '',
-      formData: null
+      formData: null,
+      instrumentImageDelete: false,
     }
   },
   computed: {
@@ -93,9 +94,11 @@ export default {
     deleteImage() {
       this.$refs.previousInstrumentImage.querySelector('.previousImage').setAttribute('src', '');
       this.showPreviewImage = false;
+      this.instrumentImageDelete = true;
     },
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
+      this.instrumentImageDelete = false;
     },
     updateInstrument() {
       this.$parent.showSpinner();
@@ -110,6 +113,7 @@ export default {
       }
 
       this.formData.append('instrumentData', JSON.stringify(data));
+      this.formData.append('instrumentImageDelete', this.instrumentImageDelete);
       this.updateInstrumentEntry(this.formData);
     }
   }

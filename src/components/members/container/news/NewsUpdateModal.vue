@@ -90,7 +90,8 @@ export default {
       formData: null,
       updateId: null,
       updateNewsArray: [],
-      showPreviewImage: false
+      showPreviewImage: false,
+      deleteNewsImage: false,
     }
   },
   computed: {
@@ -122,6 +123,7 @@ export default {
     ...mapActions(['updateNewsEntry']),
     handleFile() {
       this.file = this.$refs.newsImage.files[0];
+      this.deleteNewsImage = false;
     },
     checkField(input, inputWrapper) {
       if (input.length <= 0) {
@@ -164,6 +166,7 @@ export default {
         }
 
         this.formData.append('newsData', JSON.stringify(data));
+        this.formData.append('newsImageDelete', this.deleteNewsImage);
 
         this.updateNewsEntry(this.formData);
       }
@@ -171,6 +174,7 @@ export default {
     deleteImage() {
       this.$refs.previousNewsImage.querySelector('.previousImage').setAttribute('src', '');
       this.showPreviewImage = false;
+      this.deleteNewsImage = true;
     }
   }
 }
