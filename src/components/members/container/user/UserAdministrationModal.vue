@@ -125,9 +125,20 @@ export default {
     newUser() {
       this.$parent.showSpinner();
       const email = this.newUserEmail;
-      const userRole = this.$refs.newUserRole.selectedOptions[0].dataset.roleValue;
 
-      this.insertNewUser({email, userRole});
+      if (this.$refs.newUserRole.selectedIndex !== -1 && email !== '') {
+        const userRole = this.$refs.newUserRole.selectedOptions[0].dataset.roleValue;
+        this.insertNewUser({email, userRole});
+      } else {
+        this.$parent.modalMessage = "Bitte alle Pflichtfelder ausfüllen";
+        this.$parent.errorValue = true;
+        this.$parent.successValue = false;
+        this.$parent.showModalValue = true;
+        this.$parent.hideSpinner();
+        setTimeout(() => {
+          this.$parent.showModalValue = false;
+        }, 3000);
+      }
     }
   }
 }

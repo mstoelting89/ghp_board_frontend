@@ -1,4 +1,5 @@
 import axios from 'axios';
+import globals from './globals'
 
 export default {
     insertNewUser(data) {
@@ -10,7 +11,7 @@ export default {
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/user", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/user", data, {
             headers: header
         });
     },
@@ -20,7 +21,7 @@ export default {
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/login/password/reset", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/login/password/reset", data, {
             headers: header
         });
     },
@@ -30,7 +31,7 @@ export default {
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/login/password/request", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/login/password/request", data, {
             headers: header
         });
     },
@@ -46,7 +47,7 @@ export default {
             "email": localStorage.getItem('userEmail'),
             "userToken": token
         }
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/user/list", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/user/list", data, {
             headers: header
         });
     },
@@ -59,7 +60,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/user/user_roles", {
+        return axios.get(globals.HOST_NAME + "/api/v1/user/user_roles", {
             headers: header
         });
     },
@@ -72,7 +73,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.put("https://api.ghp.stoelting-michael.de/api/v1/user/role", data, {
+        return axios.put(globals.HOST_NAME + "/api/v1/user/role", data, {
             headers: header
         });
     },
@@ -85,7 +86,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.delete("https://api.ghp.stoelting-michael.de/api/v1/user/" + id, {
+        return axios.delete(globals.HOST_NAME + "/api/v1/user/" + id, {
             headers: header
         });
     }

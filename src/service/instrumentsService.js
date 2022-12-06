@@ -1,4 +1,5 @@
 import axios from 'axios';
+import globals from './globals'
 
 export default {
     getInstruments() {
@@ -11,7 +12,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.get("https://api.ghp.stoelting-michael.de/api/v1/instrument/list", {
+        return axios.get(globals.HOST_NAME + "/api/v1/instrument/list", {
             headers: header
         });
     },
@@ -25,7 +26,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.post("https://api.ghp.stoelting-michael.de/api/v1/instrument", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/instrument", data, {
             headers: header
         });
     },
@@ -39,7 +40,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.put("https://api.ghp.stoelting-michael.de/api/v1/instrument", data, {
+        return axios.put(globals.HOST_NAME + "/api/v1/instrument", data, {
             headers: header
         });
     },
@@ -53,7 +54,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.delete("https://api.ghp.stoelting-michael.de/api/v1/instrument/" + id, {
+        return axios.delete(globals.HOST_NAME + "/api/v1/instrument/" + id, {
             headers: header
         });
     },

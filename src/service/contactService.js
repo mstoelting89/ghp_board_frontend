@@ -1,4 +1,5 @@
 import axios from 'axios';
+import globals from './globals'
 
 export default {
     sendContactMail(data) {
@@ -8,7 +9,7 @@ export default {
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         }
 
-        return axios.post(process.env.VUE_APP_BACKEND_URL + "/api/v1/contact", data, {
+        return axios.post(globals.HOST_NAME + "/api/v1/contact", data, {
             headers: header
         });
     }
