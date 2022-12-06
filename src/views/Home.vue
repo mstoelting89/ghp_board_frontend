@@ -48,6 +48,7 @@
       <Instruments />
     </div>
     <div class="social-media">
+      <a href="https://wa.me/4915227699340"><font-awesome-icon class="whatsapp" :icon="['fab', 'whatsapp']" /></a>
       <a href="https://www.facebook.com/guitarheartsprojecteV"><font-awesome-icon class="facebook" :icon="['fab', 'facebook-f']" /></a>
       <a href="https://www.instagram.com/guitarheartsproject/?utm_medium=copy_link"><font-awesome-icon class="instagram" :icon="['fab', 'instagram']" /></a>
     </div>
@@ -203,10 +204,24 @@ export default {
     padding: 10px;
     border-radius: 50%;
   }
+  .social-media .whatsapp {
+    background-color: #25D366;
+    color: #fff;
+    font-size: 4rem;
+    width: 4rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    padding: 15px;
+    border-radius: 50%;
+  }
   .social-media .facebook:hover {
     opacity: .5;
   }
   .social-media .instagram:hover {
+    opacity: .5;
+  }
+  .social-media .whatsapp:hover {
     opacity: .5;
   }
 </style>

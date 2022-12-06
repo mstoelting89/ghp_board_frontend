@@ -212,6 +212,7 @@ export default {
 .blog-teaser-image img {
   border-radius: 6px;
   max-width: 250px;
+  max-height: 185px;
 }
 .blog-teaser-header {
   text-align: center;

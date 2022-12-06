@@ -2,8 +2,7 @@
   <div class="footer row">
     <div class="col-lg-4 col-sm-12 col-xs-12 sub-text-footer pt-3 pb-3">
       The Guitar Hearts Project e.V.<br>
-      guitarheartsproject@outlook.de<br>
-      067719344061<br>
+      vorstand@guitarheartsproject.de <br>
       Langgasse 17, 56348 Bornich, Germany<br>
       <br>
       ©2020 The Guitar Hearts Project e.V.
