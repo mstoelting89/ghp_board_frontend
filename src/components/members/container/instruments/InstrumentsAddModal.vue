@@ -130,7 +130,11 @@ export default {
   font-size: 16px;
   background-color: #a21d21;
 }
-
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 .hidden {
   display: none;
 }

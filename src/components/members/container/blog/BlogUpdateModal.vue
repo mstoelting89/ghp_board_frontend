@@ -193,6 +193,11 @@ export default {
   border: none;
   padding: 15px 40px;
 }
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 .btn-secondary {
   padding: 15px 40px;
   font-size: 16px;

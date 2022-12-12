@@ -178,6 +178,11 @@ export default {
   background-color: transparent;
   border: none;
 }
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 .btn {
   font-weight: bold;
   border-radius: 5px;

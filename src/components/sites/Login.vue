@@ -226,6 +226,11 @@ button:hover {
   color: #ff0000;
   margin-top: 10px;
 }
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 
 /*mobile*/
 @media only screen and (max-width: 428px) {

@@ -68,7 +68,11 @@ export default {
   border: none;
   margin-top: -5px;
 }
-
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 .blogDetailInfo {
   display: flex;
   font-size: 12px;

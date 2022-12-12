@@ -49,7 +49,11 @@ export default {
   font-size: 12px;
   background-color: #a21d21;
 }
-
+.btn-primary:focus, .btn-primary:active {
+  background-color: #a21d21;
+  border-color: #a21d21;
+  box-shadow: none;
+}
 .btn-default {
   border: 1px solid #a21d21;
 }
