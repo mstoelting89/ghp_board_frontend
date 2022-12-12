@@ -17,6 +17,17 @@
                 <input type="date" class="form-control" id="instrumentDate" v-model="instrumentDate">
               </div>
             </div>
+            <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Spender" class="form-control" id="instrumentDonator" v-model="instrumentDonator">
+              </div>
+              <div class="col-lg-2 col-xs-6 d-flex justify-content-start">
+                <label for="instrumentIsTaken" class="col-form-label">Vergeben</label>
+              </div>
+              <div class="col-1">
+                <input type="checkbox" id="instrumentIsTaken">
+              </div>
+            </div>
             <div class="row mb-3" v-show="showPreviewImage">
               <div class="col-md-3 d-flex justify-content-start">
                 <label class="col-form-label">Bisheriges Bild</label>
@@ -60,6 +71,7 @@ export default {
     return {
       instrumentDate: '',
       instrumentTitle: '',
+      instrumentDonator: '',
       image: '',
       showPreviewImage: false,
       file: '',

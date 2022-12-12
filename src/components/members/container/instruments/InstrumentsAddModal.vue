@@ -18,6 +18,17 @@
               </div>
             </div>
             <div class="mb-3 d-flex row">
+              <div class="col-xs-12 col-lg-5">
+                <input type="text" placeholder="Spender" class="form-control" id="instrumentDonator" v-model="instrumentDonator">
+              </div>
+              <div class="col-lg-2 col-xs-6 d-flex justify-content-start">
+                <label for="instrumentIsTaken" class="col-form-label">Vergeben</label>
+              </div>
+              <div class="col-1">
+                <input type="checkbox" id="instrumentIsTaken">
+              </div>
+            </div>
+            <div class="mb-3 d-flex row">
               <div class="col-1 d-flex justify-content-start">
                 <label for="instrumentImage" class="col-form-label">Bild</label>
               </div>
@@ -45,6 +56,7 @@ export default {
     return {
       instrumentTitle: '',
       instrumentDate: '',
+      instrumentDonator: '',
       file: null
     }
   },
@@ -76,12 +88,15 @@ export default {
   methods: {
     ...mapActions(['insertInstrument']),
     insertNewInstrument() {
+      let isTaken = document.querySelector('#instrumentIsTaken').checked;
       this.$parent.showSpinner();
       this.formData = new FormData();
       this.formData.append('file', this.file);
       let data = {
         instrumentTitle: this.instrumentTitle,
         instrumentDate: this.instrumentDate + "T00:00:00",
+        donator: this.instrumentDonator,
+        taken: isTaken
       }
       this.formData.append('instrumentData', JSON.stringify(data));
       this.insertInstrument(this.formData);

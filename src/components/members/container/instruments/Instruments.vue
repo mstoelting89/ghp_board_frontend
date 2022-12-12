@@ -23,6 +23,7 @@
           </div>
         </div>
         <div class="instrument-teaser-image">
+          <img src="@/assets/stempel.png" v-if="setImagePath(instrument.instrumentImage) !== false && instrument.taken === true" class="takenInstrument" />
           <img v-if="setImagePath(instrument.instrumentImage) !== false" class="previewImage" :src="setImagePath(instrument.instrumentImage)" />
           <img v-else src="@/assets/images/BilderLars/1428062250527.png" />
         </div>
@@ -182,6 +183,7 @@ export default {
 .instrument-teaser-image {
   max-height: 200px;
   min-height: 200px;
+  position: relative;
 }
 .instrument-teaser-image img {
   border-radius: 6px;
@@ -242,6 +244,10 @@ export default {
 }
 .hidden {
   display: none;
+}
+.takenInstrument {
+  position:absolute;
+  transform: rotate(-25deg);
 }
 /*mobile*/
 @media only screen and (max-width: 992px) {
