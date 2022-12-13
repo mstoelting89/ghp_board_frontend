@@ -81,6 +81,11 @@ export default {
 .modal-leave-to .modal-container {
   margin-top:0%;
 }
+.modal-body {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
 /*mobile*/
 @media only screen and (max-width: 992px) {
   .modal-container {

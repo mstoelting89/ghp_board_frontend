@@ -22,6 +22,9 @@
             </div>
           </div>
         </div>
+        <div class="donator">
+          <div class="donator-text">Gespendet von: </div><div class="donator-name">{{ instrument.donator }}</div>
+        </div>
         <div class="instrument-teaser-image">
           <img src="@/assets/stempel.png" v-if="setImagePath(instrument.instrumentImage) !== false && instrument.taken === true" class="takenInstrument" />
           <img v-if="setImagePath(instrument.instrumentImage) !== false" class="previewImage" :src="setImagePath(instrument.instrumentImage)" />
@@ -165,8 +168,8 @@ export default {
 .instrument-item {
   min-width: 20rem;
   max-width: 20rem;
-  min-height: 20rem;
-  max-height: 20rem;
+  min-height: 22rem;
+  max-height: 22rem;
   box-shadow: -5px 1px 5px 0px #000;
   padding: 1rem;
   border-radius: 16px;
@@ -179,6 +182,15 @@ export default {
   margin-right: 40px;
   margin-left: 40px;
   transform: scale(1.1);
+}
+.donator {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 10px;
+  height: 45px;
+}
+.donator-name {
+  margin-left: 5px;
 }
 .instrument-teaser-image {
   max-height: 200px;

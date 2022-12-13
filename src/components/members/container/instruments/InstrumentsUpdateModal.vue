@@ -21,11 +21,12 @@
               <div class="col-xs-12 col-lg-5">
                 <input type="text" placeholder="Spender" class="form-control" id="instrumentDonator" v-model="instrumentDonator">
               </div>
+              <div class="col-2"></div>
               <div class="col-lg-2 col-xs-6 d-flex justify-content-start">
-                <label for="instrumentIsTaken" class="col-form-label">Vergeben</label>
+                <label for="instrumentIsTaken-update" class="col-form-label">Vergeben</label>
               </div>
-              <div class="col-1">
-                <input type="checkbox" id="instrumentIsTaken">
+              <div class="col-1 d-flex">
+                <input type="checkbox" id="instrumentIsTaken-update">
               </div>
             </div>
             <div class="row mb-3" v-show="showPreviewImage">
@@ -88,6 +89,9 @@ export default {
 
       this.instrumentDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
       this.instrumentTitle = newVal.instrumentTitle;
+      this.instrumentDonator = newVal.donator;
+      document.querySelector('#instrumentIsTaken-update').checked = newVal.taken;
+
       this.image = newVal.instrumentImage;
 
       if (newVal.instrumentImage) {
@@ -113,15 +117,19 @@ export default {
       this.instrumentImageDelete = false;
     },
     updateInstrument() {
+      let isTaken = document.querySelector('#instrumentIsTaken-update').checked;
       this.$parent.showSpinner();
       this.formData = new FormData();
       this.formData.append('instrumentUpdateId', this.instrumentUpdateId);
       if (typeof this.file !== 'undefined') {
         this.formData.append('file', this.file);
       }
+
       let data = {
         instrumentTitle: this.instrumentTitle,
         instrumentDate: this.instrumentDate + "T00:00:00",
+        donator: this.instrumentDonator,
+        taken: isTaken
       }
 
       this.formData.append('instrumentData', JSON.stringify(data));
