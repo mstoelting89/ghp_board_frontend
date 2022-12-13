@@ -11,6 +11,11 @@
       <font-awesome-icon class="add-icon" v-if="userLevel === 'ADMIN' && currentRouteName === 'Dashboard'" icon="circle-plus" data-bs-toggle="modal" data-bs-target="#addInstrument" />
     </div>
     <div class="instrument-list">
+
+      <div class="loadingSpinner">
+        <font-awesome-icon class="spinner-icon" icon="circle-notch" />
+      </div>
+
       <div class="instrument-item" v-for="instrument in instrumentsArray" v-bind:key="instrument">
         <div class="admin-buttons">
           <div class="buttons">
@@ -78,6 +83,7 @@ export default {
   watch: {
     getInstruments(newVal) {
       this.instrumentsArray = this.setInstrumentsArray(newVal);
+      this.hideLoadingSpinner();
     }
   },
   async created() {
@@ -114,6 +120,13 @@ export default {
     },
     hideSpinner() {
       this.$parent.hideSpinner();
+    },
+    showLoadingSpinner() {
+      //let spinner = document.querySelector('.loadingSpinner');
+    },
+    hideLoadingSpinner() {
+      let spinner = document.querySelector('.loadingSpinner');
+      spinner.classList.add('hidden');
     }
   }
 }
@@ -126,7 +139,8 @@ export default {
 }
 .ghp-container {
   background-color: #fff;
-  height: 50%;
+  height: 55vh;
+  min-height: 55vh;
   border-radius: 5px;
 }
 .page-header {
@@ -164,12 +178,14 @@ export default {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: #000;
+  position: relative;
+  height: 100%;
 }
 .instrument-item {
   min-width: 20rem;
   max-width: 20rem;
-  min-height: 22rem;
-  max-height: 22rem;
+  min-height: 24rem;
+  max-height: 24rem;
   box-shadow: -5px 1px 5px 0px #000;
   padding: 1rem;
   border-radius: 16px;
@@ -196,6 +212,8 @@ export default {
   max-height: 200px;
   min-height: 200px;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 .instrument-teaser-image img {
   border-radius: 6px;
@@ -208,6 +226,7 @@ export default {
   font-size: 18px;
   color: #a21d21;
   font-weight: bold;
+  margin-top: 10px;
 }
 .instrument-teaser-date {
   font-size: 12px;
@@ -261,6 +280,32 @@ export default {
   position:absolute;
   transform: rotate(-25deg);
 }
+
+.loadingSpinner {
+  position: absolute;
+  width:150px;
+  height:150px;
+  top: 40%;
+  left: 50%;
+  background-color: #fff;
+  z-index:51000;
+}
+
+.spinner-icon {
+  font-size: 50px;
+  color: #a21d21;
+  margin-top: 30%;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /*mobile*/
 @media only screen and (max-width: 992px) {
   .ghp-container {
