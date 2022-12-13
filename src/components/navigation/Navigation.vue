@@ -8,6 +8,10 @@
             :error=errorValue
             :success=successValue
         />
+        <div class="spinner-contact-mail hidden">
+          <font-awesome-icon class="spinner-icon" icon="circle-notch" />
+        </div>
+
         <UserMenu />
         <div class="sidebar-buttons" v-if="currentRouteName !== 'Dashboard'">
           <ul class="navbar-nav">
@@ -95,6 +99,7 @@ export default {
       this.modalMessage = newVal;
       this.errorValue = false;
       this.successValue = true;
+      this.hideContactLoadingSpinner();
 
       setTimeout(() => {
         this.showModalValue = false;
@@ -127,8 +132,9 @@ export default {
           'email': this.email,
           'message': this.applyText
         }
-
-        this.sendContactMail(data)
+        this.showContactLoadingSpinner();
+        this.sendContactMail(data);
+        this.applyIsActive = false;
       } else {
 
         this.showModalValue = true;
@@ -140,6 +146,14 @@ export default {
           this.showModalValue = false;
         }, 3000);
       }
+    },
+    showContactLoadingSpinner() {
+      let spinner = document.querySelector('.spinner-contact-mail');
+      spinner.classList.remove('hidden');
+    },
+    hideContactLoadingSpinner() {
+      let spinner = document.querySelector('.spinner-contact-mail');
+      spinner.classList.add('hidden');
     }
 
   }
@@ -268,5 +282,42 @@ export default {
       width: 100vw;
       height: 100vh;
     }
+  }
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #000;
+    opacity: .4;
+    z-index: 10000;
+  }
+  .spinner-contact-mail {
+    position: fixed;
+    width:150px;
+    height:150px;
+    top: 40%;
+    left: 50%;
+    background-color: #fff;
+    z-index:51000;
+  }
+
+  .spinner-icon {
+    font-size: 50px;
+    color: #a21d21;
+    margin-top: 30%;
+    animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .hidden {
+    display: none;
   }
 </style>

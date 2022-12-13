@@ -7,6 +7,10 @@
         :success=successValue
     />
 
+    <div class="spinner-contact-mail hidden">
+      <font-awesome-icon class="spinner-icon" icon="circle-notch" />
+    </div>
+
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -23,7 +27,7 @@
               <input class="form-control" placeholder="Vorname" v-model="firstName">
               <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
               <textarea class="form-control" placeholder="Nachricht" cols="30" rows="8" v-model="contactText"></textarea>
-              <button class="btn btn-primary" @click="sendContactMessage">Absenden</button>
+              <button class="btn btn-primary" @click="sendContactMessage" data-bs-dismiss="modal">Absenden</button>
             </div>
           </div>
         </div>
@@ -61,7 +65,7 @@ export default {
       this.modalMessage = newVal;
       this.errorValue = false;
       this.successValue = true;
-
+      this.hideContactLoadingSpinner();
       setTimeout(() => {
         this.showModalValue = false;
       }, 3000);
@@ -77,7 +81,7 @@ export default {
           'email': this.email,
           'message': this.contactText
         }
-
+        this.showContactLoadingSpinner();
         this.sendContactMail(data)
       } else {
 
@@ -90,6 +94,14 @@ export default {
           this.showModalValue = false;
         }, 3000);
       }
+    },
+    showContactLoadingSpinner() {
+      let spinner = document.querySelector('.spinner-contact-mail');
+      spinner.classList.remove('hidden');
+    },
+    hideContactLoadingSpinner() {
+      let spinner = document.querySelector('.spinner-contact-mail');
+      spinner.classList.add('hidden');
     }
   }
 }
@@ -145,5 +157,42 @@ export default {
   margin-bottom: 20px;
   display: flex;
   align-content: flex-start;
+}
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  opacity: .4;
+  z-index: 10000;
+}
+.spinner {
+  position: fixed;
+  width:150px;
+  height:150px;
+  top: 40%;
+  left: 50%;
+  background-color: #fff;
+  z-index:51000;
+}
+
+.spinner-icon {
+  font-size: 50px;
+  color: #a21d21;
+  margin-top: 30%;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hidden {
+  display: none;
 }
 </style>
