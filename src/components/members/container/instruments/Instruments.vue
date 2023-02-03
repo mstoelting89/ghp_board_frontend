@@ -30,7 +30,7 @@
         <div class="donator">
           <div class="donator-text">Gespendet von: </div><div class="donator-name">{{ instrument.donator }}</div>
         </div>
-        <div class="instrument-teaser-image">
+        <div class="instrument-teaser-image" data-bs-toggle="modal" data-bs-target="#showInstrument" @click="getDetailInstrument(instrument.id)">
           <img src="@/assets/stempel.png" v-if="setImagePath(instrument.instrumentImage) !== false && instrument.taken === true" class="takenInstrument" />
           <img v-if="setImagePath(instrument.instrumentImage) !== false" class="previewImage" :src="setImagePath(instrument.instrumentImage)" />
           <img v-else src="@/assets/images/BilderLars/1428062250527.png" />
@@ -43,9 +43,12 @@
       </div>
     </div>
   </div>
+  <InstrumentShowModal
+      :instrumentDetail="instrumentDetail"
+  />
   <InstrumentsAddModal />
   <InstrumentDeleteModal
-    :instrumentDeleteId="instrumentId"
+      :instrumentDeleteId="instrumentId"
   />
   <InstrumentsUpdateModal
       :instrumentUpdateId="instrumentId"
@@ -59,9 +62,10 @@ import {mapActions, mapGetters} from "vuex";
 import InstrumentDeleteModal from "@/components/members/container/instruments/InstrumentDeleteModal";
 import InstrumentsUpdateModal from "@/components/members/container/instruments/InstrumentsUpdateModal";
 import MessageModal from "@/components/members/container/MessageModal";
+import InstrumentShowModal from "@/components/members/container/instruments/InstrumentShowModal";
 export default {
   name: "Instruments",
-  components: {MessageModal, InstrumentsUpdateModal, InstrumentDeleteModal, InstrumentsAddModal},
+  components: {InstrumentShowModal, MessageModal, InstrumentsUpdateModal, InstrumentDeleteModal, InstrumentsAddModal},
   data() {
     return {
       instrumentsArray: [],
