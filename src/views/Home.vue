@@ -6,7 +6,7 @@
   <div class="content">
     <div class="intro fadein fadein-opacity mb-6">
       <IntroText introTextFirstWord="Willkommen" introTextTitle="beim Guitar Hearts Project">
-        <p>Im März 2015 hat Lars die Idee, zwei seiner Gitarren für einen wohltätigen Zweck zu verschenken. Seine Aktion postet er bei Facebook. Hunderte Menschen schrieben ihn an.</p>
+        <p>Im März 2015 hat Lars die Idee, zwei seiner Gitarren für einen wohltätigen Zweck zu verschenken. Seine Aktion postet er bei Facebook und hunderte Menschen schrieben ihn an.</p>
         <p>Es melden sich aber nicht nur Leute, die diese Gitarren haben wollen – sondern auch viele, die selbst alte Instrumente, Verstärker und Equipment für Bands verschenken oder sonst irgendwie diese tolle Idee unterstützen möchten. Und so wird aus einer Idee ein Projekt und aus dem Projekt letztendlich ein eingetragener, gemeinnütziger Verein (e.V.).</p>
       </IntroText>
     </div>
