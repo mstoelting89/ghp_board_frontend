@@ -42,7 +42,8 @@
       <router-link to="/satzung">Satzung</router-link><br>
       <router-link to="/impressum">Impressum</router-link><br>
       <router-link to="/login">Mitglieder-Login</router-link><br>
-      <span class="contact" data-bs-toggle="modal" data-bs-target="#contact">Kontakt</span>
+      <!--
+      <span class="contact" data-bs-toggle="modal" data-bs-target="#contact">Kontakt</span> -->
     </div>
     <ContactModal />
   </div>

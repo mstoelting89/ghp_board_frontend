@@ -30,7 +30,7 @@
               <h2>Bewerben</h2>
               <div class="content-text">
                 Du möchtest dich für ein Instrument bewerben?<br>
-                Dann schreib uns einfach eine Nachricht an vorstand@guitarheartsproject.de
+                Dann schreib uns einfach eine Nachricht an <a href="mailto:vorstand@guitarheartsproject.de">vorstand@guitarheartsproject.de</a>
               </div>
               <!--
               <div class="contact-form">
