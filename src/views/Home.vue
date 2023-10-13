@@ -32,10 +32,10 @@
         Wir bekamen den Namen Guitar Hearts Project und organisieren uns seit April 2017 als eingetragener gemeinnütziger Verein. Wir sammeln nun offiziell nicht mehr benötigte Gitarren, E-Bässe, sowie Amps und Equipment, richten diese in Eigenleistung wieder her und spenden die Instrumente an gemeinnützige Organisationen, Schulen, soziale Projekte und bedürftige Privatpersonen. Schon in den ersten Wochen bekamen wir knapp zwei Dutzend Instrumente und Equipment gespendet.
       </TextCard>
     </div>
-    <!--
+
     <div class="blog fadein fadein-opacity mb-3">
       <Blog />
-    </div> -->
+    </div>
     <div class="how-it-works fadein fadein-opacity mb-6">
       <TextElement textElementFirstWord="Wie" textElementTitle="funktioniert das Guitar Hearts Project?">
         <p>Ein solches Projekt erfordert nicht nur einen großen organisatorischen Aufwand. Die gespendeten Gitarren müssen zum größten Teil optimiert, eingestellt oder oft auch repariert werden, bevor sie weiter gespendet werden können.</p>
@@ -43,10 +43,10 @@
           Bisher wurden alle damit verbundenen Kosten privat gedeckt. Langfristig erhoffen wir uns eine Finanzierung durch Geldspenden.</p>
       </TextElement>
     </div>
-    <!--
+
     <div class="instruments-wrapper fadein fadein-opacity mb-5">
       <Instruments />
-    </div>-->
+    </div>
     <div class="social-media">
       <a href="https://wa.me/491625863640"><font-awesome-icon class="whatsapp" :icon="['fab', 'whatsapp']" /></a>
       <a href="https://www.facebook.com/guitarheartsprojecteV"><font-awesome-icon class="facebook" :icon="['fab', 'facebook-f']" /></a>
@@ -64,14 +64,14 @@ import IntroText from "@/components/landing-page/IntroText";
 import TextCard from "@/components/landing-page/TextCard";
 import TextElement from "@/components/landing-page/TextElement";
 import Footer from "@/components/Footer";
-//import Blog from "@/components/members/container/blog/Blog";
-//import Instruments from "@/components/members/container/instruments/Instruments";
+import Blog from "@/components/members/container/blog/Blog";
+import Instruments from "@/components/members/container/instruments/Instruments";
 
 export default {
   name: 'Home',
   components: {
-    //Instruments,
-    //Blog,
+    Instruments,
+    Blog,
     Footer,
     TextElement,
     TextCard,

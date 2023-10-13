@@ -32,14 +32,13 @@
                 Du möchtest dich für ein Instrument bewerben?<br>
                 Dann schreib uns einfach eine Nachricht an <a href="mailto:vorstand@guitarheartsproject.de">vorstand@guitarheartsproject.de</a>
               </div>
-              <!--
               <div class="contact-form">
                 <input class="form-control" placeholder="Name" v-model="firstName">
                 <input class="form-control" placeholder="Vorname" v-model="lastName">
                 <input class="form-control" placeholder="E-Mail Adresse" v-model="email">
                 <textarea placeholder="Nachricht" cols="30" rows="8" v-model="applyText"></textarea>
                 <button class="btn btn-primary" @click="sendApplyForm">Absenden</button>
-              </div> -->
+              </div>
             </div>
           </div>
         </Transition>
