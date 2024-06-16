@@ -19,7 +19,7 @@
         </div>
         <div class="modal-body">
 
-          <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+          <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
               <div class="carousel-item" :class="i === 0 ? 'active':''" v-for="(image, i) in blogDetail.blogImages" v-bind:key="image">
                 <div class="d-flex justify-content-center">

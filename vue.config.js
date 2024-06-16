@@ -5,7 +5,7 @@
  */
 module.exports = {
     devServer: {
-        disableHostCheck: true
+        allowedHosts: "all"
     },
     parallel: false
 }
