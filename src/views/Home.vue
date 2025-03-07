@@ -48,7 +48,7 @@
       <Instruments />
     </div>
     <div class="social-media">
-      <a href="https://wa.me/491625863640"><font-awesome-icon class="whatsapp" :icon="['fab', 'whatsapp']" /></a>
+      <a href="https://wa.me/491626068086"><font-awesome-icon class="whatsapp" :icon="['fab', 'whatsapp']" /></a>
       <a href="https://www.facebook.com/guitarheartsprojecteV"><font-awesome-icon class="facebook" :icon="['fab', 'facebook-f']" /></a>
       <a href="https://www.instagram.com/guitarheartsproject/?utm_medium=copy_link"><font-awesome-icon class="instagram" :icon="['fab', 'instagram']" /></a>
     </div>
