@@ -8,8 +8,8 @@ export default {
         const header = {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
         return axios.post(globals.HOST_NAME + "/api/v1/user", data, {
             headers: header
@@ -18,8 +18,8 @@ export default {
     setNewPassword(data) {
         const header = {
             "Content-Type": "application/json",
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
         return axios.post(globals.HOST_NAME + "/api/v1/login/password/reset", data, {
             headers: header
@@ -28,8 +28,8 @@ export default {
     requestNewPassword(data) {
         const header = {
             "Content-Type": "application/json",
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
         return axios.post(globals.HOST_NAME + "/api/v1/login/password/request", data, {
             headers: header
@@ -40,8 +40,8 @@ export default {
         const header = {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
         const data = {
             "email": localStorage.getItem('userEmail'),
@@ -56,8 +56,8 @@ export default {
         const header = {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.get(globals.HOST_NAME + "/api/v1/user/user_roles", {
@@ -69,8 +69,8 @@ export default {
         const header = {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.put(globals.HOST_NAME + "/api/v1/user/role", data, {
@@ -82,8 +82,8 @@ export default {
         const header = {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.delete(globals.HOST_NAME + "/api/v1/user/" + id, {

@@ -7,9 +7,9 @@ export default {
 
         const header = {
             'Content-Type' : 'application/x-www-form-urlencoded',
-            /*'Authorization': `Bearer ${token}`,*/
+            /*'Authorization': `Bearer ${token}`,
             'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.get(globals.HOST_NAME + "/api/v1/instrument/list", {
@@ -22,8 +22,8 @@ export default {
         const header = {
             'Content-Type' : 'multipart/form-data',
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.post(globals.HOST_NAME + "/api/v1/instrument", data, {
@@ -36,8 +36,8 @@ export default {
             //'Content-Type' : 'application/json',
             'Content-Type' : 'multipart/form-data',
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.put(globals.HOST_NAME + "/api/v1/instrument", data, {
@@ -50,8 +50,8 @@ export default {
             //'Content-Type' : 'application/json',
             'Content-Type' : 'multipart/form-data',
             'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            /*'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',*/
         }
 
         return axios.delete(globals.HOST_NAME + "/api/v1/instrument/" + id, {
