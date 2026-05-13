@@ -1,93 +1,54 @@
 import newsService from "@/service/newsService";
 
 export const actions = {
-    getNewsFromService(state) {
-        return new Promise(() => {
+    getNews() {
+        return new Promise((resolve) => {
             newsService.getNews().then((response) => {
-                state.commit('GET_NEWS', response);
+                resolve(response);
             });
         });
     },
-    getNewsDetailFromService(state, payload) {
-        return new Promise(() => {
+    getNewsDetail({ commit }, payload) {
+        commit('NEWS');
+        return new Promise((resolve) => {
            newsService.getNewsDetail(payload).then((response) => {
-               state.commit('GET_NEWS_DETAIL', response);
+               resolve(response);
            })
         });
     },
-    insertNewNewsEntry(state, payload) {
-        return new Promise(() => {
+    insertNewNewsEntry({ commit }, payload) {
+        commit("NEWS");
+
+        return new Promise((resolve) => {
             newsService.insertNewsEntry(payload).then((response) => {
-                state.commit('GET_NEWS_INSERT', response);
-                // Call Message
-                if (response.status === 200) {
-                    state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                        error: false,
-                        success: true,
-                        message: 'Der Newseintrag wurde erfolgreich gespeichert.',
-                        redirect: ''
-                    });
-                }
-            }).catch(() => {
-                state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                    error: false,
-                    success: true,
-                    message: 'Beim Speichern des Newseintrages ist ein Fehler aufgetreten',
-                    redirect: ''
-                });
+                resolve(response);
             });
         })
     },
-    updateNewsEntry(state, payload) {
-        return new Promise(() => {
+    updateNewsEntry({ commit }, payload) {
+        commit("NEWS");
+
+        return new Promise((resolve) => {
             newsService.updateNewsEntry(payload).then((response) => {
-                state.commit('GET_NEWS_UPDATE', response);
-                // Call Message
-                if (response.status === 200) {
-                    state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                        error: false,
-                        success: true,
-                        message: 'Der Newseintrag wurde erfolgreich aktualisiert.',
-                        redirect: ''
-                    });
-                }
-            }).catch(() => {
-                state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                    error: false,
-                    success: true,
-                    message: 'Beim Aktualisieren des Newseintrages ist ein Fehler aufgetreten',
-                    redirect: ''
-                });
-            });
+                resolve(response);
+            })
         })
     },
-    deleteNewsEntry(state, payload) {
-        return new Promise(() => {
+    deleteNewsEntry({ commit }, payload) {
+        commit("NEWS");
+
+        return new Promise((resolve) => {
             newsService.deleteNewsEntry(payload).then((response) => {
-                state.commit('GET_NEWS_DELETE', response);
-                // Call Message
-                if (response.status === 200) {
-                    state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                        error: false,
-                        success: true,
-                        message: 'Der Newseintrag wurde erfolgreich gelöscht.',
-                        redirect: ''
-                    });
-                }
-            }).catch(() => {
-                state.commit('SET_NEWS_MESSAGE_ARRAY', {
-                    error: false,
-                    success: true,
-                    message: 'Beim Löschen des Newseintrages ist ein Fehler aufgetreten',
-                    redirect: ''
-                });
-            });
+                resolve(response);
+            })
         })
     },
-    getAttachment(state, payload) {
-        return new Promise(() => {
+    getAttachment({ commit }, payload) {
+        commit("NEWS");
+
+        return new Promise((resolve) => {
             newsService.getAttachment(payload).then((response) => {
-                state.commit('GET_NEWS_ATTACHMENT', response);
+                resolve(response);
             })
         })
     }

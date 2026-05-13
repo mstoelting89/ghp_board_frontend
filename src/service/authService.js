@@ -1,5 +1,4 @@
 import axios from 'axios';
-import globals from './globals'
 
 export default {
     login(data) {
@@ -7,6 +6,7 @@ export default {
             "Content-Type": "application/json",
             "Accept": "*/*",
         }
-        return axios.post(globals.HOST_NAME + "/api/v1/login", data, header);
+
+        return axios.post(process.env.VUE_APP_BACKEND_URL +"/api/v1/login", data, header);
     }
 }

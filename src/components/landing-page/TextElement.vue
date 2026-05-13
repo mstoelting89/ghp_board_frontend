@@ -1,8 +1,10 @@
 <template>
   <div class="text-element">
     <div class="text-element-title">
+      <div class="first-word">
+        {{ textElementFirstWord }}
+      </div>
       <div>
-        <span class="first-word">{{ textElementFirstWord }}</span>
         {{ textElementTitle }}
       </div>
     </div>
@@ -23,19 +25,11 @@ export default {
 </script>
 
 <style scoped>
-.text-element {
-  margin-bottom: 50px;
-}
 .first-word {
   font-weight: 600;
   color: #a21d21;
 }
 .text-element-title {
   font-size: 2rem;
-  text-align: left;
-}
-.text-element-text {
-  margin-top: 20px;
-  text-align: left;
 }
 </style>

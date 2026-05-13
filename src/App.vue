@@ -24,9 +24,6 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-.modal-backdrop {
-  z-index: 999;
-}
 </style>
 <script>
 import Navigation from "./components/navigation/Navigation";

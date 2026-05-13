@@ -1,10 +1,9 @@
 <template>
-  <div class="slider">
-  </div>
+  <div class="slider"></div>
   <div class="ghp-dashboard">
     <div class="row container-wrapper justify-content-between">
       <News />
-      <Demand />
+      <Request />
     </div>
     <div class="row container-wrapper">
       <Blog />
@@ -13,58 +12,36 @@
       <Instruments />
     </div>
   </div>
-  <div class="spinner-overlay hidden">
-  </div>
-  <div class="spinner hidden">
-    <font-awesome-icon class="spinner-icon" icon="circle-notch" />
-  </div>
-  <Footer />
+
 </template>
 
 <script>
-//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Editor from 'ckeditor5-custom-build/build/ckeditor'
-import News from "@/components/members/container/news/News";
-import Demand from "@/components/members/container/demand/Demand";
-import Blog from "@/components/members/container/blog/Blog";
-import Instruments from "@/components/members/container/instruments/Instruments";
-import Footer from "@/components/Footer";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import News from "@/components/members/container/News";
+import Request from "@/components/members/container/Request";
+import Blog from "@/components/members/container/Blog";
+import Instruments from "@/components/members/container/Instruments";
 
 export default {
   name: "Dashboard",
-  components: {Footer, Instruments, Blog, Demand, News},
+  components: {Instruments, Blog, Request, News},
   data() {
     return {
-      editor: Editor,
+      editor: ClassicEditor,
       editorConfig: {
 
-      },
-      userLevel: localStorage.getItem('userRole')
+      }
     };
   },
   methods: {
-    showSpinner() {
-      let spinner = document.querySelector('.spinner');
-      let spinnerOverlay = document.querySelector('.spinner-overlay');
-
-      spinner.classList.remove('hidden');
-      spinnerOverlay.classList.remove('hidden');
-    },
-    hideSpinner() {
-      let spinner = document.querySelector('.spinner');
-      let spinnerOverlay = document.querySelector('.spinner-overlay');
-
-      spinner.classList.add('hidden');
-      spinnerOverlay.classList.add('hidden');
+    logout() {
+      this.$store.dispatch('logout').then(() => this.$router.push('/login'));
     }
   }
 }
 </script>
 
 <style scoped>
-.logout {
-
-}
 .slider {
   height: 100vh;
   background-image: url("~@/assets/images/background-img-min-min(1).jpeg");
@@ -144,54 +121,5 @@ button:hover {
   border-radius: 5px;
   border: none;
   padding: 15px 40px;
-}
-.spinner-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-color: #000;
-  opacity: .4;
-  z-index: 10000;
-}
-.spinner {
-  position: fixed;
-  width:150px;
-  height:150px;
-  top: 40%;
-  left: 50%;
-  background-color: #fff;
-  z-index:51000;
-}
-
-.spinner-icon {
-  font-size: 50px;
-  color: #a21d21;
-  margin-top: 30%;
-  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-@keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.hidden {
-  display: none;
-}
-.btn-primary:focus, .btn-primary:active {
-  background-color: #a21d21;
-  border-color: #a21d21;
-  box-shadow: none;
-}
-
-/*mobile*/
-@media only screen and (max-width: 428px) {
-  .ghp-container {
-    margin-bottom: 50px;
-  }
 }
 </style>

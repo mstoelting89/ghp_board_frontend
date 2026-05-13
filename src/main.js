@@ -8,16 +8,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-import { faImage } from '@fortawesome/free-solid-svg-icons'
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons'
-import { faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
-
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -27,15 +17,6 @@ library.add(faPlus)
 library.add(faCirclePlus)
 library.add(faPen)
 library.add(faTrash)
-library.add(faThumbsUp)
-library.add(faThumbsDown)
-library.add(faImage)
-library.add(faCircleCheck)
-library.add(faCircleXmark)
-library.add(faCircleNotch)
-library.add(faFacebookF)
-library.add(faInstagram)
-library.add(faWhatsapp)
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 

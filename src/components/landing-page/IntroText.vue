@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-text row">
+  <div class="intro-text">
     <div class="col-sm-12 col-md-12 col-lg-4 flex align-self-center intro-title-main">
       <div class="first-word">
         {{ introTextFirstWord }}
@@ -32,8 +32,7 @@ export default {
   }
   .intro-text {
     display: flex;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 20px;
   }
   .intro-text-main {
     text-align: left;

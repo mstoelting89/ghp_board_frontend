@@ -32,8 +32,7 @@ const routes = [
     component: Dashboard,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem('token');
-
-      if (token && token !== "null") {
+      if (token) {
         next()
       } else {
         next('/login');
@@ -44,10 +43,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
-  scrollBehavior() {
-    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
-  }
+  routes
 })
 
 export default router

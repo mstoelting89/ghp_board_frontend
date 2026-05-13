@@ -1,33 +1,26 @@
 import authService from "@/service/authService";
 
 export const actions = {
-    login(state, data) {
-        return new Promise(() => {
-            state.commit("GET_ERROR_MSG", '');
-
-            authService.login(data).then((response) => {
-                if (response.data.token !== null) {
+    login({ commit }, data) {
+        return new Promise((resolve) => {
+            authService.login(data)
+                .then((response) => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userRole', response.data.role[0].authority)
-                    localStorage.setItem('userEmail', response.data.email)
-                    state.commit("LOGGED_IN", true);
-                    state.commit("GET_ERROR_MSG", '');
-                    state.commit("GET_USER_EMAIL", response.data.email)
-                    state.commit("GET_USER_LEVEL", response.data.role[0].authority)
-                }
 
-            }).catch((response) => {
-                state.commit("GET_ERROR_MSG", response.response.data)
-                state.commit("LOGGED_IN", false);
-            })
-        })
+                    commit("LOGGED_IN", true);
+                    resolve({error: 0});
+                })
+                .catch(() => {
+                    resolve({error: 1});
+                });
+        });
     },
-    logout(state) {
-        return new Promise(() => {
+    logout() {
+        return new Promise((resolve) => {
            localStorage.removeItem('token');
            localStorage.removeItem('userRole');
-           localStorage.removeItem('userEmail');
-           state.commit("LOGGED_IN", false);
+           resolve();
         });
     }
 }
